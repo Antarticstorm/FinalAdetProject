@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($email) || empty($password)) {
         $error = "Please fill in all fields.";
     } else {
-        $stmt = $conn->prepare("SELECT id, fullname, password FROM customers WHERE email = ?");
+        $stmt = $conn->prepare("SELECT id, fullname, password,role FROM customers WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -20,7 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $row["password"])) {
                 $_SESSION["user_id"] = $row["id"];
                 $_SESSION["fullname"] = $row["fullname"];
-                header("Location: index.php");
+                $_SESSION["role"] = $row["role"];
+                if ($row["role"] == "admin") {
+                    header("Location: admin/dashboard.php");
+                } else {
+                    header("Location: index.php");
+                }
+
                 exit();
             } else {
                 $error = "Incorrect password.";

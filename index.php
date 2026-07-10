@@ -1,5 +1,6 @@
 <?php
 include("includes/db.php");
+$basePath = "";
 include("includes/header.php");
 ?>
 
