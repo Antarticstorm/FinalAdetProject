@@ -173,3 +173,34 @@ input:focus, textarea:focus {
     text-align: center;
     margin-top: 40px;
 }
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+margin-top:20px;
+
+}
+
+table th{
+
+background:#2A475E;
+
+padding:14px;
+
+}
+
+table td{
+
+padding:14px;
+
+border-bottom:1px solid #2A475E;
+
+}
+
+table tr:hover{
+
+background:#202f40;
+
+}
