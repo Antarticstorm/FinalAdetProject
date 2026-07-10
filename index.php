@@ -4,7 +4,7 @@ include("includes/header.php");
 ?>
 
 <div class="card">
-    <h1>Welcome to The Literary Nook</h1>
+    <h1>Hello GitHub Actions!</h1>
 
     <?php if (isset($_SESSION["user_id"])): ?>
         <p>Hello, <strong><?php echo htmlspecialchars($_SESSION["fullname"]); ?></strong>. You are now logged in.</p>
