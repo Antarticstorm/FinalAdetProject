@@ -17,7 +17,97 @@ if($_SESSION["role"] != "admin"){
 $basePath="../";
 include("../includes/header.php");
 
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+    // 1. Read form values
+    $title = trim($_POST["title"]);
+    $author = trim($_POST["author"]);
+    $isbn = trim($_POST["isbn"]);
+    $genre = trim($_POST["genre"]);
+    $publication_year = $_POST["publication_year"];
+    $publisher = trim($_POST["publisher"]);
+    $format = $_POST["format"];
+    $price = $_POST["price"];
+    $stock = $_POST["stock"];
+    $description = trim($_POST["description"]);
+
+    // 2. Default cover
+    $cover = "uploads/covers/default.webp";
+
+    // 3. Upload image
+    if(isset($_FILES["cover"]) && $_FILES["cover"]["error"]==0){
+
+        $allowed = ["jpg","jpeg","png","webp"];
+
+        $extension = strtolower(pathinfo($_FILES["cover"]["name"], PATHINFO_EXTENSION));
+
+        if(in_array($extension,$allowed)){
+
+            $filename = uniqid().".".$extension;
+
+            $destination = "../uploads/covers/".$filename;
+
+            if(move_uploaded_file($_FILES["cover"]["tmp_name"], $destination)){
+    $cover = "uploads/covers/".$filename;
+}
+
+            $cover = "uploads/covers/".$filename;
+        }
+    }
+
+        $stmt = $conn->prepare("
+        INSERT INTO books(
+            title,
+            author,
+            isbn,
+            genre,
+            publication_year,
+            publisher,
+            format,
+            price,
+            stock,
+            description,
+            cover
+        )
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)
+        ");
+
+        $stmt->bind_param(
+            "ssssissdiss",
+            $title,
+            $author,
+            $isbn,
+            $genre,
+            $publication_year,
+            $publisher,
+            $format,
+            $price,
+            $stock,
+            $description,
+            $cover
+        );
+        
+        if($stmt->execute()){
+
+        header("Location: books.php?success=1");
+        exit();
+
+    }else{
+
+        echo "<div class='alert alert-error'>
+                ".$stmt->error."
+            </div>";
+    }
+
+    $stmt->close();
+
+    // bind_param goes here
+
+    // execute goes here
+
+}
 ?>
+
 <div class="card">
 
 <h1>Add New Book</h1>
