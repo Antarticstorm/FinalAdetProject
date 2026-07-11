@@ -40,16 +40,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
+
 <div class="grid">
     <div class="card auth-box">
         <h1>Login</h1>
         <p>Welcome back to The Literary Nook.</p>
-
-        <?php if (isset($_GET["registered"])): ?>
-            <div class="alert alert-success">
-                🎉 Registration successful! A welcome email has been sent. Please log in.
-            </div>
-        <?php endif; ?>
 
         <?php if (isset($_GET["reset"]) && $_GET["reset"] == "success"): ?>
             <div class="alert alert-success">
