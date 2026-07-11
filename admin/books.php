@@ -7,6 +7,12 @@ include("../includes/db.php");
 $basePath = "../";
 include("../includes/header.php");
 
+if(isset($_GET["success"])){
+    echo "<div class='alert alert-success'>
+            Book added successfully!
+          </div>";
+}
+
 if(!isset($_SESSION["user_id"])){
     header("Location: ../login.php");
     exit();
@@ -38,7 +44,7 @@ Add Book
 
 <tr>
 
-<th>ID</th>
+<th>Cover</th>
 
 <th>Title</th>
 
@@ -56,23 +62,46 @@ Add Book
 
 <tr>
 
-<td><?php echo $book['id']; ?></td>
+<td><img src="../<?php echo $book['cover']; ?>"
+class="book-cover"></td>
 
 <td><?php echo $book['title']; ?></td>
 
 <td><?php echo $book['author']; ?></td>
 
-<td>₱<?php echo $book['price']; ?></td>
-
-<td><?php echo $book['stock']; ?></td>
+<td>₱<?php echo number_format($book['price'],2); ?></td>
 
 <td>
 
-<a href="edit_book.php?id=<?php echo $book['id']; ?>">Edit</a>
+<?php
 
-|
+if($book['stock']==0){
 
-<a href="delete_book.php?id=<?php echo $book['id']; ?>">
+echo "<span class='out-stock'>Out of Stock</span>";
+
+}else{
+
+echo $book['stock'];
+
+}
+
+?>
+
+</td>
+
+<td>
+
+<a
+class="btn btn-primary"
+href="edit_book.php?id=<?php echo $book['id']; ?>">
+
+Edit
+
+</a>
+
+<a
+class="btn btn-danger"
+href="delete_book.php?id=<?php echo $book['id']; ?>">
 
 Delete
 

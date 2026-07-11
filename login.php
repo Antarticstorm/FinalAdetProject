@@ -40,10 +40,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+
+
 <div class="grid">
     <div class="card auth-box">
         <h1>Login</h1>
         <p>Welcome back to The Literary Nook.</p>
+
+        <?php if (isset($_GET["reset"]) && $_GET["reset"] == "success"): ?>
+            <div class="alert alert-success">
+                Password updated successfully. You may now log in.
+            </div>
+        <?php endif; ?>
 
         <?php if (!empty($error)): ?>
             <div class="alert alert-error"><?php echo $error; ?></div>
@@ -62,6 +70,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
+        <p class="small-text">
+
+        <a href="forgot_password.php">
+
+        Forgot Password?
+
+        </a>
+
+        </p>
 
         <p class="small-text">Don't have an account? <a href="register.php">Create one</a></p>
     </div>

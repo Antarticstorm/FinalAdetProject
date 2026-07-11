@@ -20,28 +20,39 @@ if (session_status() === PHP_SESSION_NONE) {
             <a href="<?php echo isset($basePath) ? $basePath : ''; ?>index.php" class="brand">
                 The Literary Nook
             </a>
-            <nav>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="<?php echo isset($basePath) ? $basePath : ''; ?>profile.php">
-                        Profile
-                    </a>
+                <nav>
 
-                    <a href="<?php echo isset($basePath) ? $basePath : ''; ?>logout.php" class="btn btn-outline">
-                        Logout
-                    </a>
+                    <?php if (isset($_SESSION['user_id'])): ?>
 
-                <?php else: ?>
+                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin"): ?>
 
-                    <a href="<?php echo isset($basePath) ? $basePath : ''; ?>login.php">
-                        Login
-                    </a>
+                            <a href="<?php echo (isset($basePath) ? $basePath : ''); ?>admin/dashboard.php">
+                                Admin Panel
+                            </a>
 
-                    <a href="<?php echo isset($basePath) ? $basePath : ''; ?>register.php" class="btn btn-primary">
-                        Register
-                    </a>
+                        <?php endif; ?>
 
-                <?php endif; ?>
-            </nav>
+                        <a href="<?php echo (isset($basePath) ? $basePath : ''); ?>profile.php">
+                            Profile
+                        </a>
+
+                        <a href="<?php echo (isset($basePath) ? $basePath : ''); ?>logout.php" class="btn btn-outline">
+                            Logout
+                        </a>
+
+                    <?php else: ?>
+
+                        <a href="<?php echo (isset($basePath) ? $basePath : ''); ?>login.php">
+                            Login
+                        </a>
+
+                        <a href="<?php echo (isset($basePath) ? $basePath : ''); ?>register.php" class="btn btn-primary">
+                            Register
+                        </a>
+
+                    <?php endif; ?>
+
+                </nav>
         </div>
     </header>
     <main class="container page-content">
