@@ -33,11 +33,81 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt = $conn->prepare("INSERT INTO customers (fullname, email, phone, address, password) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $fullname, $email, $phone, $address, $hashed_password);
 
-            if ($stmt->execute()) {
-                $success = "Registration successful. You may now log in.";
-            } else {
-                $error = "Something went wrong. Please try again.";
-            }
+        if ($stmt->execute()) {
+
+            include("includes/mail.php");
+
+            sendEmail(
+                $email,
+                "Welcome to The Literary Nook",
+                '
+                <div style="
+                    max-width:600px;
+                    margin:auto;
+                    background:#1B2838;
+                    color:white;
+                    font-family:Arial,sans-serif;
+                    padding:30px;
+                    border-radius:10px;
+                ">
+
+                    <h1 style="color:#66C0F4;text-align:center;">
+                        The Literary Nook
+                    </h1>
+
+                    <hr style="border:1px solid #2A475E;">
+
+                    <h2>Welcome, '.htmlspecialchars($fullname).'!</h2>
+
+                    <p>
+                        Your account has been successfully created.
+                    </p>
+
+                    <p>
+                        You can now:
+                    </p>
+
+                    <ul>
+                        <li>Browse thousands of books</li>
+                        <li>Create your wishlist</li>
+                        <li>Track your future orders</li>
+                        <li>Receive exclusive promotions</li>
+                    </ul>
+
+                    <div style="text-align:center;margin:35px 0;">
+
+                        <a
+                        href="https://theliterarynook.freedev.app/"
+                        style="
+                            background:#66C0F4;
+                            color:#171A21;
+                            padding:14px 28px;
+                            text-decoration:none;
+                            border-radius:8px;
+                            font-weight:bold;
+                        ">
+                            Visit The Literary Nook
+                        </a>
+
+                    </div>
+
+                    <hr style="border:1px solid #2A475E;">
+
+                    <p style="text-align:center;color:#C7D5E0;">
+                        Happy Reading!
+                    </p>
+
+                </div>
+                '
+            );
+
+            $success = "Registration successful. Please check your email!";
+
+        } else {
+
+            $error = "Something went wrong. Please try again.";
+
+        }
 
             $stmt->close();
         }
