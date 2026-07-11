@@ -101,7 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 '
             );
 
-            $success = "Registration successful. Please check your email!";
+            header("Location: login.php?registered=1");
+            exit();
 
         } else {
 
