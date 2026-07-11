@@ -204,3 +204,28 @@ table tr:hover{
 background:#202f40;
 
 }
+select{
+
+width:100%;
+
+padding:12px;
+
+border-radius:8px;
+
+background:#2A475E;
+
+border:1px solid #66C0F4;
+
+color:white;
+
+margin-top:5px;
+
+}
+
+textarea{
+
+resize:vertical;
+
+min-height:120px;
+
+}
