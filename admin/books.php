@@ -2,11 +2,10 @@
 
 session_start();
 
-require_once("../config/app.php");
+include("../includes/db.php");
 
-require_once(ROOT_PATH . "/includes/db.php");
-require_once(ROOT_PATH . "/includes/helpers.php");
-require_once(ROOT_PATH . "/includes/header.php");
+$basePath = "../";
+include("../includes/header.php");
 
 if(isset($_GET["success"])){
     echo "<div class='alert alert-success'>
@@ -118,4 +117,4 @@ Delete
 
 </div>
 
-<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
+<?php include("../includes/footer.php"); ?>
