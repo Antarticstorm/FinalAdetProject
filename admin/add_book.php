@@ -1,11 +1,10 @@
 <?php
-
 session_start();
 
 require_once("../config/app.php");
-
 require_once(ROOT_PATH . "/includes/db.php");
 require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/header.php");
 
 if(!isset($_SESSION["user_id"])){
     header("Location: ../login.php");
@@ -17,181 +16,149 @@ if($_SESSION["role"] != "admin"){
     exit();
 }
 
-$basePath="../";
-include("../includes/header.php");
+// ==========================================
+// DATABASE INSERT ENGINE (POST METHOD)
+// ==========================================
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title       = mysqli_real_escape_string($conn, $_POST['title']);
+    $author      = mysqli_real_escape_string($conn, $_POST['author']);
+    $isbn        = mysqli_real_escape_string($conn, $_POST['isbn']);
+    $genre       = mysqli_real_escape_string($conn, $_POST['genre']);
+    $year        = mysqli_real_escape_string($conn, $_POST['year']);
+    $publisher   = mysqli_real_escape_string($conn, $_POST['publisher']);
+    $format      = mysqli_real_escape_string($conn, $_POST['format']);
+    $price       = mysqli_real_escape_string($conn, $_POST['price']);
+    $stock       = mysqli_real_escape_string($conn, $_POST['stock']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
 
-if($_SERVER["REQUEST_METHOD"]=="POST"){
+    // Default placeholder path if no cover file is selected
+    $cover_path = "uploads/covers/default.webp"; 
 
-    // 1. Read form values
-    $title = trim($_POST["title"]);
-    $author = trim($_POST["author"]);
-    $isbn = trim($_POST["isbn"]);
-    $genre = trim($_POST["genre"]);
-    $publication_year = $_POST["publication_year"];
-    $publisher = trim($_POST["publisher"]);
-    $format = $_POST["format"];
-    $price = $_POST["price"];
-    $stock = $_POST["stock"];
-    $description = trim($_POST["description"]);
+    // Handle the image upload file block
+    if (isset($_FILES['book_cover']) && $_FILES['book_cover']['error'] == 0) {
+        $target_dir = "../uploads/covers/";
+        
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
 
-    // 2. Default cover
-    $cover = "uploads/covers/default.webp";
+        $file_ext = pathinfo($_FILES["book_cover"]["name"], PATHINFO_EXTENSION);
+        $new_filename = time() . '_' . uniqid() . '.' . $file_ext;
+        $target_file = $target_dir . $new_filename;
 
-    // 3. Upload image
-    if(isset($_FILES["cover"]) && $_FILES["cover"]["error"]==0){
-
-        $allowed = ["jpg","jpeg","png","webp"];
-
-        $extension = strtolower(pathinfo($_FILES["cover"]["name"], PATHINFO_EXTENSION));
-
-        if(in_array($extension,$allowed)){
-
-            $filename = uniqid().".".$extension;
-
-            $destination = "../uploads/covers/".$filename;
-
-            if(move_uploaded_file($_FILES["cover"]["tmp_name"], $destination)){
-    $cover = "uploads/covers/".$filename;
-}
-
-            $cover = "uploads/covers/".$filename;
+        if (move_uploaded_file($_FILES["book_cover"]["tmp_name"], $target_file)) {
+            $cover_path = "uploads/covers/" . $new_filename;
         }
     }
 
-        $stmt = $conn->prepare("
-        INSERT INTO books(
-            title,
-            author,
-            isbn,
-            genre,
-            publication_year,
-            publisher,
-            format,
-            price,
-            stock,
-            description,
-            cover
-        )
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)
-        ");
+    // MATCH CHECK: Update 'publication_year' here if your DB column uses that name instead of 'year'
+    $insert_sql = "INSERT INTO books (title, author, isbn, genre, publication_year, publisher, format, price, stock, description, cover) 
+                   VALUES ('$title', '$author', '$isbn', '$genre', '$year', '$publisher', '$format', '$price', '$stock', '$description', '$cover_path')";
 
-        $stmt->bind_param(
-            "ssssissdiss",
-            $title,
-            $author,
-            $isbn,
-            $genre,
-            $publication_year,
-            $publisher,
-            $format,
-            $price,
-            $stock,
-            $description,
-            $cover
-        );
-        
-        if($stmt->execute()){
-
+    if (mysqli_query($conn, $insert_sql)) {
         header("Location: books.php?success=1");
         exit();
-
-    }else{
-
-        echo "<div class='alert alert-error'>
-                ".$stmt->error."
-            </div>";
+    } else {
+        echo "<div class='alert alert-danger'>Database Error: " . mysqli_error($conn) . "</div>";
     }
-
-    $stmt->close();
-
-    // bind_param goes here
-
-    // execute goes here
-
 }
 ?>
 
-<div class="card">
+<div class="admin-wide-container">
+    <form action="add_book.php" method="POST" enctype="multipart/form-data">
+        
+        <div class="inventory-split-layout">
 
-<h1>Add New Book</h1>
+            <div class="cover-preview-card" style="position: relative;">
+                <div class="preview-title-tag">COVER</div>
+                
+                <div class="interactive-file-overlay">
+                    <input type="file" name="book_cover" class="file-input-ghost" id="cover-file-picker">
+                    <div class="custom-upload-prompt" id="upload-prompt-text">Choose File</div>
+                    <img id="view-panel-cover" src="../uploads/covers/default.webp" class="preview-viewport-img" alt="Preview Layout" style="object-fit: cover;">
+                </div>
+            </div>
 
-<form action="" method="POST" enctype="multipart/form-data">
+            <div class="inventory-table-card">
+                
+                <div class="form-header-bar">
+                    <h2 style="margin: 0;">Add New Book</h2>
+                    <div>
+                        <a href="books.php" class="btn btn-danger" style="background:#d9534f; padding: 10px 24px; text-decoration:none; border-radius: 8px;">Cancel</a>
+                        <button type="submit" class="btn btn-primary" style="background:#66C0F4; padding: 10px 24px; border-radius: 8px; margin-left:8px;">Save Book</button>
+                    </div>
+                </div>
 
-<div class="form-group">
-<label>Title</label>
-<input type="text" name="title" required>
+                <div class="scrollable-form-container">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" name="title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Author</label>
+                        <input type="text" name="author" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ISBN</label>
+                        <input type="text" name="isbn">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Genre</label>
+                        <input type="text" name="genre">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Publication Year</label>
+                        <input type="number" name="year">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Publisher</label>
+                        <input type="text" name="publisher">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Format</label>
+                        <select name="format">
+                            <option value="Hardcover">Hardcover</option>
+                            <option value="Paperback">Paperback</option>
+                            <option value="E-Book">E-Book</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" step="0.01" name="price" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stock</label>
+                        <input type="number" name="stock" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea name="description"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
 </div>
 
-<div class="form-group">
-<label>Author</label>
-<input type="text" name="author" required>
-</div>
-
-<div class="form-group">
-<label>ISBN</label>
-<input type="text" name="isbn">
-</div>
-
-<div class="form-group">
-<label>Genre</label>
-<input type="text" name="genre">
-</div>
-
-<div class="form-group">
-<label>Publication Year</label>
-<input type="number" name="publication_year">
-</div>
-
-<div class="form-group">
-<label>Publisher</label>
-<input type="text" name="publisher">
-</div>
-
-<div class="form-group">
-<label>Format</label>
-
-<select name="format">
-
-<option>Hardcover</option>
-
-<option>Paperback</option>
-
-<option>E-Book</option>
-
-<option>Audiobook</option>
-
-</select>
-
-</div>
-
-<div class="form-group">
-<label>Price</label>
-<input type="number" step="0.01" name="price" required>
-</div>
-
-<div class="form-group">
-<label>Stock</label>
-<input type="number" name="stock" required>
-</div>
-
-<div class="form-group">
-<label>Description</label>
-<textarea name="description"></textarea>
-</div>
-
-<div class="form-group">
-<label>Book Cover</label>
-<input type="file" name="cover" accept="image/*">
-</div>
-
-<button class="btn btn-primary">
-
-Save Book
-
-</button>
-
-</form>
-
-</div>
+<script>
+    document.getElementById('cover-file-picker').addEventListener('change', function(event) {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            const temporaryObjectURL = URL.createObjectURL(selectedFile);
+            document.getElementById('view-panel-cover').src = temporaryObjectURL;
+            document.getElementById('upload-prompt-text').textContent = 'Change File';
+        }
+    });
+</script>
 
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

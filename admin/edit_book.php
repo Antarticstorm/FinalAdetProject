@@ -4,6 +4,7 @@ session_start();
 require_once("../config/app.php");
 require_once(ROOT_PATH . "/includes/db.php");
 require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/header.php");
 
 if(!isset($_SESSION["user_id"])){
     header("Location: ../login.php");
@@ -15,162 +16,185 @@ if($_SESSION["role"] != "admin"){
     exit();
 }
 
-$basePath="../";
-include("../includes/header.php");
-
-// ==========================================
-// 1. FETCH CURRENT BOOK DETAILS (GET)
-// ==========================================
-$book = null;
-if (isset($_GET["id"]) && !empty($_GET["id"])) {
-    $book_id = intval($_GET["id"]);
-    
-    $stmt = $conn->prepare("SELECT * FROM books WHERE id = ?");
-    $stmt->bind_param("i", $book_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows === 1) {
-        $book = $result->fetch_assoc();
-    } else {
-        echo "<div class='alert alert-error'>Book not found.</div>";
-        require_once(ROOT_PATH . "/includes/footer.php");
-        exit();
-    }
-    $stmt->close();
-} else {
+// 1. Validate that an ID has been passed via the URL string parameter
+if(!isset($_GET['id']) || empty($_GET['id'])) {
     header("Location: books.php");
     exit();
 }
 
+$book_id = mysqli_real_escape_string($conn, $_GET['id']);
+
 // ==========================================
-// 2. PROCESS THE UPDATED DETAILS (POST)
+// NEW: DATABASE UPDATE ENGINE (POST METHOD)
 // ==========================================
-if($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $title       = mysqli_real_escape_string($conn, $_POST['title']);
+    $author      = mysqli_real_escape_string($conn, $_POST['author']);
+    $isbn        = mysqli_real_escape_string($conn, $_POST['isbn']);
+    $genre       = mysqli_real_escape_string($conn, $_POST['genre']);
+    $year        = mysqli_real_escape_string($conn, $_POST['year']);
+    $publisher   = mysqli_real_escape_string($conn, $_POST['publisher']);
+    $format      = mysqli_real_escape_string($conn, $_POST['format']);
+    $price       = mysqli_real_escape_string($conn, $_POST['price']);
+    $stock       = mysqli_real_escape_string($conn, $_POST['stock']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
 
-    $title = trim($_POST["title"]);
-    $author = trim($_POST["author"]);
-    $isbn = trim($_POST["isbn"]);
-    $genre = trim($_POST["genre"]);
-    $publication_year = $_POST["publication_year"];
-    $publisher = trim($_POST["publisher"]);
-    $format = $_POST["format"];
-    $price = $_POST["price"];
-    $stock = $_POST["stock"];
-    $description = trim($_POST["description"]);
+    // Grab the existing data first to keep the current cover path if no new file is uploaded
+    $current_query = mysqli_query($conn, "SELECT cover FROM books WHERE id = '$book_id' LIMIT 1");
+    $current_book = mysqli_fetch_assoc($current_query);
+    $cover_path = $current_book['cover']; 
 
-    // Keep the old cover by default if a new one isn't uploaded
-    $cover = $book["cover"]; 
+    // Check if the user is uploading a new cover file
+    if (isset($_FILES['book_cover']) && $_FILES['book_cover']['error'] == 0) {
+        $target_dir = "../uploads/covers/";
+        
+        // Ensure directory exists
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
 
-    // Handle new image upload if present
-    if(isset($_FILES["cover"]) && $_FILES["cover"]["error"] == 0){
-        $allowed = ["jpg","jpeg","png","webp"];
-        $extension = strtolower(pathinfo($_FILES["cover"]["name"], PATHINFO_EXTENSION));
+        $file_ext = pathinfo($_FILES["book_cover"]["name"], PATHINFO_EXTENSION);
+        $new_filename = time() . '_' . uniqid() . '.' . $file_ext;
+        $target_file = $target_dir . $new_filename;
 
-        if(in_array($extension, $allowed)){
-            $filename = uniqid().".".$extension;
-            $destination = "../uploads/covers/".$filename;
-
-            if(move_uploaded_file($_FILES["cover"]["tmp_name"], $destination)){
-                $cover = "uploads/covers/".$filename;
-            }
+        if (move_uploaded_file($_FILES["book_cover"]["tmp_path"] ?? $_FILES["book_cover"]["tmp_name"], $target_file)) {
+            // Save the path relative to your public index workspace root directory
+            $cover_path = "uploads/covers/" . $new_filename;
         }
     }
 
-    // Run the UPDATE query matching the specific ID
-    $update_stmt = $conn->prepare("
-        UPDATE books 
-        SET title = ?, author = ?, isbn = ?, genre = ?, publication_year = ?, 
-            publisher = ?, format = ?, price = ?, stock = ?, description = ?, cover = ?
-        WHERE id = ?
-    ");
+        // ==========================================
+        // FIXED SQL UPDATE BLOCK
+        // ==========================================
+        $update_sql = "UPDATE books SET 
+                        title = '$title', 
+                        author = '$author', 
+                        isbn = '$isbn', 
+                        genre = '$genre', 
+                        publication_year = '$year', /* Changed column key name here */
+                        publisher = '$publisher', 
+                        format = '$format', 
+                        price = '$price', 
+                        stock = '$stock', 
+                        description = '$description',
+                        cover = '$cover_path'
+                    WHERE id = '$book_id'";
 
-    $update_stmt->bind_param(
-        "ssssissdissi", // Notice the extra 'i' at the end for $book_id
-        $title, $author, $isbn, $genre, $publication_year, 
-        $publisher, $format, $price, $stock, $description, $cover, $book_id
-    );
-    
-    if($update_stmt->execute()){
-        // Redirect back to books overview with a fresh updated URL flag
-        echo "<script>window.location.href='books.php?updated=1';</script>";
+    if (mysqli_query($conn, $update_sql)) {
+        header("Location: books.php?updated=1");
         exit();
     } else {
-        echo "<div class='alert alert-error'>".$update_stmt->error."</div>";
+        echo "<div class='alert alert-danger'>Database Error: " . mysqli_error($conn) . "</div>";
     }
-    $update_stmt->close();
 }
+
+// 2. Fetch the active record data to pre-populate form elements
+$query = "SELECT * FROM books WHERE id = '$book_id' LIMIT 1";
+$result = mysqli_query($conn, $query);
+
+if(mysqli_num_rows($result) == 0) {
+    header("Location: books.php");
+    exit();
+}
+
+$book = mysqli_fetch_assoc($result);
 ?>
 
-<div class="card">
-    <h1>Edit Book Details</h1>
-    
-    <form action="" method="POST" enctype="multipart/form-data">
+<div class="admin-wide-container">
+    <form action="edit_book.php?id=<?php echo $book['id']; ?>" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $book['id']; ?>">
 
-        <div class="form-group">
-            <label>Title</label>
-            <input type="text" name="title" value="<?php echo htmlspecialchars($book['title']); ?>" required>
+        <div class="inventory-split-layout">
+
+            <div class="cover-preview-card" style="position: relative;">
+                <div class="preview-title-tag">COVER</div>
+                
+                <div class="interactive-file-overlay">
+                    <input type="file" name="book_cover" class="file-input-ghost" id="cover-file-picker">
+                    <div class="custom-upload-prompt" id="upload-prompt-text">Change File</div>
+                    <img id="view-panel-cover" src="../<?php echo htmlspecialchars($book['cover']); ?>" class="preview-viewport-img" alt="Current Cover Art" style="object-fit: cover;">
+                </div>
+            </div>
+
+            <div class="inventory-table-card">
+                
+                <div class="form-header-bar">
+                    <h2 style="margin: 0;">Edit Book Details</h2>
+                    <div>
+                        <a href="books.php" class="btn btn-danger" style="background:#d9534f; padding: 10px 24px; text-decoration:none; border-radius: 8px;">Cancel</a>
+                        <button type="submit" class="btn btn-primary" style="background:#66C0F4; padding: 10px 24px; border-radius: 8px; margin-left:8px;">Save Book</button>
+                    </div>
+                </div>
+
+                <div class="scrollable-form-container">
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" name="title" value="<?php echo htmlspecialchars($book['title']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Author</label>
+                        <input type="text" name="author" value="<?php echo htmlspecialchars($book['author']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ISBN</label>
+                        <input type="text" name="isbn" value="<?php echo htmlspecialchars($book['isbn'] ?? ''); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Genre</label>
+                        <input type="text" name="genre" value="<?php echo htmlspecialchars($book['genre'] ?? ''); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Publication Year</label>
+                        <input type="number" name="year" value="<?php echo htmlspecialchars($book['year'] ?? ''); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Publisher</label>
+                        <input type="text" name="publisher" value="<?php echo htmlspecialchars($book['publisher'] ?? ''); ?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Format</label>
+                        <select name="format">
+                            <option value="Hardcover" <?php echo ($book['format'] == 'Hardcover') ? 'selected' : ''; ?>>Hardcover</option>
+                            <option value="Paperback" <?php echo ($book['format'] == 'Paperback') ? 'selected' : ''; ?>>Paperback</option>
+                            <option value="E-Book" <?php echo ($book['format'] == 'E-Book') ? 'selected' : ''; ?>>E-Book</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($book['price']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Stock</label>
+                        <input type="number" name="stock" value="<?php echo htmlspecialchars($book['stock']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea name="description"><?php echo htmlspecialchars($book['description'] ?? ''); ?></textarea>
+                    </div>
+                </div>
+            </div>
+
         </div>
-
-        <div class="form-group">
-            <label>Author</label>
-            <input type="text" name="author" value="<?php echo htmlspecialchars($book['author']); ?>" required>
-        </div>
-
-        <div class="form-group">
-            <label>ISBN</label>
-            <input type="text" name="isbn" value="<?php echo htmlspecialchars($book['isbn']); ?>">
-        </div>
-
-        <div class="form-group">
-            <label>Genre</label>
-            <input type="text" name="genre" value="<?php echo htmlspecialchars($book['genre']); ?>">
-        </div>
-
-        <div class="form-group">
-            <label>Publication Year</label>
-            <input type="number" name="publication_year" value="<?php echo htmlspecialchars($book['publication_year']); ?>">
-        </div>
-
-        <div class="form-group">
-            <label>Publisher</label>
-            <input type="text" name="publisher" value="<?php echo htmlspecialchars($book['publisher']); ?>">
-        </div>
-
-        <div class="form-group">
-            <label>Format</label>
-            <select name="format">
-                <option <?php if($book['format'] == 'Hardcover') echo 'selected'; ?>>Hardcover</option>
-                <option <?php if($book['format'] == 'Paperback') echo 'selected'; ?>>Paperback</option>
-                <option <?php if($book['format'] == 'E-Book') echo 'selected'; ?>>E-Book</option>
-                <option <?php if($book['format'] == 'Audiobook') echo 'selected'; ?>>Audiobook</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Price</label>
-            <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($book['price']); ?>" required>
-        </div>
-
-        <div class="form-group">
-            <label>Stock</label>
-            <input type="number" name="stock" value="<?php echo htmlspecialchars($book['stock']); ?>" required>
-        </div>
-
-        <div class="form-group">
-            <label>Description</label>
-            <textarea name="description"><?php echo htmlspecialchars($book['description']); ?></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Current Book Cover</label><br>
-            <img src="../<?php echo $book['cover']; ?>" class="book-cover" style="width:100px; marginBottom:10px;"><br>
-            <label>Upload New Cover (Leave blank to keep current)</label>
-            <input type="file" name="cover" accept="image/*">
-        </div>
-
-        <button class="btn btn-primary">Update Book</button>
     </form>
 </div>
+
+<script>
+    document.getElementById('cover-file-picker').addEventListener('change', function(event) {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+            const temporaryObjectURL = URL.createObjectURL(selectedFile);
+            document.getElementById('view-panel-cover').src = temporaryObjectURL;
+        }
+    });
+</script>
 
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
