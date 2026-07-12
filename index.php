@@ -20,6 +20,7 @@ require_once(ROOT_PATH . "/includes/header.php");
         <div style="margin-top: 18px;">
             <a href="<?= url("auth/login.php") ?>" class="btn btn-primary">Login</a>
             <a href="<?= url("auth/register.php") ?>" class="btn btn-outline">Register</a>
+            
         </div>
     <?php endif; ?>
 </div>
