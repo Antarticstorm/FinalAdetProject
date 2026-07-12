@@ -3,8 +3,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include("includes/db.php");
-include("includes/order_helpers.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/order_helpers.php");
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
@@ -12,7 +15,7 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 $basePath = "";
-include("includes/header.php");
+require_once(ROOT_PATH . "/includes/header.php");
 
 $orderId = (int) ($_GET['id'] ?? 0);
 
@@ -24,7 +27,7 @@ $stmt->close();
 
 if (!$order) {
     echo "<div class='card'><p>Order not found.</p></div>";
-    include("includes/footer.php");
+    require_once(ROOT_PATH . "includes/footer.php");
     exit();
 }
 
@@ -97,4 +100,4 @@ $orderItems = $stmt->get_result();
 
 </div>
 
-<?php include("includes/footer.php"); ?>
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

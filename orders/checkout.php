@@ -3,8 +3,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include("includes/db.php");
-include("includes/order_helpers.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/order_helpers.php");
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
@@ -12,7 +15,7 @@ if (!isset($_SESSION["user_id"])) {
 }
 
 $basePath = "";
-include("includes/header.php");
+require_once(ROOT_PATH . "/includes/header.php");
 
 $cartData = getCartDetails($conn);
 $items = $cartData['items'];
@@ -274,4 +277,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($error)) {
 
 </div>
 
-<?php include("includes/footer.php"); ?>
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

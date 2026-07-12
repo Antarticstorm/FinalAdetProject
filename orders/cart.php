@@ -1,13 +1,18 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include("includes/db.php");
-include("includes/order_helpers.php");
+require_once("../config/app.php");
 
-$basePath = "";
-include("includes/header.php");
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/order_helpers.php");
+require_once(ROOT_PATH . "/includes/header.php");
 
 $cartData = getCartDetails($conn);
 $items = $cartData['items'];
@@ -16,7 +21,22 @@ $subtotal = $cartData['subtotal'];
 $promo = isset($_SESSION['promo_code']) ? getActivePromo($conn, $_SESSION['promo_code']) : null;
 $discount = calculatePromoDiscount($subtotal, $promo);
 $total = round($subtotal - $discount, 2);
+
+$promoType = null;
+$promoValue = 0;
+if ($promo) {
+    if (!empty($promo['discount_percent'])) {
+        $promoType = 'percent';
+        $promoValue = (float) $promo['discount_percent'];
+    } else {
+        $promoType = 'amount';
+        $promoValue = (float) $promo['discount_amount'];
+    }
+}
+
 ?>
+
+
 
 <div class="card">
 
@@ -52,8 +72,10 @@ $total = round($subtotal - $discount, 2);
                             <input type="hidden" name="action" value="update">
                             <input type="hidden" name="book_id" value="<?php echo $item['book_id']; ?>">
                             <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>"
-                                   min="1" max="<?php echo $item['stock']; ?>" class="qty-input">
-                            <button type="submit" class="btn btn-outline">Update</button>
+                                   min="1" max="<?php echo $item['stock']; ?>" class="qty-input"
+                                   data-book-id="<?php echo $item['book_id']; ?>"
+                                   data-price="<?php echo $item['unit_price']; ?>"
+                                   oninput="onQtyChange(this)">
                         </form>
 
                         <form action="cart_action.php" method="POST">
@@ -62,7 +84,7 @@ $total = round($subtotal - $discount, 2);
                             <button type="submit" class="btn btn-danger">Remove</button>
                         </form>
 
-                        <strong>₱<?php echo number_format($item['line_total'], 2); ?></strong>
+                        <strong id="line-total-<?php echo $item['book_id']; ?>">₱<?php echo number_format($item['line_total'], 2); ?></strong>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -115,4 +137,60 @@ $total = round($subtotal - $discount, 2);
 
 </div>
 
-<?php include("includes/footer.php"); ?>
+<script>
+const PROMO_TYPE = <?php echo json_encode($promoType); ?>;
+const PROMO_VALUE = <?php echo json_encode($promoValue); ?>;
+ 
+function formatMoney(n) {
+    return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+ 
+function recalcCart() {
+    let subtotal = 0;
+ 
+    document.querySelectorAll('.qty-input').forEach(function (input) {
+        const price = parseFloat(input.dataset.price);
+        const qty = parseInt(input.value, 10) || 0;
+        const lineTotal = price * qty;
+        subtotal += lineTotal;
+ 
+        const lineEl = document.getElementById('line-total-' + input.dataset.bookId);
+        if (lineEl) lineEl.textContent = '₱' + formatMoney(lineTotal);
+    });
+ 
+    let discount = 0;
+    if (PROMO_TYPE === 'percent') {
+        discount = subtotal * (PROMO_VALUE / 100);
+    } else if (PROMO_TYPE === 'amount') {
+        discount = PROMO_VALUE;
+    }
+    discount = Math.min(discount, subtotal);
+ 
+    const total = subtotal - discount;
+ 
+    document.getElementById('js-subtotal').textContent = '₱' + formatMoney(subtotal);
+    document.getElementById('js-discount').textContent = '-₱' + formatMoney(discount);
+    document.getElementById('js-total').textContent = '₱' + formatMoney(total);
+}
+ 
+// Debounce so we don't spam a request on every single keystroke/click,
+// but still save the new quantity to the session cart in the background.
+const saveTimers = {};
+ 
+function onQtyChange(input) {
+    recalcCart();
+ 
+    const qty = parseInt(input.value, 10);
+    const max = parseInt(input.max, 10);
+    const min = parseInt(input.min, 10) || 1;
+    if (!qty || qty < min || (max && qty > max)) return;
+ 
+    const bookId = input.dataset.bookId;
+    clearTimeout(saveTimers[bookId]);
+    saveTimers[bookId] = setTimeout(function () {
+        input.closest('form').submit();
+    }, 700);
+}
+</script>
+
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

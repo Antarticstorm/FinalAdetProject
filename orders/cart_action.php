@@ -3,8 +3,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include("includes/db.php");
-include("includes/order_helpers.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/order_helpers.php");
 
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];

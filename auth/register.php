@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
 
-            include("includes/mail.php");
+            require_once(ROOT_PATH . "/includes/mail.php");
 
             sendEmail(
                 $email,

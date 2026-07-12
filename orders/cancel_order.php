@@ -3,7 +3,9 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include("includes/db.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");

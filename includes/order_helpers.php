@@ -6,11 +6,14 @@
 // any per-book promotional discount is applied.
 function getEffectivePrice($price, $discountPercent)
 {
-    $discountPercent = (float) $discountPercent;
+    $price = (float)$price;
+    $discountPercent = (float)$discountPercent;
+
     if ($discountPercent <= 0) {
-        return (float) $price;
+        return $price;
     }
-    return round($price * (1 - ($discountPercent / 100)), 2);
+
+    return $price - ($price * ($discountPercent / 100));
 }
 
 // Reads $_SESSION['cart'] (book_id => quantity), pulls fresh book data
