@@ -11,7 +11,8 @@ if ($_SERVER["HTTP_HOST"] === "localhost") {
     if (
         basename($scriptName) === "auth" ||
         basename($scriptName) === "admin" ||
-        basename($scriptName) === "customer"
+        basename($scriptName) === "customer" ||
+        basename($scriptName) === "orders"
     ) {
         $scriptName = dirname($scriptName);
     }

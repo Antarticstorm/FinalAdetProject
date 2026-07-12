@@ -53,7 +53,7 @@ if ($search !== "") {
             $hasDiscount = $book['discount_percent'] > 0;
         ?>
             <div class="book-tile">
-                <img src="<?php echo htmlspecialchars($book['cover']); ?>" class="book-cover" alt="cover">
+                <img src="<?php echo htmlspecialchars(BASE_URL . $book['cover']); ?>" class="book-cover" alt="cover">
 
                 <?php if ($hasDiscount): ?>
                     <span class="badge-discount"><?php echo (int) $book['discount_percent']; ?>% OFF</span>
