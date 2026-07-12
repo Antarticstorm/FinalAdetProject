@@ -1,6 +1,10 @@
 <?php
 
-include("includes/db.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/mail.php");
 
 if (!isset($_GET["token"])) {
     die("Invalid reset link.");
@@ -68,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-include("includes/header.php");
+require_once(ROOT_PATH . "/includes/header.php");
 ?>
 
 <div class="grid">
@@ -96,4 +100,4 @@ include("includes/header.php");
     </div>
 </div>
 
-<?php include("includes/footer.php"); ?>
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

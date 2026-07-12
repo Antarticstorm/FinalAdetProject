@@ -1,8 +1,11 @@
 <?php
 
-include("includes/db.php");
-include("includes/header.php");
-include("includes/mail.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/header.php");
+require_once(ROOT_PATH . "/includes/mail.php");
 
 $message = "";
 
@@ -70,7 +73,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             $baseUrl = "https://theliterarynook.freedev.app/";
         }
 
-        $link = $baseUrl . "/reset_password.php?token=" . $token;
+        $link = $baseUrl . "/auth/reset_password.php?token=" . $token;
 
         sendEmail(
             $email,
@@ -181,4 +184,4 @@ Send Reset Link
 
 </div>
 
-<?php include("includes/footer.php"); ?>
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
