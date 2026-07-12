@@ -63,29 +63,41 @@ $purchasedCount = 0;
 ?>
 
 <div class="profile-page">
+
     <div class="card profile-card">
+
         <div class="profile-header">
+
             <img
                 src="<?= BASE_URL . htmlspecialchars($user["avatar"]) ?>"
                 class="profile-avatar"
                 alt="Avatar">
 
             <div class="profile-title">
+
                 <h1><?= htmlspecialchars($user["fullname"]) ?></h1>
-                <span class="membership-badge">
-                    <?= htmlspecialchars($user["membership_status"]) ?> Member
-                </span>
+
+                <div class="profile-header-actions">
+
+                    <span class="membership-badge">
+                        <?= htmlspecialchars($user["membership_status"]) ?> Member
+                    </span>
+
+                    <a href="<?= url('customer/edit_profile.php') ?>"
+                       class="btn btn-primary profile-edit-btn">
+                        Edit Profile
+                    </a>
+
+                </div>
+
             </div>
-        </div>
-        <div class="profile-actions">
-            <a href="<?= url('customer/edit_profile.php') ?>" class="btn btn-primary">
-                Edit Profile
-            </a>
-        </div>
+
+        </div> <!-- ✅ CLOSE profile-header HERE -->
 
         <hr class="profile-divider">
 
         <div class="profile-info">
+
             <div>
                 <h4>Email</h4>
                 <p><?= htmlspecialchars($user["email"]) ?></p>
@@ -105,9 +117,11 @@ $purchasedCount = 0;
                 <h4>Member Since</h4>
                 <p><?= date("F d, Y", strtotime($user["created_at"])) ?></p>
             </div>
-        </div>
-    </div>
 
+        </div>
+
+    </div>
+    
     <div class="profile-stats">
         <div class="stat-card">
             <div class="stat-number"><?= $wishlistCount ?></div>

@@ -180,7 +180,17 @@ if (
 
             </div>
 
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <div class="form-actions">
+
+                <a href="<?= url('customer/profile.php') ?>" class="btn btn-outline">
+                    ← Back
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    Save Changes
+                </button>
+
+            </div>
 
         </form>
     </div>
