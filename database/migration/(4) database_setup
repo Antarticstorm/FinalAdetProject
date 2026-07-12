@@ -1,0 +1,119 @@
+-- ============================================================
+-- The Literary Nook — full database setup
+-- Use this ONE file for a brand new, empty database.
+-- In phpMyAdmin: select the bookstore_db database > Import > choose this file > Go
+-- Or via command line:
+--   cd C:\xampp\mysql\bin
+--   mysql -u root bookstore_db < "C:\xampp\htdocs\FinalAdetProject-updated\sql\full_setup.sql"
+-- ============================================================
+
+-- 1. Customers (registration, login, profile, password reset all use these columns)
+CREATE TABLE IF NOT EXISTS customers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    fullname VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    phone VARCHAR(30) NOT NULL,
+    address TEXT NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('customer','admin') NOT NULL DEFAULT 'customer',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- 2. Password reset tokens (used by forgot_password.php / reset_password.php)
+CREATE TABLE IF NOT EXISTS password_resets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT NOT NULL,
+    token VARCHAR(64) NOT NULL UNIQUE,
+    expires_at DATETIME NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+-- 3. Books (admin add_book.php / books.php, and the new shop.php)
+--    discount_percent is included here directly since this is a fresh table.
+CREATE TABLE IF NOT EXISTS books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(150) NOT NULL,
+    author VARCHAR(100) NOT NULL,
+    isbn VARCHAR(30) DEFAULT NULL,
+    genre VARCHAR(50) DEFAULT NULL,
+    publication_year INT DEFAULT NULL,
+    publisher VARCHAR(100) DEFAULT NULL,
+    format VARCHAR(30) DEFAULT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    discount_percent DECIMAL(5,2) NOT NULL DEFAULT 0,
+    stock INT NOT NULL DEFAULT 0,
+    description TEXT,
+    cover VARCHAR(255) DEFAULT 'uploads/covers/default.webp'
+) ENGINE=InnoDB;
+
+-- 4. Promo / coupon codes (site-wide promotional offers applied at checkout)
+CREATE TABLE IF NOT EXISTS promo_codes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(30) NOT NULL UNIQUE,
+    description VARCHAR(150) DEFAULT NULL,
+    discount_percent DECIMAL(5,2) DEFAULT NULL,
+    discount_amount DECIMAL(10,2) DEFAULT NULL,
+    is_active TINYINT(1) NOT NULL DEFAULT 1,
+    expires_at DATE DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+INSERT INTO promo_codes (code, description, discount_percent, discount_amount, is_active, expires_at)
+VALUES
+    ('WELCOME10', '10% off your order', 10.00, NULL, 1, NULL),
+    ('SAVE50', '₱50 off your order', NULL, 50.00, 1, NULL)
+ON DUPLICATE KEY UPDATE code = code;
+
+-- 5. Orders (header row per checkout / transaction)
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_number VARCHAR(20) NOT NULL UNIQUE,
+    customer_id INT NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    discount_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+    promo_code VARCHAR(30) DEFAULT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status ENUM('pending','confirmed','shipped','delivered','cancelled') NOT NULL DEFAULT 'pending',
+    shipping_fullname VARCHAR(100) NOT NULL,
+    shipping_phone VARCHAR(30) NOT NULL,
+    shipping_address TEXT NOT NULL,
+    shipping_method VARCHAR(50) NOT NULL DEFAULT 'Standard Shipping',
+    carrier VARCHAR(50) DEFAULT NULL,
+    tracking_number VARCHAR(60) DEFAULT NULL,
+    shipped_at DATETIME DEFAULT NULL,
+    delivered_at DATETIME DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+) ENGINE=InnoDB;
+
+-- 6. Order line items (one row per book in an order)
+CREATE TABLE IF NOT EXISTS order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    book_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    unit_price DECIMAL(10,2) NOT NULL,
+    quantity INT NOT NULL,
+    line_total DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id)
+) ENGINE=InnoDB;
+
+-- 7. A couple of sample rows so the site isn't empty on first load.
+--    Admin login: admin@example.com / admin123  (change this password after logging in!)
+INSERT INTO customers (fullname, email, phone, address, password, role)
+SELECT 'Admin', 'admin@example.com', '09170000000', 'The Literary Nook HQ',
+       '$2y$10$4A/ZQ8ff0xBmFq6dooG45OKpfbiE0cdRMi/OZd/EKKqicbmQ/jQEy',
+       'admin'
+WHERE NOT EXISTS (SELECT 1 FROM customers WHERE email = 'admin@example.com');
+
+INSERT INTO books (title, author, isbn, genre, publication_year, publisher, format, price, discount_percent, stock, description, cover)
+SELECT * FROM (SELECT
+    'The Great Gatsby' AS title, 'F. Scott Fitzgerald' AS author, '9780743273565' AS isbn,
+    'Classic' AS genre, 1925 AS publication_year, 'Scribner' AS publisher, 'Paperback' AS format,
+    450.00 AS price, 10.00 AS discount_percent, 8 AS stock,
+    'A classic of the Jazz Age.' AS description, 'uploads/covers/default.webp' AS cover
+) AS tmp
+WHERE NOT EXISTS (SELECT 1 FROM books WHERE title = 'The Great Gatsby');
