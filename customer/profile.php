@@ -17,6 +17,22 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $stmt->close();
+/* Wishlist Count */
+$wishlistStmt = $conn->prepare("
+    SELECT COUNT(*) AS total
+    FROM wishlist
+    WHERE customer_id = ?
+");
+
+$wishlistStmt->bind_param("i", $user_id);
+$wishlistStmt->execute();
+
+$wishlistResult = $wishlistStmt->get_result();
+$wishlist = $wishlistResult->fetch_assoc();
+
+$wishlistCount = $wishlist["total"];
+
+$wishlistStmt->close();
 ?>
 
 <div class="card">
@@ -26,6 +42,15 @@ $stmt->close();
     <p><strong>Phone:</strong> <?php echo htmlspecialchars($user["phone"]); ?></p>
     <p><strong>Address:</strong> <?php echo htmlspecialchars($user["address"]); ?></p>
     <p><strong>Member Since:</strong> <?php echo date("F d, Y", strtotime($user["created_at"])); ?></p>
+    <div class="card">
+
+    <h3>Wishlist</h3>
+
+    <h2><?= $wishlistCount ?></h2>
+
+    <p>Books Saved</p>
+
+    </div>
 
     <div style="margin-top: 20px;">
         <a href="edit_profile.php" class="btn btn-primary">Edit Profile</a>
