@@ -28,6 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $publisher   = mysqli_real_escape_string($conn, $_POST['publisher']);
     $format      = mysqli_real_escape_string($conn, $_POST['format']);
     $price       = mysqli_real_escape_string($conn, $_POST['price']);
+    $discount = mysqli_real_escape_string($conn, $_POST['discount_percent']);
     $stock       = mysqli_real_escape_string($conn, $_POST['stock']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
 
@@ -52,8 +53,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // MATCH CHECK: Update 'publication_year' here if your DB column uses that name instead of 'year'
-    $insert_sql = "INSERT INTO books (title, author, isbn, genre, publication_year, publisher, format, price, stock, description, cover) 
-                   VALUES ('$title', '$author', '$isbn', '$genre', '$year', '$publisher', '$format', '$price', '$stock', '$description', '$cover_path')";
+        $insert_sql = "INSERT INTO books (
+            title,
+            author,
+            isbn,
+            genre,
+            publication_year,
+            publisher,
+            format,
+            price,
+            discount_percent,
+            stock,
+            description,
+            cover
+        )
+        VALUES (
+            '$title',
+            '$author',
+            '$isbn',
+            '$genre',
+            '$year',
+            '$publisher',
+            '$format',
+            '$price',
+            '$discount',
+            '$stock',
+            '$description',
+            '$cover_path'
+        )";
 
     if (mysqli_query($conn, $insert_sql)) {
         header("Location: books.php?success=1");
@@ -132,6 +159,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="form-group">
                         <label>Price</label>
                         <input type="number" step="0.01" name="price" required>
+                    </div>
+
+                    <div class="form-group">
+                    <label>Discount (%)</label>
+
+                    <input
+                        type="number"
+                        name="discount_percent"
+                        min="0"
+                        max="100"
+                        step="0.01"
+                        value="0">
+
                     </div>
 
                     <div class="form-group">

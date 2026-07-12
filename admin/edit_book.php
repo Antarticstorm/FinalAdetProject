@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $publisher   = mysqli_real_escape_string($conn, $_POST['publisher']);
     $format      = mysqli_real_escape_string($conn, $_POST['format']);
     $price       = mysqli_real_escape_string($conn, $_POST['price']);
+    $discount = mysqli_real_escape_string($conn, $_POST['discount_percent']);
     $stock       = mysqli_real_escape_string($conn, $_POST['stock']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
 
@@ -74,8 +75,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         publication_year = '$year', /* Changed column key name here */
                         publisher = '$publisher', 
                         format = '$format', 
-                        price = '$price', 
-                        stock = '$stock', 
+                        price = '$price',
+                        discount_percent = '$discount',
+                        stock = '$stock',
                         description = '$description',
                         cover = '$cover_path'
                     WHERE id = '$book_id'";
@@ -169,6 +171,18 @@ $book = mysqli_fetch_assoc($result);
                     <div class="form-group">
                         <label>Price</label>
                         <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($book['price']); ?>" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Discount (%)</label>
+
+                        <input
+                            type="number"
+                            name="discount_percent"
+                            min="0"
+                            max="100"
+                            step="0.01"
+                            value="<?php echo htmlspecialchars($book['discount_percent']); ?>">
                     </div>
 
                     <div class="form-group">

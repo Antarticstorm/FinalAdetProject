@@ -66,7 +66,43 @@ $result = mysqli_query($conn, "SELECT * FROM books ORDER BY id DESC");
                     <tr data-cover="../<?php echo $book['cover']; ?>" onclick="switchPreviewCover(this)">
                         <td><?php echo htmlspecialchars($book['title']); ?></td>
                         <td><?php echo htmlspecialchars($book['author']); ?></td>
-                        <td>₱<?php echo number_format($book['price'], 2); ?></td>
+                            <?php
+                            $discounted = $book["price"];
+
+                            if($book["discount_percent"] > 0){
+                                $discounted =
+                                    $book["price"] *
+                                    (1 - ($book["discount_percent"]/100));
+                            }
+                            ?>
+
+                            <td>
+
+                            <?php if($book["discount_percent"] > 0): ?>
+
+                                <span style="text-decoration:line-through;color:#999;">
+                                    ₱<?= number_format($book["price"],2) ?>
+                                </span>
+
+                                <br>
+
+                                <span style="color:#D4AF37;font-weight:bold;">
+                                    ₱<?= number_format($discounted,2) ?>
+                                </span>
+
+                                <br>
+
+                                <small>
+                                    <?= $book["discount_percent"] ?>% OFF
+                                </small>
+
+                            <?php else: ?>
+
+                                ₱<?= number_format($book["price"],2) ?>
+
+                            <?php endif; ?>
+
+                            </td>
                         <td>
                             <?php
                             if($book['stock'] == 0){

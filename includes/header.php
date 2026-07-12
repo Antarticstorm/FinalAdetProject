@@ -24,6 +24,8 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 <link rel="stylesheet" href="<?= asset('css/home.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/admin.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/orders.css') ?>">
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -79,11 +81,18 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
                              Profile
                         </a>
 
+                        <a href="<?= url('orders/shop.php') ?>">
+                            Shop
+                        </a>
+
                         <a href="<?= url('customer/wishlist.php') ?>">
                             Wishlist
                         </a>
+                        
+                        <hr>
+                    
 
-                        <a href="<?= url('customer/cart.php') ?>">
+                        <a href="<?= url('orders/cart.php') ?>">
                             Cart
                         </a>
 
