@@ -16,6 +16,15 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 <title>The Literary Nook</title>
 
 <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/base.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/layout.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/components.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/forms.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/books.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/profile.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/home.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/responsive.css') ?>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

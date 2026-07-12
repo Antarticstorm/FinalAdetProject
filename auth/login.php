@@ -45,8 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
-
 <div class="grid">
     <div class="card auth-box">
         <h1>Login</h1>

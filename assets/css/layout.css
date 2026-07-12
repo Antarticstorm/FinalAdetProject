@@ -1,5 +1,59 @@
-.topbar {
-    background: #1B2838;
-    border-bottom: 1px solid #2A475E;
-    padding: 16px 0;
+.topbar{
+    background:rgba(14,17,22,.85);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    position:sticky;
+    top:0;
+    z-index:999;
+
+    padding:18px 0;
+
+    transition:.35s ease;
+}
+.navwrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.brand{
+    font-family:'Playfair Display',serif;
+    font-size:2rem;
+    font-weight:700;
+    color:#F7F4ED;
+    letter-spacing:1px;
+}
+
+nav {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+nav a{
+    color:#ECECEC;
+    font-weight:500;
+    transition:.25s;
+}
+
+nav a:hover{
+    color:#D4AF37;
+}
+.footer {
+    border-top: 1px solid #2A475E;
+    padding: 18px 0;
+    text-align: center;
+    margin-top: 40px;
+}
+.page-content {
+    padding: 40px 0;
+}
+
+.grid {
+    display: grid;
+    place-items: center;
+    min-height: 70vh;
 }
