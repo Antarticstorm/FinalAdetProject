@@ -13,6 +13,16 @@ if(isset($_GET["success"])){
             Book added successfully!
           </div>";
 }
+if(isset($_GET["deleted"])){
+    echo "<div class='alert alert-success'>
+            Book deleted successfully!
+          </div>";
+}
+if(isset($_GET["updated"])){
+    echo "<div class='alert alert-success'>
+            Book updated successfully!
+          </div>";
+}
 
 if(!isset($_SESSION["user_id"])){
     header("Location: ../login.php");
