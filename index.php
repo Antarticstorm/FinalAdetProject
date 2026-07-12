@@ -10,7 +10,7 @@ require_once(ROOT_PATH . "/includes/header.php");
 ?>
 
 <div class="card">
-    <h1>Hello Welcome to The Literary Nook!</h1>
+    <h1>Hello Welcome to The Literary Nook! Axzel</h1>
 
     <?php if (isset($_SESSION["user_id"])): ?>
         <p>Hello, <strong><?php echo htmlspecialchars($_SESSION["fullname"]); ?></strong>. You are now logged in.</p>
