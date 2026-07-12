@@ -1,0 +1,23 @@
+.form-group {
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #C7D5E0;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #2A475E;
+    background: #2A475E;
+    color: #FFFFFF;
+    outline: none;
+}
+
+input:focus, textarea:focus {
+    border-color: #66C0F4;
+}

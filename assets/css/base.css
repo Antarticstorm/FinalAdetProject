@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family:'Inter',sans-serif;
+    background:#0E1116;
+    color:#F4F4F4;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+.container {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+}
+h1, h2 {
+    margin-bottom: 16px;
+    color: #FFFFFF;
+}
+p {
+    color: #C7D5E0;
+    line-height: 1.6;
+}
