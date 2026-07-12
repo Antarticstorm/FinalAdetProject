@@ -17,8 +17,8 @@ if (session_status() === PHP_SESSION_NONE) {
 <body>
     <header class="topbar">
         <div class="container navwrap">
-            <a href="<?php echo isset($basePath) ? $basePath : ''; ?>index.php" class="brand">
-                The Literary Nook
+            <a href="<?= url('index.php') ?>" class="logo">
+                <img src="<?= asset('images/logo.png') ?>" class="logo-img">
             </a>
                 <nav>
 
@@ -26,7 +26,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin"): ?>
 
-                            <a href="<?php echo (isset($basePath) ? $basePath : ''); ?>admin/dashboard.php">
+                        <a href="<?= url('admin/dashboard.php') ?>"  class="btn btn-outline">
                                 Admin Panel
                             </a>
 

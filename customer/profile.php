@@ -28,18 +28,29 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 $stmt->close();
+
+/* Wishlist Count */
+$wishlistStmt = $conn->prepare("
+    SELECT COUNT(*) AS total
+    FROM wishlist
+    WHERE customer_id = ?
+");
+
+$wishlistStmt->bind_param("i", $user_id);
+$wishlistStmt->execute();
+
+$wishlistResult = $wishlistStmt->get_result();
+$wishlist = $wishlistResult->fetch_assoc();
+
+$wishlistCount = $wishlist["total"];
+
+$wishlistStmt->close();
 ?>
 
-<<<<<<< Updated upstream
-<div class="card">
-    <h1>Your Profile</h1>
-    <p><strong>Name:</strong> <?php echo htmlspecialchars($user["fullname"]); ?></p>
-    <p><strong>Email:</strong> <?php echo htmlspecialchars($user["email"]); ?></p>
-    <p><strong>Phone:</strong> <?php echo htmlspecialchars($user["phone"]); ?></p>
-    <p><strong>Address:</strong> <?php echo htmlspecialchars($user["address"]); ?></p>
-    <p><strong>Member Since:</strong> <?php echo date("F d, Y", strtotime($user["created_at"])); ?></p>
-=======
+
 <div class="card profile-card">
+
+    <div class="profile-header">
 
     <div class="profile-header">
 
@@ -59,7 +70,6 @@ $stmt->close();
         </div>
 
     </div>
->>>>>>> Stashed changes
 
     <hr>
 
