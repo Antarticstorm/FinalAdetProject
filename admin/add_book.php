@@ -2,7 +2,10 @@
 
 session_start();
 
-include("../includes/db.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
 
 if(!isset($_SESSION["user_id"])){
     header("Location: ../login.php");
@@ -191,4 +194,4 @@ Save Book
 
 </div>
 
-<?php include("../includes/footer.php"); ?>
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
