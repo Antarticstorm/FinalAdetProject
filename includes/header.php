@@ -40,31 +40,32 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 
 <div class="container navwrap">
 
-    <a href="<?= url('index.php') ?>" class="logo">
-        <img src="<?= asset('images/logo.png') ?>" class="logo-img">
-    </a>
-
     <a href="<?= url('index.php') ?>" class="brand">
         The Literary Nook
     </a>
 
         <nav>
-
-            <?php if($isHome): ?>
-
-                <a href="#featured">Books</a>
-                <a href="#genres">Genres</a>
-                <a href="#about">About</a>
-                <a href="#reviews">Reviews</a>
-
-            <?php endif; ?>
-
             <?php if(isset($_SESSION["user_id"])): ?>
+
+
+                <a href="<?= url('orders/shop.php') ?>">
+                    Books
+                </a>
+                <a href="<?= url('orders/cart.php') ?>">
+                    Cart
+                </a>
+                <a href="<?= url('orders/shop.php') ?>">
+                    Shop
+                </a>
+
+                <a href="<?= url('customer/profile.php') ?>" class="profile-link">
+                    <?= htmlspecialchars(explode(' ', $_SESSION["fullname"])[0]) ?>
+                </a>
 
                 <div class="account-dropdown">
 
                     <button class="account-btn" id="accountBtn">
-                        <?= explode(' ', $_SESSION["fullname"])[0] ?> ▼
+                        Menu ▼
                     </button>
 
                     <div class="dropdown-menu" id="accountMenu">
@@ -75,26 +76,18 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
                                 Dashboard
                             </a>
 
+                        <hr>
+
                         <?php endif; ?>
 
-                        <a href="<?= url('customer/profile.php') ?>">
-                             Profile
-                        </a>
-
-                        <a href="<?= url('orders/shop.php') ?>">
-                            Shop
+                        <a href="<?= url('index.php') ?>">
+                             Home
                         </a>
 
                         <a href="<?= url('customer/wishlist.php') ?>">
                             Wishlist
                         </a>
-                        
-                        <hr>
                     
-
-                        <a href="<?= url('orders/cart.php') ?>">
-                            Cart
-                        </a>
 
                         <hr>
 
