@@ -12,8 +12,11 @@ if($_SESSION["role"] != "admin"){
     exit();
 }
 
-$basePath = "../";
-include("../includes/header.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/header.php");
 
 ?>
 
@@ -34,4 +37,4 @@ Manage Books
 
 </div>
 
-<?php include("../includes/footer.php"); ?>
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
