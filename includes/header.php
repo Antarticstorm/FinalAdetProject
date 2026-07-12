@@ -19,7 +19,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="container navwrap">
             <a href="<?= url('index.php') ?>" class="logo">
                 <img src="<?= asset('images/logo.png') ?>" class="logo-img">
-            </a>
+            </a>    
                 <nav>
 
                     <?php if (isset($_SESSION['user_id'])): ?>
