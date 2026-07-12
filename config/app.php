@@ -4,19 +4,14 @@ define("ROOT_PATH", dirname(__DIR__));
 
 if ($_SERVER["HTTP_HOST"] === "localhost") {
 
-    // Detect the project folder automatically
-    $scriptName = str_replace("\\", "/", dirname($_SERVER["SCRIPT_NAME"]));
+    $scriptDir = dirname($_SERVER["SCRIPT_NAME"]);
+    $scriptDir = str_replace("\\", "/", $scriptDir);
 
-    // If we're inside /auth, /admin, or /customer, go back one level
-    if (
-        basename($scriptName) === "auth" ||
-        basename($scriptName) === "admin" ||
-        basename($scriptName) === "customer"
-    ) {
-        $scriptName = dirname($scriptName);
-    }
+    $parts = explode("/", trim($scriptDir, "/"));
 
-    define("BASE_URL", rtrim($scriptName, "/") . "/");
+    $project = $parts[0] ?? "";
+
+    define("BASE_URL", $project ? "/{$project}/" : "/");
 
 } else {
 
