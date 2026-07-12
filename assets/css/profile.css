@@ -77,3 +77,119 @@
     padding: 24px;
     text-align: center;
 }
+.activity-card{
+
+    margin-top:30px;
+
+}
+
+.activity-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:18px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.activity-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.activity-icon{
+
+    width:46px;
+    height:46px;
+
+    border-radius:50%;
+
+    background:#2A475E;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    font-size:1.2rem;
+
+}
+
+.activity-content strong{
+
+    color:white;
+
+}
+
+.activity-content small{
+
+    color:#A7B0BC;
+
+}
+.avatar-upload{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-bottom:30px;
+
+}
+
+.avatar-upload label{
+
+    position:relative;
+
+    cursor:pointer;
+
+}
+
+.editable-avatar{
+
+    transition:.3s;
+
+}
+
+.avatar-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:50%;
+
+    background:rgba(0,0,0,.65);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-weight:bold;
+
+    opacity:0;
+
+    transition:.3s;
+
+}
+
+.avatar-upload:hover .avatar-overlay{
+
+    opacity:1;
+
+}
+
+.avatar-upload:hover .editable-avatar{
+
+    transform:scale(1.05);
+
+}

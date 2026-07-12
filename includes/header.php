@@ -15,7 +15,6 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 
 <title>The Literary Nook</title>
 
-<link rel="stylesheet" href="<?= asset('css/style.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/base.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/layout.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/components.css') ?>">
@@ -47,55 +46,73 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
         The Literary Nook
     </a>
 
-    <nav>
+        <nav>
 
-        <?php if($isHome): ?>
+            <?php if($isHome): ?>
 
-            <a href="#featured">Books</a>
-            <a href="#genres">Genres</a>
-            <a href="#about">About</a>
-            <a href="#reviews">Reviews</a>
+                <a href="#featured">Books</a>
+                <a href="#genres">Genres</a>
+                <a href="#about">About</a>
+                <a href="#reviews">Reviews</a>
 
-        <?php endif; ?>
+            <?php endif; ?>
 
-        <?php if(isset($_SESSION["user_id"])): ?>
+            <?php if(isset($_SESSION["user_id"])): ?>
 
-            <?php if($_SESSION["role"]=="admin"): ?>
+                <div class="account-dropdown">
 
-                <a href="<?= url('admin/dashboard.php') ?>">
-                    Dashboard
+                    <button class="account-btn" id="accountBtn">
+                        <?= explode(' ', $_SESSION["fullname"])[0] ?> ▼
+                    </button>
+
+                    <div class="dropdown-menu" id="accountMenu">
+
+                        <?php if($_SESSION["role"]=="admin"): ?>
+
+                            <a href="<?= url('admin/dashboard.php') ?>">
+                                Dashboard
+                            </a>
+
+                        <?php endif; ?>
+
+                        <a href="<?= url('customer/profile.php') ?>">
+                             Profile
+                        </a>
+
+                        <a href="<?= url('customer/wishlist.php') ?>">
+                            Wishlist
+                        </a>
+
+                        <a href="<?= url('customer/cart.php') ?>">
+                            Cart
+                        </a>
+
+                        <hr>
+
+                        <a href="<?= url('auth/logout.php') ?>">
+                            Logout
+                        </a>
+
+                    </div>
+
+                </div>
+
+            <?php else: ?>
+
+                <a href="<?= url('auth/login.php') ?>">
+                    Login
+                </a>
+
+                <a href="<?= url('auth/register.php') ?>" class="btn btn-primary">
+                    Create Account
                 </a>
 
             <?php endif; ?>
 
-            <a href="<?= url('customer/wishlist.php') ?>">
-                Wishlist
-            </a>
-
-            <a href="<?= url('customer/profile.php') ?>">
-                Profile
-            </a>
-
-            <a href="<?= url('auth/logout.php') ?>" class="btn btn-outline">
-                Logout
-            </a>
-
-        <?php else: ?>
-
-            <a href="<?= url('auth/login.php') ?>">
-                Login
-            </a>
-
-            <a href="<?= url('auth/register.php') ?>" class="btn btn-primary">
-                Create Account
-            </a>
-
-        <?php endif; ?>
-
-    </nav>
-
-</div>
+        </nav>
+        </div>
 
 </header>
+
 
 <main class="<?= $isHome ? '' : 'container page-content' ?>">

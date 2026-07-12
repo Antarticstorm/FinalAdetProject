@@ -36,6 +36,27 @@ $wishlist = $wishlistResult->fetch_assoc();
 $wishlistCount = (int)$wishlist["total"];
 $wishlistStmt->close();
 
+/* Recent Wishlist Activity */
+
+$activityStmt = $conn->prepare("
+    SELECT
+        books.title,
+        wishlist.created_at
+    FROM wishlist
+    INNER JOIN books
+        ON wishlist.book_id = books.id
+    WHERE wishlist.customer_id = ?
+    ORDER BY wishlist.created_at DESC
+    LIMIT 5
+");
+
+$activityStmt->bind_param("i", $user_id);
+$activityStmt->execute();
+
+$recentActivity = $activityStmt->get_result();
+
+$activityStmt->close();
+
 /* Temporary values for now */
 $orderCount = 0;
 $purchasedCount = 0;
@@ -55,6 +76,11 @@ $purchasedCount = 0;
                     <?= htmlspecialchars($user["membership_status"]) ?> Member
                 </span>
             </div>
+        </div>
+        <div class="profile-actions">
+            <a href="<?= url('customer/edit_profile.php') ?>" class="btn btn-primary">
+                Edit Profile
+            </a>
         </div>
 
         <hr class="profile-divider">
@@ -99,11 +125,54 @@ $purchasedCount = 0;
         </div>
     </div>
 
-    <div class="profile-actions">
-        <a href="<?= url('customer/edit_profile.php') ?>" class="btn btn-primary">
-            Edit Profile
-        </a>
-    </div>
-</div>
+
+    <div class="card activity-card">
+
+    <h2>Recent Activity</h2>
+
+    <?php if($recentActivity->num_rows == 0): ?>
+
+        <p>
+            You haven't added any books to your wishlist yet.
+        </p>
+
+    <?php else: ?>
+
+        <?php while($activity = $recentActivity->fetch_assoc()): ?>
+
+            <div class="activity-item">
+
+                <div class="activity-icon">
+                    
+                </div>
+
+                <div class="activity-content">
+
+                    <strong>
+
+                        Added
+                        <?= htmlspecialchars($activity["title"]) ?>
+
+                    </strong>
+
+                    <br>
+
+                    <small>
+
+                        <?= date(
+                            "F d, Y",
+                            strtotime($activity["created_at"])
+                        ) ?>
+
+                    </small>
+
+                </div>
+
+            </div>
+
+        <?php endwhile; ?>
+
+    <?php endif; ?>
+
 
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

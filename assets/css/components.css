@@ -43,7 +43,6 @@
     padding: 32px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.35);
 }
-
 .auth-box {
     width: min(480px, 100%);
 }

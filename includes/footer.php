@@ -5,13 +5,11 @@
     <div class="container footer-grid">
 
         <div>
-
             <h2>The Literary Nook</h2>
 
             <p>
                 Books, stories, and worlds waiting to be discovered.
             </p>
-
         </div>
 
         <div>
@@ -45,6 +43,7 @@
 
 </footer>
 
+<script src="<?= asset('js/navbar.js') ?>"></script>
+<script src="<?= asset('js/avatarPreview.js') ?>"></script>
 </body>
-
 </html>
