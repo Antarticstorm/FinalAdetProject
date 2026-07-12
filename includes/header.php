@@ -2,6 +2,8 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+$isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,11 +11,16 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Literary Nook</title>
+
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header class="topbar">
         <div class="container navwrap">
@@ -22,41 +29,67 @@ if (session_status() === PHP_SESSION_NONE) {
             </a>    
                 <nav>
 
-                    <?php if (isset($_SESSION['user_id'])): ?>
+        <header class="topbar <?= $isHome ? 'home-nav' : '' ?>">
 
-                        <?php if (isset($_SESSION['role']) && $_SESSION['role'] == "admin"): ?>
+            <div class="container navwrap">
 
-                        <a href="<?= url('admin/dashboard.php') ?>"  class="btn btn-outline">
-                                Admin Panel
-                            </a>
+            <a href="<?= url('admin/dashboard.php') ?>"  class="btn btn-outline">
+                    Admin Panel
+                </a>
+                <a href="<?= url('index.php') ?>" class="brand">
+                    The Literary Nook
+                </a>
 
-                        <?php endif; ?>
+                <nav>
 
-                        <a href="<?= url('customer/wishlist.php') ?>"  class="btn btn-outline">
-                            Wishlist
-                        </a>
+            <?php if($isHome): ?>
 
-                        <a href="<?= url('customer/profile.php') ?>" class="btn btn-outline">
-                            Profile
-                        </a>
+                <a href="#featured">Books</a>
+                <a href="#genres">Genres</a>
+                <a href="#about">About</a>
+                <a href="#reviews">Reviews</a>
 
-                        <a href="<?= url('auth/logout.php') ?>" class="btn btn-outline">
-                            Logout
-                        </a>
+            <?php endif; ?>
 
-                    <?php else: ?>
 
-                        <a href="<?= url("auth/login.php") ?>">
-                            Login
-                        </a>
+            <?php if(isset($_SESSION['user_id'])): ?>
 
-                        <a href="<?= url("auth/register.php") ?>" class="btn btn-primary">
-                            Register
-                        </a>
+                <?php if(isset($_SESSION['role']) && $_SESSION['role']=="admin"): ?>
 
-                    <?php endif; ?>
+                    <a href="<?= url('admin/dashboard.php') ?>">
+                        Dashboard
+                    </a>
 
-                </nav>
-        </div>
-    </header>
-    <main class="container page-content">
+                <?php endif; ?>
+
+                <a href="<?= url('customer/wishlist.php') ?>">
+                    Wishlist
+                </a>
+
+                <a href="<?= url('customer/profile.php') ?>">
+                    Profile
+                </a>
+
+                <a href="<?= url('auth/logout.php') ?>" class="btn btn-outline">
+                    Logout
+                </a>
+
+            <?php else: ?>
+
+                <a href="<?= url('auth/login.php') ?>">
+                    Login
+                </a>
+
+                <a href="<?= url('auth/register.php') ?>" class="btn btn-primary">
+                    Create Account
+                </a>
+
+            <?php endif; ?>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<main class="<?= $isHome ? '' : 'container page-content' ?>">
