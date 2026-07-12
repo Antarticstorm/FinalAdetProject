@@ -113,9 +113,138 @@ $totalEbook = mysqli_fetch_assoc(
     </div>
 
 </section>
-<div class="section-divider"></div>
 
-<section id="featured" class="featured-section">
+
+
+    <div class="container">
+
+        <p class="section-tag">
+            FEATURED COLLECTION
+        </p>
+
+        <h2 class="section-title">
+            Discover Our Latest Books
+        </h2>
+
+        <div class="book-grid">
+
+            <?php while($book = mysqli_fetch_assoc($featuredBooks)): ?>
+
+                <div class="book-card">
+
+                    <img
+                        src="<?= url($book['cover']) ?>"
+                        alt="<?= htmlspecialchars($book['title']) ?>"
+                    >
+
+                    <div class="book-info">
+
+                        <span class="book-format">
+                            <?= htmlspecialchars($book['format']) ?>
+                        </span>
+
+                        <h3>
+                            <?= htmlspecialchars($book['title']) ?>
+                        </h3>
+
+                        <p class="book-author">
+                            <?= htmlspecialchars($book['author']) ?>
+                        </p>
+
+                        <p class="book-price">
+                            ₱<?= number_format($book['price'], 2) ?>
+                        </p>
+
+                        <div class="book-buttons">
+
+                            <a href="<?= url("book.php?id=".$book["id"]) ?>">
+                                View Details
+                            </a>
+
+                            <a
+                            href="<?= url("wishlist_toggle.php?book_id=".$book["id"]) ?>"
+                            class="btn btn-outline">
+
+                            Wishlist
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            <?php endwhile; ?>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div class="section-divider"></div>
+<section class="stats-section">
+
+    <div class="container">
+
+        <p class="section-tag">
+            OUR COLLECTION
+        </p>
+
+        <h2 class="section-title">
+            The Literary Nook In Numbers
+        </h2>
+
+        <div class="stats-grid">
+
+            <div class="stat-card">
+
+                <h2>
+                    <?= $totalBooks['total'] ?>
+                </h2>
+
+                <p>Books Available</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+                    <?= $totalGenres['total'] ?>
+                </h2>
+
+                <p>Genres</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+                    <?= $totalHardcover['total'] ?>
+                </h2>
+
+                <p>Hardcover Books</p>
+
+            </div>
+
+            <div class="stat-card">
+
+                <h2>
+                    <?= $totalEbook['total'] ?>
+                </h2>
+
+                <p>E-Books</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
     <!-- ===========================================
      GENRES
 =========================================== -->
@@ -257,66 +386,7 @@ $totalEbook = mysqli_fetch_assoc(
      LIVE STATISTICS
 =========================================== -->
 
-<section class="stats-section">
 
-    <div class="container">
-
-        <p class="section-tag">
-            OUR COLLECTION
-        </p>
-
-        <h2 class="section-title">
-            The Literary Nook In Numbers
-        </h2>
-
-        <div class="stats-grid">
-
-            <div class="stat-card">
-
-                <h2>
-                    <?= $totalBooks['total'] ?>
-                </h2>
-
-                <p>Books Available</p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <h2>
-                    <?= $totalGenres['total'] ?>
-                </h2>
-
-                <p>Genres</p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <h2>
-                    <?= $totalHardcover['total'] ?>
-                </h2>
-
-                <p>Hardcover Books</p>
-
-            </div>
-
-            <div class="stat-card">
-
-                <h2>
-                    <?= $totalEbook['total'] ?>
-                </h2>
-
-                <p>E-Books</p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-</section>
 <!-- ===========================================
      READER REVIEWS
 =========================================== -->
@@ -378,74 +448,5 @@ $totalEbook = mysqli_fetch_assoc(
 
     </div>
 
-</section>
-
-
-    <div class="container">
-
-        <p class="section-tag">
-            FEATURED COLLECTION
-        </p>
-
-        <h2 class="section-title">
-            Discover Our Latest Books
-        </h2>
-
-        <div class="book-grid">
-
-            <?php while($book = mysqli_fetch_assoc($featuredBooks)): ?>
-
-                <div class="book-card">
-
-                    <img
-                        src="<?= url($book['cover']) ?>"
-                        alt="<?= htmlspecialchars($book['title']) ?>"
-                    >
-
-                    <div class="book-info">
-
-                        <span class="book-format">
-                            <?= htmlspecialchars($book['format']) ?>
-                        </span>
-
-                        <h3>
-                            <?= htmlspecialchars($book['title']) ?>
-                        </h3>
-
-                        <p class="book-author">
-                            <?= htmlspecialchars($book['author']) ?>
-                        </p>
-
-                        <p class="book-price">
-                            ₱<?= number_format($book['price'], 2) ?>
-                        </p>
-
-                        <div class="book-buttons">
-
-                            <a href="<?= url("book.php?id=".$book["id"]) ?>">
-                                View Details
-                            </a>
-
-                            <a
-                            href="<?= url("wishlist_toggle.php?book_id=".$book["id"]) ?>"
-                            class="btn btn-outline">
-
-                            Wishlist
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            <?php endwhile; ?>
-
-        </div>
-
-    </div>
-
-</section>
 
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
