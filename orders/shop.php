@@ -42,7 +42,7 @@ if ($search !== "") {
         <div class="alert alert-success"><?php echo htmlspecialchars($_SESSION['cart_message']); unset($_SESSION['cart_message']); ?></div>
     <?php endif; ?>
 
-    <div class="book-grid">
+    <div class="book-grid-shop">
 
         <?php if ($result->num_rows === 0): ?>
             <p>No books found.</p>

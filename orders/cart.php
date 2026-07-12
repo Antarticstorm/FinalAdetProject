@@ -60,7 +60,10 @@ if ($promo) {
             <div>
                 <?php foreach ($items as $item): ?>
                     <div class="cart-row">
-                        <img src="<?php echo htmlspecialchars($item['cover']); ?>" alt="cover">
+                        <img
+                            src="<?= url($item['cover']) ?>"
+                            alt="<?= htmlspecialchars($item['title']) ?>"
+                            class="cart-cover">
 
                         <div class="grow">
                             <strong><?php echo htmlspecialchars($item['title']); ?></strong>
