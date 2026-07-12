@@ -32,6 +32,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
                         <?php endif; ?>
 
+                        <a href="<?= url('customer/wishlist.php') ?>"  class="btn btn-outline">
+                            Wishlist
+                        </a>
+
                         <a href="<?= url('customer/profile.php') ?>" class="btn btn-outline">
                             Profile
                         </a>
