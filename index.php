@@ -47,6 +47,7 @@ $totalEbook = mysqli_fetch_assoc(
         WHERE format='E-Book'
     ")
 );
+
 ?>
 
 <!-- HERO -->
@@ -82,12 +83,21 @@ $totalEbook = mysqli_fetch_assoc(
 
             <?php else: ?>
 
-                <a href="<?= url("dashboard.php") ?>" class="btn btn-outline">
-                    Dashboard
-                </a>
+                <?php if($_SESSION["role"]=="admin"): ?>
+
+                    <a href="<?= url("admin/dashboard.php") ?>" class="btn btn-outline">
+                        Dashboard
+                    </a>
+
+                <?php else: ?>
+
+                    <a href="<?= url("customer/profile.php") ?>" class="btn btn-outline">
+                        My Library
+                    </a>
+
+                <?php endif; ?>
 
             <?php endif; ?>
-
         </div>
 
     </div>
@@ -412,12 +422,16 @@ $totalEbook = mysqli_fetch_assoc(
 
                         <div class="book-buttons">
 
-                            <a href="#" class="btn btn-primary">
+                            <a href="<?= url("book.php?id=".$book["id"]) ?>">
                                 View Details
                             </a>
 
-                            <a href="#" class="btn btn-outline">
-                                Wishlist
+                            <a
+                            href="<?= url("wishlist_toggle.php?book_id=".$book["id"]) ?>"
+                            class="btn btn-outline">
+
+                            Wishlist
+
                             </a>
 
                         </div>
@@ -433,4 +447,5 @@ $totalEbook = mysqli_fetch_assoc(
     </div>
 
 </section>
+
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

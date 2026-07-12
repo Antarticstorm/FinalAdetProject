@@ -5,90 +5,87 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Literary Nook</title>
 
-    <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>The Literary Nook</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<?= asset('css/style.css') ?>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
-    <header class="topbar">
-        <div class="container navwrap">
-            <a href="<?= url('index.php') ?>" class="logo">
-                <img src="<?= asset('images/logo.png') ?>" class="logo-img">
-            </a>    
-                <nav>
 
-        <header class="topbar <?= $isHome ? 'home-nav' : '' ?>">
+<header class="topbar <?= $isHome ? 'home-nav' : '' ?>">
 
-            <div class="container navwrap">
+<div class="container navwrap">
 
-            <a href="<?= url('admin/dashboard.php') ?>"  class="btn btn-outline">
-                    Admin Panel
-                </a>
-                <a href="<?= url('index.php') ?>" class="brand">
-                    The Literary Nook
-                </a>
+    <a href="<?= url('index.php') ?>" class="logo">
+        <img src="<?= asset('images/logo.png') ?>" class="logo-img">
+    </a>
 
-                <nav>
+    <a href="<?= url('index.php') ?>" class="brand">
+        The Literary Nook
+    </a>
 
-            <?php if($isHome): ?>
+    <nav>
 
-                <a href="#featured">Books</a>
-                <a href="#genres">Genres</a>
-                <a href="#about">About</a>
-                <a href="#reviews">Reviews</a>
+        <?php if($isHome): ?>
 
-            <?php endif; ?>
+            <a href="#featured">Books</a>
+            <a href="#genres">Genres</a>
+            <a href="#about">About</a>
+            <a href="#reviews">Reviews</a>
 
+        <?php endif; ?>
 
-            <?php if(isset($_SESSION['user_id'])): ?>
+        <?php if(isset($_SESSION["user_id"])): ?>
 
-                <?php if(isset($_SESSION['role']) && $_SESSION['role']=="admin"): ?>
+            <?php if($_SESSION["role"]=="admin"): ?>
 
-                    <a href="<?= url('admin/dashboard.php') ?>">
-                        Dashboard
-                    </a>
-
-                <?php endif; ?>
-
-                <a href="<?= url('customer/wishlist.php') ?>">
-                    Wishlist
-                </a>
-
-                <a href="<?= url('customer/profile.php') ?>">
-                    Profile
-                </a>
-
-                <a href="<?= url('auth/logout.php') ?>" class="btn btn-outline">
-                    Logout
-                </a>
-
-            <?php else: ?>
-
-                <a href="<?= url('auth/login.php') ?>">
-                    Login
-                </a>
-
-                <a href="<?= url('auth/register.php') ?>" class="btn btn-primary">
-                    Create Account
+                <a href="<?= url('admin/dashboard.php') ?>">
+                    Dashboard
                 </a>
 
             <?php endif; ?>
 
-        </nav>
+            <a href="<?= url('customer/wishlist.php') ?>">
+                Wishlist
+            </a>
 
-    </div>
+            <a href="<?= url('customer/profile.php') ?>">
+                Profile
+            </a>
+
+            <a href="<?= url('auth/logout.php') ?>" class="btn btn-outline">
+                Logout
+            </a>
+
+        <?php else: ?>
+
+            <a href="<?= url('auth/login.php') ?>">
+                Login
+            </a>
+
+            <a href="<?= url('auth/register.php') ?>" class="btn btn-primary">
+                Create Account
+            </a>
+
+        <?php endif; ?>
+
+    </nav>
+
+</div>
 
 </header>
 
