@@ -1,6 +1,13 @@
 <?php
-include("includes/db.php");
-include("includes/header.php");
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/header.php");
 
 $error = "";
 
@@ -22,12 +29,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION["fullname"] = $row["fullname"];
                 $_SESSION["role"] = $row["role"];
                 if ($row["role"] == "admin") {
-                    header("Location: admin/dashboard.php");
+                    redirect("admin/dashboard.php");
                 } else {
-                    header("Location: index.php");
+                    redirect("index.php");
                 }
-
-                exit();
             } else {
                 $error = "Incorrect password.";
             }
@@ -84,4 +89,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 
-<?php include("includes/footer.php"); ?>
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

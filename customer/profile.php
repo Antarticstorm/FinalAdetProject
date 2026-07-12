@@ -1,6 +1,9 @@
 <?php
-include("includes/db.php");
-include("includes/header.php");
+require_once("../config/app.php");
+
+require_once(ROOT_PATH . "/includes/db.php");
+require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/header.php");
 
 if (!isset($_SESSION["user_id"])) {
     header("Location: login.php");
@@ -29,4 +32,4 @@ $stmt->close();
     </div>
 </div>
 
-<?php include("includes/footer.php"); ?>
+<?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
