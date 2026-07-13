@@ -35,6 +35,18 @@ $stmt = $conn->prepare("SELECT * FROM order_items WHERE order_id = ?");
 $stmt->bind_param("i", $orderId);
 $stmt->execute();
 $orderItems = $stmt->get_result();
+
+$stmt = $conn->prepare("
+SELECT *
+FROM payments
+WHERE order_id=?
+");
+
+$stmt->bind_param("i",$orderId);
+$stmt->execute();
+
+$payment=$stmt->get_result()->fetch_assoc();
+$stmt->close();
 ?>
 
 <div class="card">
@@ -42,6 +54,23 @@ $orderItems = $stmt->get_result();
     <h1>Thank you for your order!</h1>
     <p>Order <strong><?php echo htmlspecialchars($order['order_number']); ?></strong> has been placed
        and is currently <span class="status-badge <?php echo statusBadgeClass($order['status']); ?>"><?php echo $order['status']; ?></span>.</p>
+
+    <h3>Payment Information</h3>
+
+    <p>
+        <strong>Payment Method:</strong>
+        <?php echo htmlspecialchars($payment['payment_method']); ?>
+    </p>
+
+    <p>
+        <strong>Transaction ID:</strong>
+        <?php echo htmlspecialchars($payment['transaction_id']); ?>
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        <?php echo htmlspecialchars($payment['payment_status']); ?>
+    </p>
 
     <table>
         <tr><th>Book</th><th>Qty</th><th>Line Total</th></tr>
