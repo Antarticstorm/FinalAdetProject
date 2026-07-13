@@ -13,10 +13,15 @@ require_once(ROOT_PATH . "/includes/order_helpers.php");
    FILTERS
 ---------------------------- */
 $search = trim($_GET["search"] ?? "");
-$genre  = trim($_GET["genre"] ?? "");
-$year   = trim($_GET["year"] ?? "");
-$isbn   = trim($_GET["isbn"] ?? "");
-$sort   = trim($_GET["sort"] ?? "newest");
+$genre = trim($_GET["genre"] ?? "");
+$format = trim($_GET["format"] ?? "");
+$availability = trim($_GET["availability"] ?? "");
+$year = trim($_GET["year"] ?? "");
+$isbn = trim($_GET["isbn"] ?? "");
+$minPrice = trim($_GET["min_price"] ?? "");
+$maxPrice = trim($_GET["max_price"] ?? "");
+$discountOnly = isset($_GET["discount_only"]) ? 1 : 0;
+$sort = trim($_GET["sort"] ?? "newest");
 
 /* ----------------------------
    SORTING
@@ -82,6 +87,35 @@ if ($isbn !== "") {
     $where[] = "isbn = ?";
     $params[] = $isbn;
     $types .= "s";
+}
+if ($format !== "") {
+    $where[] = "format = ?";
+    $params[] = $format;
+    $types .= "s";
+}
+
+if ($availability === "in_stock") {
+    $where[] = "stock > 0";
+} elseif ($availability === "low_stock") {
+    $where[] = "stock BETWEEN 1 AND 5";
+} elseif ($availability === "out_stock") {
+    $where[] = "stock = 0";
+}
+
+if ($discountOnly) {
+    $where[] = "discount_percent > 0";
+}
+
+if ($minPrice !== "") {
+    $where[] = "price >= ?";
+    $params[] = (float)$minPrice;
+    $types .= "d";
+}
+
+if ($maxPrice !== "") {
+    $where[] = "price <= ?";
+    $params[] = (float)$maxPrice;
+    $types .= "d";
 }
 
 $sql = "SELECT * FROM books";
@@ -168,27 +202,63 @@ if (isset($_SESSION["user_id"])) {
          SEARCH
     ======================================== -->
 
-    <section class="shop-search">
+    <section class="shop-filters">
 
-    <form method="GET">
+        <form method="GET" class="shop-filter-panel">
+            <div class="filter-grid">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search title, author, ISBN..."
+                    value="<?= htmlspecialchars($search) ?>">
 
-        <input
-            type="text"
-            name="search"
-            placeholder="Search title, author or ISBN..."
-            value="<?= htmlspecialchars($search) ?>">
+                <select name="genre">
+                    <option value="">All Genres</option>
+                    <?php mysqli_data_seek($genresResult, 0); while ($g = mysqli_fetch_assoc($genresResult)): ?>
+                        <option value="<?= htmlspecialchars($g["genre"]) ?>" <?= $genre === $g["genre"] ? "selected" : "" ?>>
+                            <?= htmlspecialchars($g["genre"]) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
 
-        <button
-            class="btn btn-primary">
+                <select name="format">
+                    <option value="">All Formats</option>
+                    <option value="Hardcover" <?= $format === "Hardcover" ? "selected" : "" ?>>Hardcover</option>
+                    <option value="Paperback" <?= $format === "Paperback" ? "selected" : "" ?>>Paperback</option>
+                    <option value="E-Book" <?= $format === "E-Book" ? "selected" : "" ?>>E-Book</option>
+                </select>
 
-            Search
+                <select name="availability">
+                    <option value="">Any Stock</option>
+                    <option value="in_stock" <?= $availability === "in_stock" ? "selected" : "" ?>>In stock</option>
+                    <option value="low_stock" <?= $availability === "low_stock" ? "selected" : "" ?>>Low stock</option>
+                    <option value="out_stock" <?= $availability === "out_stock" ? "selected" : "" ?>>Out of stock</option>
+                </select>
 
-        </button>
+                <input type="number" name="year" placeholder="Year" value="<?= htmlspecialchars($year) ?>">
+                <input type="number" step="0.01" name="min_price" placeholder="Min price" value="<?= htmlspecialchars($minPrice) ?>">
+                <input type="number" step="0.01" name="max_price" placeholder="Max price" value="<?= htmlspecialchars($maxPrice) ?>">
 
-    </form>
+                <label class="check-filter">
+                    <input type="checkbox" name="discount_only" value="1" <?= $discountOnly ? "checked" : "" ?>>
+                    On sale only
+                </label>
+
+                <select name="sort">
+                    <option value="newest" <?= $sort === "newest" ? "selected" : "" ?>>Newest</option>
+                    <option value="price_asc" <?= $sort === "price_asc" ? "selected" : "" ?>>Price ↑</option>
+                    <option value="price_desc" <?= $sort === "price_desc" ? "selected" : "" ?>>Price ↓</option>
+                    <option value="title_asc" <?= $sort === "title_asc" ? "selected" : "" ?>>Title A-Z</option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn btn-primary" type="submit">Apply Filters</button>
+                <a href="shop.php" class="btn btn-outline">Clear</a>
+            </div>
+        </form>
 
     </section>
-
     <!-- =======================================
          GENRES
     ======================================== -->
@@ -227,51 +297,6 @@ if (isset($_SESSION["user_id"])) {
 
 <section class="shop-layout">
 
-    <!-- SIDEBAR -->
-
-    <aside class="shop-sidebar">
-
-        <h2>Filters</h2>
-
-        <form method="GET">
-
-            <input
-                type="hidden"
-                name="search"
-                value="<?= htmlspecialchars($search) ?>">
-
-            <label>Sort</label>
-
-            <select name="sort">
-
-                <option value="newest">Newest</option>
-
-                <option value="price_asc">Price ↑</option>
-
-                <option value="price_desc">Price ↓</option>
-
-                <option value="title_asc">Title A-Z</option>
-
-            </select>
-
-            <label>Publication Year</label>
-
-            <input
-                type="number"
-                name="year"
-                value="<?= htmlspecialchars($year) ?>">
-
-            <button
-                class="btn btn-primary"
-                style="width:100%;margin-top:25px;">
-
-                Apply Filters
-
-            </button>
-
-        </form>
-
-    </aside>
 
     <!-- RESULTS -->
 
@@ -297,95 +322,120 @@ if (isset($_SESSION["user_id"])) {
 
         <div class="book-grid-shop">
 
-            <?php while ($book = $result->fetch_assoc()):
-                $unitPrice = getEffectivePrice(
-                    $book["price"],
-                    $book["discount_percent"]
-                );
+                <?php while ($book = $result->fetch_assoc()):
+                    $unitPrice = getEffectivePrice(
+                        $book["price"],
+                        $book["discount_percent"]
+                    );
 
-                $hasDiscount = $book["discount_percent"] > 0;
-            ?>
+                    $hasDiscount = $book["discount_percent"] > 0;
+                ?>
 
             <div class="shop-book-card">
 
-                <a href="<?= url('orders/book.php?id=' . $book['id']) ?>" class="book-cover-link">
+                <div class="book-cover-container">
 
-                    <img
-                        src="<?= url($book["cover"]) ?>"
-                        class="shop-book-cover"
-                        alt="<?= htmlspecialchars($book["title"]) ?>">
+                    <a
+                        href="<?= url('orders/book.php?id=' . $book["id"]) ?>"
+                        class="book-cover-link">
+
+                        <img
+                            src="<?= url($book["cover"]) ?>"
+                            class="shop-book-cover"
+                            alt="<?= htmlspecialchars($book["title"]) ?>">
+
+                    </a>
 
                     <?php if ($hasDiscount): ?>
-
                         <span class="badge-discount">
                             <?= (int)$book["discount_percent"] ?>% OFF
                         </span>
-
                     <?php endif; ?>
 
-                </a>
+                    <?php if ($book["stock"] == 0): ?>
+                        <span class="stock-badge out">Out of Stock</span>
+                    <?php elseif ($book["stock"] <= 5): ?>
+                        <span class="stock-badge low">Only <?= $book["stock"] ?> left</span>
+                    <?php else: ?>
+                        <span class="stock-badge in">In Stock</span>
+                    <?php endif; ?>
 
-                <div class="book-body">
-
-                    <span class="book-format">
-                        <?= htmlspecialchars($book["format"]) ?>
-                    </span>
-
-                    <h3><?= htmlspecialchars($book["title"]) ?></h3>
-
-                    <p class="book-author">
-                        by <?= htmlspecialchars($book["author"]) ?>
-                    </p>
-
-                    <div class="price-row">
-
-                        <?php if($hasDiscount): ?>
-
-                            <span class="price-strike">
-                                ₱<?= number_format($book["price"],2) ?>
-                            </span>
-
-                        <?php endif; ?>
-
-                        <span class="price-now">
-                            ₱<?= number_format($unitPrice,2) ?>
-                        </span>
+                    <?php if (isset($_SESSION["user_id"])): ?>
+                        <a
+                            href="<?= url('customer/wishlist_toggle.php?book_id=' . $book["id"]) ?>"
+                            class="wishlist-heart <?= isset($wishlistIds[$book["id"]]) ? 'saved' : '' ?>">
+                            <?= isset($wishlistIds[$book["id"]]) ? '❤️' : '♡' ?>
+                        </a>
+                    <?php endif; ?>
 
                     </div>
+                    <div class="book-body">
 
-                    <p class="book-meta">
+                        <span class="book-format">
 
-                        <?= htmlspecialchars($book["genre"]) ?>
+                            <?= htmlspecialchars($book["format"]) ?>
 
-                        <?php if(!empty($book["publication_year"])): ?>
+                        </span>
 
-                            • <?= htmlspecialchars($book["publication_year"]) ?>
+                        <h3>
 
-                        <?php endif; ?>
+                            <?= htmlspecialchars($book["title"]) ?>
 
-                    </p>
+                        </h3>
 
-                    <?php if($book["stock"] > 0): ?>
+                        <p class="book-author">
 
-                        <p class="book-stock">
+                            by <?= htmlspecialchars($book["author"]) ?>
 
-                            <?= $book["stock"] ?> in stock
+                        </p>
+
+                        <div class="book-rating">
+
+                            ★★★★★
+
+                            <span>No reviews yet</span>
+
+                        </div>
+
+                        <div class="price-row">
+
+                            <?php if($hasDiscount): ?>
+
+                                <span class="price-strike">
+
+                                    ₱<?= number_format($book["price"],2) ?>
+
+                                </span>
+
+                                <span class="saving">
+
+                                    Save ₱<?= number_format($book["price"]-$unitPrice,2) ?>
+
+                                </span>
+
+                            <?php endif; ?>
+
+                            <span class="price-now">
+
+                                ₱<?= number_format($unitPrice,2) ?>
+
+                            </span>
+
+                        </div>
+
+                        <p class="book-meta">
+
+                            <?= htmlspecialchars($book["genre"]) ?>
+
+                            <?php if(!empty($book["publication_year"])): ?>
+
+                                • <?= htmlspecialchars($book["publication_year"]) ?>
+
+                            <?php endif; ?>
 
                         </p>
 
                         <div class="book-actions">
-
-                             <a
-                                href="<?= url('customer/wishlist_toggle.php?book_id=' . $book["id"]) ?>"
-                                class="btn btn-outline">
-
-                                <?php if (isset($wishlistIds[$book["id"]])): ?>
-                                    Saved
-                                <?php else: ?>
-                                    Save
-                                <?php endif; ?>
-
-                            </a>
 
                             <a
                                 href="<?= url('orders/book.php?id='.$book["id"]) ?>"
@@ -421,23 +471,13 @@ if (isset($_SESSION["user_id"])) {
 
                         </div>
 
-                    <?php else: ?>
-
-                        <span class="out-stock">
-
-                            Out of Stock
-
-                        </span>
-
-                    <?php endif; ?>
+                    </div>
 
                 </div>
 
-            </div>
-
             <?php endwhile; ?>
 
-            </div>
+        </div>
 
         </main>
 

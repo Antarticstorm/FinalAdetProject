@@ -137,58 +137,6 @@
 }
 
 /* ==========================================================
-   LAYOUT
-========================================================== */
-
-.shop-layout{
-
-    display:grid;
-
-    grid-template-columns:280px 1fr;
-
-    gap:var(--space-lg);
-
-    align-items:start;
-
-}
-
-/* ==========================================================
-   SIDEBAR
-========================================================== */
-
-.shop-sidebar{
-
-    background:transparent;
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:var(--radius-md);
-
-    padding:var(--space-md);
-
-    position:sticky;
-
-    top:100px;
-
-}
-
-.shop-sidebar h2{
-
-    margin-bottom:var(--space-md);
-
-}
-
-.shop-sidebar label{
-
-    display:block;
-
-    margin-top:18px;
-
-    margin-bottom:8px;
-
-}
-
-/* ==========================================================
    RESULTS
 ========================================================== */
 
@@ -209,33 +157,225 @@
     margin-bottom:var(--space-md);
 
 }
+.shop-filter-panel{
+    background:var(--surface);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:var(--radius-md);
+    padding:24px;
+    margin-bottom:40px;
+    overflow-x:auto;
+}
 
-/* ==========================================================
-   RESPONSIVE
-========================================================== */
+.filter-grid{
+    display:flex;
+    flex-wrap:nowrap;
+    gap:12px;
+    align-items:center;
+    min-width:max-content;
+}
 
-@media (max-width:1000px){
+.filter-grid > *{
+    flex:0 0 180px;
+}
 
-    .shop-layout{
+.filter-grid input[type="text"]{
+    flex-basis:260px;
+}
 
-        grid-template-columns:1fr;
+.check-filter{
+    flex:0 0 auto;
+    white-space:nowrap;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--text-light);
+    font-size:.95rem;
+}
 
-    }
+.filter-actions{
+    display:flex;
+    gap:12px;
+    margin-top:14px;
+    flex-wrap:nowrap;
+}
 
-    .shop-sidebar{
+.filter-actions .btn{
+    white-space:nowrap;
+}
+.check-filter{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--text-light);
+    font-size:.95rem;
+}
 
-        position:static;
+.shop-book-card{
+    position:relative;
+    overflow:hidden;
+}
 
-    }
+.book-cover-link{
+    position:relative;
+    display:block;
+
+        transition:
+        transform .3s,
+        box-shadow .3s,
+        border-color .3s;
+}
+
+.shop-book-cover{
+    width:100%;
+    aspect-ratio: 2 / 3;
+    object-fit:cover;
+    display:block;
+    transition:.35s ease;
+}
+
+.shop-book-card:hover .shop-book-cover{
+    transform:translateY(-8px);
+
+    border-color:var(--primary);
+
+    box-shadow:var(--shadow-lg);
+}
+
+.badge-discount{
+
+    position:absolute;
+
+    top:14px;
+
+    right:14px;
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:#E74C3C;
+
+    color:white;
+
+    font-size:.75rem;
+
+    font-weight:700;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.35);
 
 }
 
-@media (max-width:700px){
+.stock-badge{
+    position:absolute;
+    left:14px;
+    bottom:14px;
+    z-index:3;
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:.75rem;
+    font-weight:700;
+}
 
-    .shop-search form{
+.stock-badge.in{
 
-        flex-direction:column;
+    background:#49D17D;
 
-    }
+    color:#111;
 
+}
+
+.stock-badge.low{
+
+    background:#FFC107;
+
+    color:#111;
+
+}
+
+.stock-badge.out{
+
+    background:#E74C3C;
+
+    color:white;
+
+}
+
+.wishlist-heart{
+    position:absolute;
+    top:14px;
+    left:14px;
+    z-index:3;
+    width:36px;
+    height:36px;
+    display:grid;
+    place-items:center;
+    border-radius:50%;
+    background:rgba(0,0,0,.45);
+    color:white;
+    text-decoration:none;
+        transition:.25s ease;
+
+}
+
+.wishlist-heart.saved{
+    background:rgba(212,175,55,.18);
+    color:var(--primary);
+}
+
+.wishlist-heart:hover{
+
+    transform:scale(1.15);
+
+    background:rgba(0,0,0,.7);
+
+}
+
+.book-rating{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--primary);
+    font-size:.95rem;
+    margin:8px 0 12px;
+}
+
+.book-rating span{
+    color:var(--text-muted);
+    font-size:.85rem;
+}
+
+.saving{
+    color:#7be8a0;
+    font-size:.8rem;
+    font-weight:700;
+}
+
+.book-cover-container{
+    position:relative;
+}
+
+.stock-badge{
+    position:absolute;
+    left:14px;
+    bottom:14px;
+    z-index:3;
+    padding:6px 10px;
+    border-radius:999px;
+    font-size:.75rem;
+    font-weight:700;
+}
+
+.stock-badge.in{
+    background:#49D17D;
+    color:#111;
+}
+
+.stock-badge.low{
+    background:#FFC107;
+    color:#111;
+}
+
+.stock-badge.out{
+    background:#E74C3C;
+    color:#fff;
 }
