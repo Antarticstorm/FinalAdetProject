@@ -1,0 +1,253 @@
+/* ==========================================================
+   FADE ANIMATIONS
+========================================================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+        transform:translateY(-40px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeLeft{
+
+    from{
+
+        opacity:0;
+        transform:translateX(-40px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateX(0);
+
+    }
+
+}
+
+@keyframes fadeRight{
+
+    from{
+
+        opacity:0;
+        transform:translateX(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateX(0);
+
+    }
+
+}
+
+/* ==========================================================
+   HERO
+========================================================== */
+
+@keyframes heroFloat{
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-6px);
+
+    }
+
+}
+
+@keyframes heroGlow{
+
+    0%,100%{
+
+        opacity:.25;
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        opacity:.55;
+        transform:scale(1.05);
+
+    }
+
+}
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+@keyframes buttonPulse{
+
+    0%,100%{
+
+        box-shadow:0 0 0 rgba(212,175,55,0);
+
+    }
+
+    50%{
+
+        box-shadow:0 0 30px rgba(212,175,55,.35);
+
+    }
+
+}
+
+/* ==========================================================
+   SCROLL INDICATOR
+========================================================== */
+
+@keyframes bounce{
+
+    0%,20%,50%,80%,100%{
+
+        transform:translateX(-50%) translateY(0);
+
+    }
+
+    40%{
+
+        transform:translateX(-50%) translateY(-10px);
+
+    }
+
+    60%{
+
+        transform:translateX(-50%) translateY(-5px);
+
+    }
+
+}
+
+@keyframes fadePulse{
+
+    0%,100%{
+
+        opacity:.55;
+
+    }
+
+    50%{
+
+        opacity:1;
+
+    }
+
+}
+
+/* ==========================================================
+   DROPDOWN
+========================================================== */
+
+@keyframes dropdown{
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+            translateY(10px)
+
+            scale(.96);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+
+            translateY(0)
+
+            scale(1);
+
+    }
+
+}
+
+/* ==========================================================
+   CARD SHINE
+========================================================== */
+
+@keyframes cardShine{
+
+    from{
+
+        left:-70%;
+
+    }
+
+    to{
+
+        left:140%;
+
+    }
+
+}
+
+/* ==========================================================
+   REVEAL
+========================================================== */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(60px);
+
+    transition:
+
+        opacity .8s ease,
+
+        transform .8s ease;
+
+}
+
+.reveal.active{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
