@@ -51,7 +51,7 @@ $totalEbook = mysqli_fetch_assoc(
 ?>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero reveal">
 
     <div class="hero-content">
 
@@ -184,7 +184,8 @@ $totalEbook = mysqli_fetch_assoc(
 </section>
 
 <div class="section-divider"></div>
-<section class="stats-section">
+<section
+class="stats-section reveal">
 
     <div class="container">
 
@@ -200,13 +201,14 @@ $totalEbook = mysqli_fetch_assoc(
 
             <div class="stat-card">
 
-                <h2>
-                    <?= $totalBooks['total'] ?>
-                </h2>
+        <h2 class="counter"
+            data-target="<?= $totalBooks['total'] ?>">
+            0
+        </h2>
 
-                <p>Books Available</p>
+        <p>Books Available</p>
 
-            </div>
+        </div>
 
             <div class="stat-card">
 
@@ -220,8 +222,9 @@ $totalEbook = mysqli_fetch_assoc(
 
             <div class="stat-card">
 
-                <h2>
-                    <?= $totalHardcover['total'] ?>
+                <h2 class="counter"
+                data-target="<?= $totalHardcover['total'] ?>">
+                 0
                 </h2>
 
                 <p>Hardcover Books</p>
@@ -230,8 +233,9 @@ $totalEbook = mysqli_fetch_assoc(
 
             <div class="stat-card">
 
-                <h2>
-                    <?= $totalEbook['total'] ?>
+                <h2 class="counter"
+                data-target="<?= $totalEbook['total'] ?>">
+                0
                 </h2>
 
                 <p>E-Books</p>
@@ -249,7 +253,9 @@ $totalEbook = mysqli_fetch_assoc(
      GENRES
 =========================================== -->
 
-<section id="genres" class="genres-section">
+<section
+id="genres"
+class="genres-section reveal">
 
     <div class="container">
 
@@ -331,7 +337,8 @@ $totalEbook = mysqli_fetch_assoc(
      WHY CHOOSE US
 =========================================== -->
 
-<section id="about" class="why-section">
+<section
+class="why-section reveal">
 
     <div class="container">
 
@@ -391,7 +398,8 @@ $totalEbook = mysqli_fetch_assoc(
      READER REVIEWS
 =========================================== -->
 
-<section id="reviews" class="reviews-section">
+<section
+class="reviews-section reveal">
 
     <div class="container">
 

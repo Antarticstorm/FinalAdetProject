@@ -4,23 +4,42 @@
 
 .topbar{
 
-    position:sticky;
+    position:fixed;
+
     top:0;
+    left:0;
+
+    width:100%;
+
     z-index:999;
 
-    padding:var(--space-sm) 0;
+    padding:18px 0;
 
-    background:rgba(14,17,22,.85);
+    background:rgba(14,17,22,.45);
 
     backdrop-filter:blur(18px);
     -webkit-backdrop-filter:blur(18px);
 
-    border-bottom:1px solid rgba(255,255,255,.08);
+    border-bottom:1px solid rgba(255,255,255,.05);
 
-    transition:.3s ease;
+    transition:
+        padding .35s ease,
+        background .35s ease,
+        box-shadow .35s ease,
+        backdrop-filter .35s ease;
 
 }
+.topbar.scrolled{
 
+    padding:10px 0;
+
+    background:rgba(14,17,22,.96);
+
+    box-shadow:0 10px 35px rgba(0,0,0,.35);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
 /* ==========================================
    NAVIGATION
 ========================================== */
@@ -43,13 +62,22 @@
 
     font-size:2rem;
 
-    font-weight:700;
-
-    color:var(--text);
-
-    letter-spacing:1px;
+    transition:
+        font-size .35s ease,
+        letter-spacing .35s ease;
 
 }
+.topbar.scrolled .brand{
+
+    font-size:1.7rem;
+
+    letter-spacing:.5px;
+
+}
+
+/* ==========================================
+   NAVIGATION
+========================================== */
 
 nav{
 
@@ -57,23 +85,71 @@ nav{
 
     align-items:center;
 
-    gap:var(--space-sm);
+    gap:var(--space-md);
 
 }
 
 nav a{
 
+    position:relative;
+
     color:var(--text-light);
 
     font-weight:500;
 
-    transition:.25s ease;
+    transition:
+        color .3s ease,
+        transform .3s ease;
 
 }
 
 nav a:hover{
 
     color:var(--primary);
+
+    transform:translateY(-2px);
+
+}
+
+/* Animated underline */
+
+nav a::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    bottom:-8px;
+
+    width:0;
+
+    height:2px;
+
+    background:var(--primary);
+
+    transition:width .3s ease;
+
+}
+
+nav a:hover::after{
+
+    width:100%;
+
+}
+
+/* Active page */
+
+nav a.active{
+
+    color:var(--primary);
+
+}
+
+nav a.active::after{
+
+    width:100%;
 
 }
 
