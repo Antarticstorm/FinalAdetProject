@@ -31,6 +31,8 @@
 .details-cover{
 
     width:100%;
+    height:auto;
+    display:block;
 
     border-radius:var(--radius-md);
 
@@ -40,12 +42,45 @@
 
 }
 
-.details-cover:hover{
+.book-left .badge-discount{
+
+    position:absolute;
+
+    top:18px;
+
+    right:18px;
+
+    padding:10px 14px;
+
+    border-radius:999px;
+
+    background:#E74C3C;
+
+    color:white;
+
+    font-weight:700;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.35);
+
+}
+.cover-wrap{
+    position:relative;
+    width:100%;
+    max-width:420px;
+    transition:.35s ease;
+    overflow:hidden;
+}
+.cover-wrap .badge-discount{
+    position:absolute;
+    top:16px;
+    right:16px;
+    z-index:5;
+}
+.cover-wrap:hover{
 
     transform:scale(1.02);
 
 }
-
 /* ==========================================================
    RIGHT
 ========================================================== */

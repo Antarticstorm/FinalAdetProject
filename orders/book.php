@@ -113,12 +113,18 @@ if (isset($_SESSION["user_id"])) {
     <section class="book-details">
 
         <div class="book-left">
+            <div class="cover-wrap">
+                <?php if($hasDiscount): ?>
+                    <span class="badge-discount">
+                        <?= (int)$book["discount_percent"] ?>% OFF
+                    </span>
+                <?php endif; ?>
 
-            <img
-                src="<?= url($book["cover"]) ?>"
-                class="details-cover"
-                alt="<?= htmlspecialchars($book["title"]) ?>">
-
+                <img
+                    src="<?= url($book["cover"]) ?>"
+                    class="details-cover"
+                    alt="<?= htmlspecialchars($book["title"]) ?>">
+            </div>
         </div>
 
         <div class="book-right">
@@ -150,14 +156,6 @@ if (isset($_SESSION["user_id"])) {
                 </span>
 
             </div>
-
-            <?php if($hasDiscount): ?>
-
-                <span class="badge-discount">
-                    <?= (int)$book["discount_percent"] ?>% OFF
-                </span>
-
-            <?php endif; ?>
 
             <div class="details-meta">
 
