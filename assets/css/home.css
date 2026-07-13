@@ -52,7 +52,9 @@
 
     position:relative;
 
-    min-height:95vh;
+    min-height:100vh;
+
+    padding-top:90px;
 
     display:flex;
 
@@ -511,5 +513,17 @@ heroFloat 6s ease-in-out infinite;
     color:white;
 
     font-weight:600;
+
+}
+.counter{
+
+    display:inline-block;
+
+    min-width:60px;
+
+}
+.counter{
+
+    animation:counterPop .6s ease;
 
 }

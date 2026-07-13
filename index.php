@@ -184,7 +184,8 @@ $totalEbook = mysqli_fetch_assoc(
 </section>
 
 <div class="section-divider"></div>
-<section class="stats-section reveal">
+<section
+class="stats-section reveal">
 
     <div class="container">
 
@@ -200,13 +201,14 @@ $totalEbook = mysqli_fetch_assoc(
 
             <div class="stat-card">
 
-                <h2>
-                    <?= $totalBooks['total'] ?>
-                </h2>
+        <h2 class="counter"
+            data-target="<?= $totalBooks['total'] ?>">
+            0
+        </h2>
 
-                <p>Books Available</p>
+        <p>Books Available</p>
 
-            </div>
+        </div>
 
             <div class="stat-card">
 
@@ -220,8 +222,9 @@ $totalEbook = mysqli_fetch_assoc(
 
             <div class="stat-card">
 
-                <h2>
-                    <?= $totalHardcover['total'] ?>
+                <h2 class="counter"
+                data-target="<?= $totalHardcover['total'] ?>">
+                 0
                 </h2>
 
                 <p>Hardcover Books</p>
@@ -230,8 +233,9 @@ $totalEbook = mysqli_fetch_assoc(
 
             <div class="stat-card">
 
-                <h2>
-                    <?= $totalEbook['total'] ?>
+                <h2 class="counter"
+                data-target="<?= $totalEbook['total'] ?>">
+                0
                 </h2>
 
                 <p>E-Books</p>
@@ -249,8 +253,10 @@ $totalEbook = mysqli_fetch_assoc(
      GENRES
 =========================================== -->
 
-<section class="genres-section reveal">
-    
+<section
+id="genres"
+class="genres-section reveal">
+
     <div class="container">
 
         <p class="section-tag">
@@ -331,7 +337,8 @@ $totalEbook = mysqli_fetch_assoc(
      WHY CHOOSE US
 =========================================== -->
 
-<section class="why-section reveal">
+<section
+class="why-section reveal">
 
     <div class="container">
 
@@ -391,7 +398,8 @@ $totalEbook = mysqli_fetch_assoc(
      READER REVIEWS
 =========================================== -->
 
-<section class="reviews-section reveal">
+<section
+class="reviews-section reveal">
 
     <div class="container">
 

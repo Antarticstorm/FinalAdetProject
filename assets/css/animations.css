@@ -206,25 +206,6 @@
 
 }
 
-/* ==========================================================
-   CARD SHINE
-========================================================== */
-
-@keyframes cardShine{
-
-    from{
-
-        left:-70%;
-
-    }
-
-    to{
-
-        left:140%;
-
-    }
-
-}
 
 /* ==========================================================
    REVEAL
@@ -249,5 +230,30 @@
     opacity:1;
 
     transform:translateY(0);
+
+}
+@keyframes counterPop{
+
+    0%{
+
+        transform:scale(.8);
+
+        opacity:.5;
+
+    }
+
+    60%{
+
+        transform:scale(1.08);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
 
 }
