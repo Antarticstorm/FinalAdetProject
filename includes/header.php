@@ -15,6 +15,16 @@ $isStore =
             "orders.php"
         ]
     );
+$isAccount =
+in_array(
+    basename($_SERVER['PHP_SELF']),
+    [
+        "profile.php",
+        "edit_profile.php",
+        "wishlist.php",
+        "dashboard.php"
+    ]
+);
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +47,7 @@ $isStore =
 <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/orders.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/shop.css') ?>">
-
+<link rel="stylesheet" href="<?= asset('css/book-details.css') ?>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,9 +58,9 @@ $isStore =
 
 <body>
 
-<header class="topbar <?= $isHome ? 'home-nav' : '' ?>">
+<header class="topbar <?= $isStore ? 'store-nav' : ($isHome ? 'home-nav' : '') ?>">
 
-<div class="<?= $isStore ? 'container-wide navwrap' : 'container navwrap' ?>">
+<div class="container-wide navwrap">
 
     <a href="<?= url('index.php') ?>" class="brand">
         The Literary Nook
@@ -129,10 +139,4 @@ $isStore =
 </header>
 
 
-<main class="<?=
-    $isHome
-        ? ''
-        : ($isStore
-            ? 'container-wide page-content'
-            : 'container page-content')
-?>">
+<main class="<?= $isHome ? '' : 'container-wide page-content' ?>">

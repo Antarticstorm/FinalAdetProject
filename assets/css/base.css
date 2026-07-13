@@ -58,10 +58,10 @@
     --space-xl:48px;
     --space-xxl:64px;
 
-    /* Typography
+    /* Typography */
     --font-heading:'Playfair Display',serif;
 
-    --font-body:'Inter',sans-serif; */
+    --font-body:'Inter',sans-serif;
 }
 
 /* ==========================================
@@ -161,9 +161,7 @@ p{
 }
 
 .container-wide{
-
-    width:min(1700px,96%);
-
+    width:95%;
+    max-width:1900px;
     margin:auto;
-
 }
