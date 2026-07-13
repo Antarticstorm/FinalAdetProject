@@ -26,33 +26,93 @@ $result = $stmt->get_result();
     <h1>Your Wishlist</h1>
 
     <?php if ($result->num_rows == 0): ?>
-        <p>You have no books in your wishlist yet.</p>
-    <?php else: ?>
-        <table>
-            <tr>
-                <th>Cover</th>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th>Action</th>
-            </tr>
+        <div class="empty-state">
 
-            <?php while ($book = $result->fetch_assoc()): ?>
-                <tr>
-                    <td>
-                        <img src="<?= BASE_URL . htmlspecialchars($book["cover"]) ?>" class="book-cover" alt="Cover">
-                    </td>
-                    <td><?= htmlspecialchars($book["title"]) ?></td>
-                    <td><?= htmlspecialchars($book["author"]) ?></td>
-                    <td>₱<?= number_format($book["price"], 2) ?></td>
-                    <td>
-                        <a class="btn btn-danger" href="<?= url('wishlist_toggle.php?book_id=' . $book['book_id']) ?>">
-                            Remove
+            <h2>
+
+                ❤️ Your Wishlist is Empty
+
+            </h2>
+
+            <p>
+
+                Browse books and save your favorites.
+
+            </p>
+
+            <a
+                href="<?= url('orders/shop.php') ?>"
+                class="btn btn-primary">
+
+                Browse Books
+
+            </a>
+
+        </div>
+    <?php else: ?>
+        <div class="book-grid-shop">
+            
+
+        <?php while ($book = $result->fetch_assoc()): ?>
+
+            <div class="shop-book-card">
+
+                <a href="<?= url('orders/book.php?id=' . $book['book_id']) ?>">
+
+                    <img
+                        src="<?= url($book["cover"]) ?>"
+                        class="shop-book-cover"
+                        alt="<?= htmlspecialchars($book["title"]) ?>">
+
+                </a>
+
+                <div class="book-body">
+
+                    <h3><?= htmlspecialchars($book["title"]) ?></h3>
+
+                    <p class="book-author">
+
+                        <?= htmlspecialchars($book["author"]) ?>
+
+                    </p>
+
+                    <div class="price-row">
+
+                        <span class="price-now">
+
+                            ₱<?= number_format($book["price"],2) ?>
+
+                        </span>
+
+                    </div>
+
+                    <div class="book-actions">
+
+                        <a
+                            href="<?= url('orders/book.php?id='.$book["book_id"]) ?>"
+                            class="btn btn-outline">
+
+                            View
+
                         </a>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        </table>
+
+                        <a
+                            href="<?= url('customer/wishlist_toggle.php?book_id='.$book["book_id"]) ?>"
+                            class="btn btn-danger">
+
+                            Remove
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        <?php endwhile; ?>
+
+        </div>
     <?php endif; ?>
 </div>
 

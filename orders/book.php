@@ -189,10 +189,18 @@ $relatedBooks = $related->get_result();
                     </button>
 
                     <a
-                        href="<?= url("customer/wishlist_toggle.php?book_id=".$book["id"]) ?>"
-                        class="btn btn-outline">
+                                href="<?= url('customer/wishlist_toggle.php?book_id=' . $book["id"]) ?>"
+                                class="btn btn-outline">
 
-                        ❤ Wishlist
+                            <?php if (isset($wishlistIds[$book["id"]])): ?>
+
+                            Saved!
+
+                        <?php else: ?>
+
+                            Wishlist?
+
+                        <?php endif; ?>
 
                     </a>
 
