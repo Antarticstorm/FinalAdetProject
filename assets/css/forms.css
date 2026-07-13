@@ -1,23 +1,102 @@
-.form-group {
-    margin-bottom: 16px;
+/* ==========================================================
+   FORM LAYOUT
+========================================================== */
+
+.form-group{
+    margin-bottom:var(--space-sm);
 }
 
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: #C7D5E0;
+.auth-box{
+    width:min(480px,100%);
 }
 
-input, textarea {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 8px;
-    border: 1px solid #2A475E;
-    background: #2A475E;
-    color: #FFFFFF;
-    outline: none;
+/* ==========================================================
+   LABELS
+========================================================== */
+
+label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:var(--text-light);
+
+    font-weight:500;
+
 }
 
-input:focus, textarea:focus {
-    border-color: #66C0F4;
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:12px 14px;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-sm);
+
+    background:var(--border);
+
+    color:var(--text);
+
+    outline:none;
+
+    transition:.25s ease;
+
+}
+
+/* ==========================================================
+   FOCUS
+========================================================== */
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:var(--secondary);
+
+    box-shadow:0 0 0 3px rgba(102,192,244,.15);
+
+}
+
+/* ==========================================================
+   TEXTAREA
+========================================================== */
+
+textarea{
+
+    resize:vertical;
+
+    min-height:120px;
+
+}
+
+/* ==========================================================
+   PLACEHOLDERS
+========================================================== */
+
+input::placeholder,
+textarea::placeholder{
+
+    color:var(--text-muted);
+
+}
+
+input[type="number"]{
+    text-align:center;
+}
+
+input[type="search"]{
+    padding-left:18px;
+}
+
+input[type="password"]{
+    letter-spacing:1px;
 }

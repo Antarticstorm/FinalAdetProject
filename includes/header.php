@@ -4,6 +4,27 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
+$isStore =
+    in_array(
+        basename($_SERVER['PHP_SELF']),
+        [
+            "shop.php",
+            "book.php",
+            "cart.php",
+            "checkout.php",
+            "orders.php"
+        ]
+    );
+$isAccount =
+in_array(
+    basename($_SERVER['PHP_SELF']),
+    [
+        "profile.php",
+        "edit_profile.php",
+        "wishlist.php",
+        "dashboard.php"
+    ]
+);
 ?>
 
 <!DOCTYPE html>
@@ -22,10 +43,12 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 <link rel="stylesheet" href="<?= asset('css/books.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/profile.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/home.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/animations.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/admin.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/orders.css') ?>">
-
+<link rel="stylesheet" href="<?= asset('css/shop.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/book-details.css') ?>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,35 +59,33 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 
 <body>
 
-<header class="topbar <?= $isHome ? 'home-nav' : '' ?>">
+<header class="topbar <?= $isStore ? 'store-nav' : ($isHome ? 'home-nav' : '') ?>">
 
-<div class="container navwrap">
-
-    <a href="<?= url('index.php') ?>" class="logo">
-        <img src="<?= asset('images/logo.png') ?>" class="logo-img">
-    </a>
+<div class="container-wide navwrap">
 
     <a href="<?= url('index.php') ?>" class="brand">
         The Literary Nook
     </a>
 
         <nav>
-
-            <?php if($isHome): ?>
-
-                <a href="#featured">Books</a>
-                <a href="#genres">Genres</a>
-                <a href="#about">About</a>
-                <a href="#reviews">Reviews</a>
-
-            <?php endif; ?>
-
             <?php if(isset($_SESSION["user_id"])): ?>
+
+
+                <a href="<?= url('orders/cart.php') ?>">
+                    Cart
+                </a>
+                <a href="<?= url('orders/shop.php') ?>">
+                    Shop
+                </a>
+
+                <a href="<?= url('customer/profile.php') ?>" class="profile-link">
+                    <?= htmlspecialchars(explode(' ', $_SESSION["fullname"])[0]) ?>
+                </a>
 
                 <div class="account-dropdown">
 
                     <button class="account-btn" id="accountBtn">
-                        <?= explode(' ', $_SESSION["fullname"])[0] ?> ▼
+                        Menu ▼
                     </button>
 
                     <div class="dropdown-menu" id="accountMenu">
@@ -75,26 +96,28 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
                                 Dashboard
                             </a>
 
+                        <hr>
+
                         <?php endif; ?>
 
-                        <a href="<?= url('customer/profile.php') ?>">
-                             Profile
+                        <a href="<?= url('index.php') ?>">
+                             Home
                         </a>
 
-                        <a href="<?= url('orders/shop.php') ?>">
-                            Shop
+                        <hr>
+
+                        <a href="<?= url('customer/profile.php') ?>">
+                            My Profile
                         </a>
 
                         <a href="<?= url('customer/wishlist.php') ?>">
-                            Wishlist
+                            My Wishlist
                         </a>
-                        
-                        <hr>
-                    
 
-                        <a href="<?= url('orders/cart.php') ?>">
-                            Cart
+                        <a href="<?= url('orders/my_orders.php') ?>">
+                            My Orders
                         </a>
+                    
 
                         <hr>
 
@@ -124,4 +147,4 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 </header>
 
 
-<main class="<?= $isHome ? '' : 'container page-content' ?>">
+<main class="<?= $isHome ? '' : 'container-wide page-content' ?>">

@@ -44,8 +44,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($error)) {
     $shippingPhone = trim($_POST['shipping_phone']);
     $shippingAddress = trim($_POST['shipping_address']);
     $shippingMethod = $_POST['shipping_method'];
+    $paymentMethod = $_POST['payment_method'];
 
-    if (empty($shippingName) || empty($shippingPhone) || empty($shippingAddress)) {
+    if ( empty($shippingName) ||empty($shippingPhone) ||empty($shippingAddress) || empty($paymentMethod)) {
         $error = "Please complete all shipping fields.";
     } else {
 
@@ -115,6 +116,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($error)) {
             $orderId = $stmt->insert_id;
             $stmt->close();
 
+            $transactionID = strtoupper(uniqid("TXN"));
+
+            $stmt = $conn->prepare("
+                INSERT INTO payments
+                    (order_id, customer_id, payment_method, transaction_id, amount, payment_status)
+                VALUES (?, ?, ?, ?, ?, 'Paid')
+            ");
+
+            $stmt->bind_param(
+                "iissd",
+            $orderId,
+            $_SESSION['user_id'],
+            $paymentMethod,
+            $transactionID,
+            $verifiedTotal
+            );
+
+            $stmt->execute();
+            $stmt->close();
+
             foreach ($verifiedItems as $vi) {
                 $stmt = $conn->prepare("
                     INSERT INTO order_items (order_id, book_id, title, unit_price, quantity, line_total)
@@ -144,9 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($error)) {
             unset($_SESSION['cart']);
             unset($_SESSION['promo_code']);
 
-            // Best-effort confirmation email; checkout still succeeds if this fails.
-            if (file_exists(__DIR__ . "/config/mail_config.php")) {
-                include_once("includes/mail.php");
+                require_once(ROOT_PATH . "/includes/mail.php");
 
                 $stmt = $conn->prepare("SELECT email FROM customers WHERE id = ?");
                 $stmt->bind_param("i", $_SESSION['user_id']);
@@ -160,23 +179,56 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($error)) {
                         . "<td style='padding:6px;'>x" . $vi['quantity'] . "</td>"
                         . "<td style='padding:6px;'>₱" . number_format($vi['line_total'], 2) . "</td></tr>";
                 }
+                
+                /* Build email */
 
-                sendEmail(
+                $emailBody = "
+                <div style='max-width:600px;margin:auto;background:#1B2838;color:white;font-family:Arial,sans-serif;padding:30px;border-radius:10px;'>
+
+                    <h1 style='color:#66C0F4;text-align:center;'>
+                        The Literary Nook
+                    </h1>
+
+                    <hr style='border:1px solid #2A475E;'>
+
+                    <h2>
+                        Thanks for your order, " . htmlspecialchars($shippingName) . "!
+                    </h2>
+
+                    <p>
+                        Order Number:
+                        <strong>$orderNumber</strong>
+                    </p>
+
+                    <table style='width:100%;margin-top:12px;'>
+
+                        $itemRows
+
+                    </table>
+
+                    <p style='margin-top:12px;'>
+
+                        Total:
+                        <strong>₱" . number_format($verifiedTotal, 2) . "</strong>
+
+                    </p>
+
+                    <p>
+                        We'll email you again once your order ships.
+                    </p>
+
+                </div>";
+
+
+                if (!sendEmail(
                     $custEmail,
                     "Order Confirmation - " . $orderNumber,
-                    "
-                    <div style='max-width:600px;margin:auto;background:#1B2838;color:white;font-family:Arial,sans-serif;padding:30px;border-radius:10px;'>
-                        <h1 style='color:#66C0F4;text-align:center;'>The Literary Nook</h1>
-                        <hr style='border:1px solid #2A475E;'>
-                        <h2>Thanks for your order, " . htmlspecialchars($shippingName) . "!</h2>
-                        <p>Order number: <strong>" . $orderNumber . "</strong></p>
-                        <table style='width:100%;margin-top:12px;'>" . $itemRows . "</table>
-                        <p style='margin-top:12px;'>Total: <strong>₱" . number_format($verifiedTotal, 2) . "</strong></p>
-                        <p>We'll email you again once your order ships.</p>
-                    </div>
-                    "
-                );
-            }
+                    $emailBody
+                )) {
+
+                    die("sendEmail() returned false.");
+
+                }
 
             header("Location: order_confirmation.php?id=" . $orderId);
             exit();
@@ -235,6 +287,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($error)) {
                         <option value="Express Shipping">Express Shipping (1-2 days)</option>
                         <option value="Store Pickup">Store Pickup</option>
                     </select>
+
+                <div class="form-group">
+                    <label>Payment Method</label>
+
+                    <select name="payment_method" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Debit Card">Debit Card</option>
+                        <option value="PayPal">PayPal</option>
+                        <option value="GCash">GCash</option>
+                        <option value="Maya">Maya</option>
+                    </select>
+                </div>
+                    
                 </div>
 
                 <button type="submit" class="btn btn-primary">Place Order</button>

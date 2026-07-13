@@ -1,16 +1,60 @@
-/* ===================================================
-   HOMEPAGE HERO
-=================================================== */
+/* ==========================================================
+   SHARED SECTION STYLES
+========================================================== */
 
-/* =====================================================
+.section-divider{
+
+    height:120px;
+
+    background:linear-gradient(
+        to bottom,
+        transparent,
+        var(--bg)
+    );
+
+}
+
+.section-tag{
+
+    color:var(--primary);
+
+    text-align:center;
+
+    text-transform:uppercase;
+
+    letter-spacing:4px;
+
+    font-size:.85rem;
+
+    font-weight:600;
+
+    margin-bottom:12px;
+
+}
+
+.section-title{
+
+    font-family:var(--font-heading);
+
+    text-align:center;
+
+    font-size:3rem;
+
+    margin-bottom:60px;
+
+}
+
+/* ==========================================================
    HERO
-===================================================== */
+========================================================== */
 
 .hero{
 
     position:relative;
 
     min-height:100vh;
+
+    padding-top:90px;
 
     display:flex;
 
@@ -22,31 +66,77 @@
 
     overflow:hidden;
 
+    isolation:isolate;
+
     background:
         linear-gradient(
-            rgba(8,10,14,.70),
+            rgba(8,10,14,.65),
             rgba(8,10,14,.82)
         ),
         url("images/BooksAdet.jpg");
 
     background-size:cover;
+
     background-position:center;
+
     background-repeat:no-repeat;
+
     background-attachment:fixed;
 
 }
+.hero::before{
 
-.hero-content{
+    content:"";
 
-    width:min(900px,90%);
+    position:absolute;
 
-    animation:fadeUp 1.2s ease;
+    inset:0;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            transparent 25%,
+
+            rgba(0,0,0,.45) 100%
+
+        );
+
+    z-index:-1;
+
+}
+.hero::after{
+
+    animation:
+
+        heroGlow 8s ease-in-out infinite;
 
 }
 
+
+.hero-content{
+
+    animation:
+
+        fadeUp 1.2s ease;
+
+}
+.hero h1{
+
+animation:
+
+fadeUp 1.2s ease,
+
+heroFloat 6s ease-in-out infinite;
+
+}
+
+
 .eyebrow{
 
-    color:#D4AF37;
+    color:var(--primary);
 
     letter-spacing:8px;
 
@@ -58,19 +148,7 @@
 
 }
 
-.hero h1{
 
-    font-family:'Playfair Display',serif;
-
-    font-size:clamp(5rem,11vw,8rem);
-
-    line-height:.9;
-
-    margin-bottom:25px;
-
-    color:white;
-
-}
 
 .hero p{
 
@@ -81,8 +159,6 @@
     font-size:1.2rem;
 
     color:#d7d7d7;
-
-    line-height:1.8;
 
 }
 
@@ -100,11 +176,14 @@
 
 }
 
-.hero-buttons .btn{
+.hero-buttons .btn-primary:hover{
 
-    padding:18px 36px;
+    transform:
+        translateY(-3px)
+        scale(1.03);
 
-    border-radius:999px;
+    box-shadow:
+        0 0 35px rgba(212,175,55,.35);
 
 }
 
@@ -112,239 +191,82 @@
 
     position:absolute;
 
-    bottom:40px;
-
     left:50%;
+
+    bottom:70px;
 
     transform:translateX(-50%);
 
-    color:#fff;
+    display:flex;
 
-    text-align:center;
+    flex-direction:column;
 
-    animation:bounce 2s infinite;
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    color:var(--text);
+
+    z-index:20;
+
+    animation:
+        bounce 2s infinite,
+        fadePulse 2.5s infinite;
 
 }
 
 .scroll-indicator small{
 
+    letter-spacing:5px;
+
+    font-size:.75rem;
+
+    color:rgba(255,255,255,.75);
+
+}
+.scroll-indicator small{
+
     letter-spacing:4px;
 
 }
-/* =====================================================
+
+/* ==========================================================
    FEATURED BOOKS
-===================================================== */
+========================================================== */
 
 .featured-section{
-    padding:60px 0 80px;
-    background:#0E1116;
+
+    background:var(--bg);
+
+    padding:70px 0;
+
 }
 
-.section-tag{
-    color:#D4AF37;
-    text-transform:uppercase;
-    letter-spacing:4px;
-    text-align:center;
-    margin-bottom:15px;
-    font-size:.9rem;
-    font-weight:600;
-}
-
-.section-title{
-    font-family:'Playfair Display',serif;
-    font-size:3rem;
-    text-align:center;
-    margin-bottom:60px;
-    color:white;
-}
-
-.book-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,320px));
-    justify-content:center;
-    gap:28px;
-}
-
-.book-card img{
-    width:100%;
-    height:300px;
-    object-fit:cover;
-    display:block;
-    transition:.4s;
-}
-
-.book-card:hover{
-    transform:translateY(-12px);
-    border-color:#D4AF37;
-    box-shadow:0 20px 45px rgba(0,0,0,.45);
-}
-
-.book-card img{
-    width:100%;
-    height:380px;
-    object-fit:cover;
-    transition:.4s;
-}
-
-.book-card:hover img{
-    transform:scale(1.05);
-}
-
-.book-info{
-    padding:18px;
-}
-
-.book-format{
-    display:inline-block;
-    margin-bottom:12px;
-    color:#D4AF37;
-    font-size:.8rem;
-    letter-spacing:2px;
-    text-transform:uppercase;
-}
-
-.book-info h3{
-    margin-bottom:8px;
-    font-size:1.4rem;
-    color:white;
-}
-
-.book-author{
-    color:#A9B3C1;
-    margin-bottom:18px;
-}
-
-.book-price{
-    font-size:1.5rem;
-    color:#fff;
-    font-weight:bold;
-    margin-bottom:20px;
-}
-
-.book-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.book-buttons .btn{
-    flex:1;
-    text-align:center;
-    padding:12px 16px;
-    font-size:.9rem;
-}
-/* =====================================================
-   FEATURED BOOKS
-===================================================== */
-
-.section-divider{
-    height:120px;
-    background:linear-gradient(
-        to bottom,
-        transparent,
-        #0E1116
-    );
-}
-
-.section-tag{
-    color:#D4AF37;
-    text-align:center;
-    letter-spacing:4px;
-    text-transform:uppercase;
-    font-size:.85rem;
-    margin-bottom:12px;
-}
-
-.section-title{
-    text-align:center;
-    font-family:'Playfair Display',serif;
-    font-size:3rem;
-    margin-bottom:60px;
-}
-
-.book-card{
-    background:#171C24;
-    border-radius:18px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,.08);
-    transition:.35s ease;
-}
-
-.book-card:hover{
-    transform:translateY(-10px);
-    border-color:#D4AF37;
-    box-shadow:0 20px 40px rgba(0,0,0,.4);
-}
-
-.book-card img{
-    width:100%;
-    aspect-ratio:2/3;
-    object-fit:cover;
-    display:block;
-    transition:.4s;
-}
-
-.book-card:hover img{
-    transform:scale(1.05);
-}
-
-.book-info{
-    padding:24px;
-}
-
-.book-format{
-    display:inline-block;
-    background:rgba(212,175,55,.15);
-    color:#D4AF37;
-    padding:6px 12px;
-    border-radius:50px;
-    font-size:.75rem;
-    font-weight:600;
-    letter-spacing:1px;
-    margin-bottom:14px;
-}
-
-.book-info h3{
-    margin-bottom:8px;
-    font-size:1.4rem;
-}
-
-.book-author{
-    color:#A7B0BC;
-    margin-bottom:16px;
-}
-
-.book-price{
-    font-size:1.5rem;
-    font-weight:bold;
-    margin-bottom:20px;
-}
-
-.book-buttons{
-    display:flex;
-    gap:10px;
-}
-
-.book-buttons .btn{
-    flex:1;
-    text-align:center;
-}
-/* =====================================================
+/* ==========================================================
    GENRES
-===================================================== */
+========================================================== */
 
 .genres-section{
+
     background:#131821;
+
     padding:70px 0;
+
 }
+
 .genre-grid{
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(220px,280px));
 
-    gap:28px;
+    justify-content:center;
 
-    margin-top:35px;
+    gap:25px;
+
+    margin-top:40px;
 
 }
 
@@ -354,197 +276,254 @@
 
     border:1px solid rgba(255,255,255,.08);
 
-    border-radius:20px;
+    border-radius:var(--radius-md);
 
-    padding:28px 20px;
+    padding:28px;
 
     text-align:center;
 
-    transition:.35s;
-
-    cursor:pointer;
+    transition:.3s;
 
 }
 
 .genre-card:hover{
 
-    transform:translateY(-10px);
+    transform:translateY(-8px);
 
-    border-color:#D4AF37;
-
-    box-shadow:0 20px 40px rgba(0,0,0,.4);
+    border-color:var(--primary);
 
 }
 
 .genre-icon{
 
-    font-size:3rem;
+    font-size:2.8rem;
 
-    margin-bottom:20px;
+    margin-bottom:15px;
 
 }
 
 .genre-card h3{
 
-    font-size:1.3rem;
-
-    font-family:'Playfair Display',serif;
+    font-family:var(--font-heading);
 
 }
-/* =====================================================
+
+/* ==========================================================
    WHY CHOOSE US
-===================================================== */
+========================================================== */
 
 .why-section{
-    background:#0E1116;
+
+    background:var(--bg);
+
     padding:120px 0;
+
 }
 
 .why-grid{
+
     display:grid;
+
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
     gap:30px;
+
     margin-top:60px;
+
 }
 
 .why-card{
+
     background:#1A1F29;
+
     border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;
+
+    border-radius:var(--radius-md);
+
     padding:40px 30px;
+
     text-align:center;
-    transition:.35s;
+
+    transition:.3s;
+
 }
 
 .why-card:hover{
+
     transform:translateY(-8px);
-    border-color:#D4AF37;
-    box-shadow:0 20px 40px rgba(0,0,0,.35);
+
+    border-color:var(--primary);
+
+    box-shadow:var(--shadow-lg);
+
 }
 
 .why-icon{
+
     font-size:3rem;
+
     margin-bottom:20px;
+
 }
 
 .why-card h3{
-    font-family:'Playfair Display',serif;
+
+    font-family:var(--font-heading);
+
     margin-bottom:15px;
-    color:#fff;
+
 }
 
 .why-card p{
+
     color:#B6BEC9;
-    line-height:1.8;
+
 }
-/* =====================================================
-   LIVE STATISTICS
-===================================================== */
+
+/* ==========================================================
+   STATS
+========================================================== */
 
 .stats-section{
 
-    background:#0E1116;
+    background:var(--bg);
 
     padding:90px 0;
 
 }
 
 .stats-grid{
+
     display:grid;
-    grid-template-columns:repeat(4, minmax(180px, 1fr));
+
+    grid-template-columns:repeat(4,minmax(180px,1fr));
+
     gap:30px;
+
     margin-top:50px;
-    justify-items:center;
-    align-items:stretch;
+
 }
 
 .stat-card{
-    width:100%;
-    max-width:220px;
 
     background:#1A1F29;
 
-    border-radius:18px;
-
     border:1px solid rgba(255,255,255,.08);
+
+    border-radius:var(--radius-md);
 
     padding:35px 20px;
 
     text-align:center;
 
     transition:.3s;
+
 }
 
 .stat-card:hover{
 
     transform:translateY(-8px);
 
-    border-color:#D4AF37;
+    border-color:var(--primary);
 
 }
 
 .stat-card h2{
 
+    font-family:var(--font-heading);
+
     font-size:3rem;
 
-    color:#D4AF37;
-
-    margin-bottom:10px;
-
-    font-family:'Playfair Display',serif;
+    color:var(--primary);
 
 }
 
 .stat-card p{
 
-    color:#C7D5E0;
-
-    font-size:1rem;
+    color:var(--text-light);
 
 }
-/* =====================================================
-   READER REVIEWS
-===================================================== */
+
+/* ==========================================================
+   REVIEWS
+========================================================== */
 
 .reviews-section{
+
     background:#131821;
+
     padding:90px 0;
+
 }
 
 .reviews-grid{
+
     display:grid;
+
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
     gap:30px;
+
     margin-top:50px;
+
 }
 
 .review-card{
+
     background:#1A1F29;
+
     border:1px solid rgba(255,255,255,.08);
-    border-radius:18px;
+
+    border-radius:var(--radius-md);
+
     padding:35px;
+
     transition:.3s;
+
 }
 
 .review-card:hover{
+
     transform:translateY(-8px);
-    border-color:#D4AF37;
+
+    border-color:var(--primary);
+
 }
 
 .stars{
-    color:#D4AF37;
+
+    color:var(--primary);
+
     font-size:1.2rem;
-    margin-bottom:18px;
+
     letter-spacing:3px;
+
+    margin-bottom:18px;
+
 }
 
 .review-card p{
-    color:#C7D5E0;
-    line-height:1.8;
+
     margin-bottom:25px;
+
 }
 
 .review-card h4{
+
     color:white;
+
     font-weight:600;
+
+}
+.counter{
+
+    display:inline-block;
+
+    min-width:60px;
+
+}
+.counter{
+
+    animation:counterPop .6s ease;
+
 }

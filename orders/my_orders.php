@@ -25,7 +25,7 @@ $orders = $stmt->get_result();
 
 <div class="card">
 
-    <h1>My Orders</h1>
+    <h1>Order History</h1>
 
     <?php if ($orders->num_rows === 0): ?>
         <div class="empty-state">

@@ -40,8 +40,6 @@ function sendEmail($to, $subject, $body)
         return true;
 
     } catch (Exception $e) {
-
-        return false;
-
+    die($mail->ErrorInfo);
     }
 }
