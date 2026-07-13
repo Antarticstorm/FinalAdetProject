@@ -188,29 +188,54 @@ if (isset($_SESSION["user_id"])) {
             </div>
 
             <?php if($book["stock"] > 0): ?>
+                
 
                 <form
                     action="cart_action.php"
                     method="POST"
                     class="details-cart">
 
-                    <input
-                        type="hidden"
-                        name="action"
-                        value="add">
+                            <input
+                                type="hidden"
+                                name="action"
+                                value="add">
 
-                    <input
-                        type="hidden"
-                        name="book_id"
-                        value="<?= $book["id"] ?>">
+                            <input
+                                type="hidden"
+                                name="book_id"
+                                value="<?= $book["id"] ?>">
 
-                    <input
-                        type="number"
-                        name="quantity"
-                        value="1"
-                        min="1"
-                        max="<?= $book["stock"] ?>"
-                        class="qty-input">
+                            <div class="quantity-control">
+
+                                <button
+                                    type="button"
+                                    class="qty-btn"
+                                    onclick="changeQty(this,-1)">
+
+                                    −
+
+                                </button>
+
+                                <input
+                                    class="qty-input"
+                                    type="number"
+                                    name="quantity"
+                                    value="1"
+                                    min="1"
+                                    max="<?= $book["stock"] ?>"
+                                    readonly>
+
+                                <button
+                                    type="button"
+                                    class="qty-btn"
+                                    onclick="changeQty(this,1)">
+
+                                    +
+
+                                </button>
+
+                            </div>
+
 
                     <button class="btn btn-primary">
 
@@ -219,8 +244,8 @@ if (isset($_SESSION["user_id"])) {
                     </button>
 
                     <a
-                                href="<?= url('customer/wishlist_toggle.php?book_id=' . $book["id"]) ?>"
-                                class="btn btn-outline">
+                            href="<?= url('customer/wishlist_toggle.php?book_id=' . $book["id"]) ?>"
+                            class="btn btn-outline">
 
                             <?php if (isset($wishlistIds[$book["id"]])): ?>
 

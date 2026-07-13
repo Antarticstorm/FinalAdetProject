@@ -35,6 +35,53 @@
     flex:1;
 
 }
+.cart-item-card{
+
+    display:grid;
+
+    grid-template-columns:110px 1fr auto;
+
+    gap:25px;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+.cart-info h3{
+
+    margin-bottom:8px;
+
+}
+.cart-author{
+
+    color:var(--text-muted);
+
+    margin-bottom:12px;
+
+}
+
+.cart-price{
+
+    color:var(--primary);
+
+    font-size:1.4rem;
+
+    font-weight:700;
+
+}
+
+.cart-controls{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:15px;
+
+    align-items:flex-end;
+
+}
 
 /* ==========================================================
    QUANTITY FORM
@@ -61,6 +108,14 @@
 /* ==========================================================
    ORDER SUMMARY
 ========================================================== */
+
+.order-summary{
+
+    position:sticky;
+
+    top:110px;
+
+}
 
 .summary-line{
 
@@ -155,6 +210,13 @@
     color:var(--danger);
 
 }
+.cart-subtitle{
+
+    color:var(--text-muted);
+
+    margin-bottom:30px;
+
+}
 
 /* ==========================================================
    EMPTY STATE
@@ -193,5 +255,64 @@
         grid-template-columns:1fr;
 
     }
+
+}
+/*cart buttons*/
+
+.quantity-control{
+
+    display:flex;
+
+    align-items:center;
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-pill);
+
+    overflow:hidden;
+
+}
+
+.qty-btn{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    background:var(--surface);
+
+    color:var(--text);
+
+    font-size:1.2rem;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.qty-btn:hover{
+
+    background:var(--primary);
+
+    color:#111;
+
+}
+
+.qty-input{
+
+    width:55px;
+
+    text-align:center;
+
+    border:none;
+
+    background:transparent;
+
+    color:var(--text);
+
+    font-weight:600;
 
 }

@@ -40,7 +40,21 @@ if ($promo) {
 
 <div class="card">
 
-    <h1>Your Cart</h1>
+    <h1>
+
+        Shopping Cart
+
+    </h1>
+
+    <p class="cart-subtitle">
+
+        <?= count($items) ?>
+
+        item<?= count($items) != 1 ? "s" : "" ?>
+
+        ready for checkout.
+
+    </p>    
 
     <?php if (isset($_SESSION['cart_notice'])): ?>
         <div class="alert alert-success"><?php echo htmlspecialchars($_SESSION['cart_notice']); unset($_SESSION['cart_notice']); ?></div>
@@ -59,41 +73,124 @@ if ($promo) {
 
             <div>
                 <?php foreach ($items as $item): ?>
-                    <div class="cart-row">
-                        <img
-                            src="<?= url($item['cover']) ?>"
-                            alt="<?= htmlspecialchars($item['title']) ?>"
-                            class="cart-cover">
+                        <div class="card cart-item-card">
 
-                        <div class="grow">
-                            <strong><?php echo htmlspecialchars($item['title']); ?></strong>
-                            <p style="font-size:0.85rem;">by <?php echo htmlspecialchars($item['author']); ?></p>
-                            <p style="font-size:0.85rem;">₱<?php echo number_format($item['unit_price'], 2); ?> each</p>
+                            <img
+                                src="<?= url($item['cover']) ?>"
+                                class="cart-cover"
+                                alt="<?= htmlspecialchars($item['title']) ?>">
+
+                            <div class="cart-info">
+
+                                <h3>
+
+                                    <?= htmlspecialchars($item['title']) ?>
+
+                                </h3>
+
+                                <p class="cart-author">
+
+                                    by <?= htmlspecialchars($item['author']) ?>
+
+                                </p>
+
+                                <p class="cart-price">
+
+                                    ₱<?= number_format($item['unit_price'],2) ?>
+
+                                </p>
+
+                            </div>
+
+                            <div class="cart-controls">
+
+                                <form
+                                    action="cart_action.php"
+                                    method="POST">
+
+                                    <input
+                                        type="hidden"
+                                        name="action"
+                                        value="update">
+
+                                    <input
+                                        type="hidden"
+                                        name="book_id"
+                                        value="<?= $item['book_id'] ?>">
+
+                                    <div class="quantity-control">
+
+                                        <button
+                                            type="button"
+                                            class="qty-btn"
+                                            onclick="changeQty(this,-1)">
+
+                                            −
+
+                                        </button>
+
+                                        <input
+                                            class="qty-input"
+                                            type="number"
+                                            name="quantity"
+                                            value="<?= $item['quantity'] ?>"
+                                            min="1"
+                                            max="<?= $item['stock'] ?>"
+                                            data-book-id="<?= $item['book_id'] ?>"
+                                            data-price="<?= $item['unit_price'] ?>"
+                                            readonly>
+
+                                        <button
+                                            type="button"
+                                            class="qty-btn"
+                                            onclick="changeQty(this,1)">
+
+                                            +
+
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+                                <strong
+                                    id="line-total-<?= $item['book_id'] ?>">
+
+                                    ₱<?= number_format($item['line_total'],2) ?>
+
+                                </strong>
+
+                                <form
+                                    action="cart_action.php"
+                                    method="POST">
+
+                                    <input
+                                        type="hidden"
+                                        name="action"
+                                        value="remove">
+
+                                    <input
+                                        type="hidden"
+                                        name="book_id"
+                                        value="<?= $item['book_id'] ?>">
+
+                                    <button
+                                        class="btn btn-danger">
+
+                                        🗑 Remove
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
                         </div>
-
-                        <form action="cart_action.php" method="POST" class="inline-form">
-                            <input type="hidden" name="action" value="update">
-                            <input type="hidden" name="book_id" value="<?php echo $item['book_id']; ?>">
-                            <input type="number" name="quantity" value="<?php echo $item['quantity']; ?>"
-                                   min="1" max="<?php echo $item['stock']; ?>" class="qty-input"
-                                   data-book-id="<?php echo $item['book_id']; ?>"
-                                   data-price="<?php echo $item['unit_price']; ?>"
-                                   oninput="onQtyChange(this)">
-                        </form>
-
-                        <form action="cart_action.php" method="POST">
-                            <input type="hidden" name="action" value="remove">
-                            <input type="hidden" name="book_id" value="<?php echo $item['book_id']; ?>">
-                            <button type="submit" class="btn btn-danger">Remove</button>
-                        </form>
-
-                        <strong id="line-total-<?php echo $item['book_id']; ?>">₱<?php echo number_format($item['line_total'], 2); ?></strong>
-                    </div>
                 <?php endforeach; ?>
             </div>
 
             <div>
-                <div class="card" style="background:#202f40;">
+                <div class="card order-summary">
                     <h2>Order Summary</h2>
 
                     <form action="cart_action.php" method="POST" class="inline-form" style="margin-bottom:14px;">
@@ -143,57 +240,17 @@ if ($promo) {
 <script>
 const PROMO_TYPE = <?php echo json_encode($promoType); ?>;
 const PROMO_VALUE = <?php echo json_encode($promoValue); ?>;
- 
-function formatMoney(n) {
-    return n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
- 
-function recalcCart() {
-    let subtotal = 0;
- 
-    document.querySelectorAll('.qty-input').forEach(function (input) {
-        const price = parseFloat(input.dataset.price);
-        const qty = parseInt(input.value, 10) || 0;
-        const lineTotal = price * qty;
-        subtotal += lineTotal;
- 
-        const lineEl = document.getElementById('line-total-' + input.dataset.bookId);
-        if (lineEl) lineEl.textContent = '₱' + formatMoney(lineTotal);
-    });
- 
-    let discount = 0;
-    if (PROMO_TYPE === 'percent') {
-        discount = subtotal * (PROMO_VALUE / 100);
-    } else if (PROMO_TYPE === 'amount') {
-        discount = PROMO_VALUE;
-    }
-    discount = Math.min(discount, subtotal);
- 
-    const total = subtotal - discount;
- 
-    document.getElementById('js-subtotal').textContent = '₱' + formatMoney(subtotal);
-    document.getElementById('js-discount').textContent = '-₱' + formatMoney(discount);
-    document.getElementById('js-total').textContent = '₱' + formatMoney(total);
-}
- 
-// Debounce so we don't spam a request on every single keystroke/click,
-// but still save the new quantity to the session cart in the background.
-const saveTimers = {};
- 
-function onQtyChange(input) {
-    recalcCart();
- 
-    const qty = parseInt(input.value, 10);
-    const max = parseInt(input.max, 10);
-    const min = parseInt(input.min, 10) || 1;
-    if (!qty || qty < min || (max && qty > max)) return;
- 
-    const bookId = input.dataset.bookId;
-    clearTimeout(saveTimers[bookId]);
-    saveTimers[bookId] = setTimeout(function () {
-        input.closest('form').submit();
-    }, 700);
-}
-</script>
 
+function changeCartQty(button, change){
+
+    changeQty(button, change);
+
+    const input =
+        button.parentElement.querySelector(".qty-input");
+
+    onQtyChange(input);
+
+}
+ 
+</script>
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
