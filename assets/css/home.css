@@ -52,7 +52,9 @@
 
     position:relative;
 
-    min-height:95vh;
+    min-height:100vh;
+
+    padding-top:90px;
 
     display:flex;
 
@@ -64,27 +66,73 @@
 
     overflow:hidden;
 
+    isolation:isolate;
+
     background:
         linear-gradient(
-            rgba(8,10,14,.70),
+            rgba(8,10,14,.65),
             rgba(8,10,14,.82)
         ),
         url("images/BooksAdet.jpg");
 
     background-size:cover;
+
     background-position:center;
+
     background-repeat:no-repeat;
+
     background-attachment:fixed;
 
 }
+.hero::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            transparent 25%,
+
+            rgba(0,0,0,.45) 100%
+
+        );
+
+    z-index:-1;
+
+}
+.hero::after{
+
+    animation:
+
+        heroGlow 8s ease-in-out infinite;
+
+}
+
 
 .hero-content{
 
-    width:min(900px,90%);
+    animation:
 
-    animation:fadeUp 1.2s ease;
+        fadeUp 1.2s ease;
 
 }
+.hero h1{
+
+animation:
+
+fadeUp 1.2s ease,
+
+heroFloat 6s ease-in-out infinite;
+
+}
+
 
 .eyebrow{
 
@@ -100,17 +148,7 @@
 
 }
 
-.hero h1{
 
-    font-family:var(--font-heading);
-
-    font-size:clamp(5rem,11vw,8rem);
-
-    line-height:.9;
-
-    margin-bottom:25px;
-
-}
 
 .hero p{
 
@@ -138,9 +176,14 @@
 
 }
 
-.hero-buttons .btn{
+.hero-buttons .btn-primary:hover{
 
-    padding:18px 36px;
+    transform:
+        translateY(-3px)
+        scale(1.03);
+
+    box-shadow:
+        0 0 35px rgba(212,175,55,.35);
 
 }
 
@@ -150,16 +193,39 @@
 
     left:50%;
 
-    bottom:40px;
+    bottom:70px;
 
     transform:translateX(-50%);
 
-    text-align:center;
+    display:flex;
 
-    animation:bounce 2s infinite;
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    color:var(--text);
+
+    z-index:20;
+
+    animation:
+        bounce 2s infinite,
+        fadePulse 2.5s infinite;
 
 }
 
+.scroll-indicator small{
+
+    letter-spacing:5px;
+
+    font-size:.75rem;
+
+    color:rgba(255,255,255,.75);
+
+}
 .scroll-indicator small{
 
     letter-spacing:4px;
@@ -447,5 +513,17 @@
     color:white;
 
     font-weight:600;
+
+}
+.counter{
+
+    display:inline-block;
+
+    min-width:60px;
+
+}
+.counter{
+
+    animation:counterPop .6s ease;
 
 }
