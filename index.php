@@ -51,7 +51,7 @@ $totalEbook = mysqli_fetch_assoc(
 ?>
 
 <!-- HERO -->
-<section class="hero reveal">
+<section class="hero">
 
     <div class="hero-content">
 
@@ -184,8 +184,7 @@ $totalEbook = mysqli_fetch_assoc(
 </section>
 
 <div class="section-divider"></div>
-<section
-class="stats-section reveal">
+<section class="stats-section">
 
     <div class="container">
 
@@ -201,14 +200,13 @@ class="stats-section reveal">
 
             <div class="stat-card">
 
-        <h2 class="counter"
-            data-target="<?= $totalBooks['total'] ?>">
-            0
-        </h2>
+                <h2>
+                    <?= $totalBooks['total'] ?>
+                </h2>
 
-        <p>Books Available</p>
+                <p>Books Available</p>
 
-        </div>
+            </div>
 
             <div class="stat-card">
 
@@ -222,9 +220,8 @@ class="stats-section reveal">
 
             <div class="stat-card">
 
-                <h2 class="counter"
-                data-target="<?= $totalHardcover['total'] ?>">
-                 0
+                <h2>
+                    <?= $totalHardcover['total'] ?>
                 </h2>
 
                 <p>Hardcover Books</p>
@@ -233,9 +230,8 @@ class="stats-section reveal">
 
             <div class="stat-card">
 
-                <h2 class="counter"
-                data-target="<?= $totalEbook['total'] ?>">
-                0
+                <h2>
+                    <?= $totalEbook['total'] ?>
                 </h2>
 
                 <p>E-Books</p>
@@ -253,9 +249,7 @@ class="stats-section reveal">
      GENRES
 =========================================== -->
 
-<section
-id="genres"
-class="genres-section reveal">
+<section id="genres" class="genres-section">
 
     <div class="container">
 
@@ -337,8 +331,7 @@ class="genres-section reveal">
      WHY CHOOSE US
 =========================================== -->
 
-<section
-class="why-section reveal">
+<section id="about" class="why-section">
 
     <div class="container">
 
@@ -398,8 +391,7 @@ class="why-section reveal">
      READER REVIEWS
 =========================================== -->
 
-<section
-class="reviews-section reveal">
+<section id="reviews" class="reviews-section">
 
     <div class="container">
 

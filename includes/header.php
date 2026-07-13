@@ -43,7 +43,6 @@ in_array(
 <link rel="stylesheet" href="<?= asset('css/books.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/profile.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/home.css') ?>">
-<link rel="stylesheet" href="<?= asset('css/animations.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/admin.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/orders.css') ?>">

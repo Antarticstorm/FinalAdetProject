@@ -53,41 +53,29 @@ table tr:hover{
 
 .book-card{
 
-    position:relative;
+    background:var(--surface);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:var(--radius-md);
 
     overflow:hidden;
 
+    transition:.3s;
+
+    display:flex;
+
+    flex-direction:column;
+
 }
 
+.book-card:hover{
 
+    transform:translateY(-8px);
 
-.book-card::after{
+    border-color:var(--primary);
 
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-        radial-gradient(
-
-            circle at center,
-
-            rgba(212,175,55,.12),
-
-            transparent 65%
-
-        );
-
-    opacity:1;
-
-    transition:
-
-        opacity .35s ease;
-
-    pointer-events:none;
+    box-shadow:var(--shadow-lg);
 
 }
 
@@ -105,15 +93,10 @@ table tr:hover{
 
 .book-card:hover img{
 
-    transform:
-        scale(1.04)
-        translateY(-2px);
-
-    filter:
-
-        brightness(1.05);
+    transform:scale(1.05);
 
 }
+
 .book-info{
 
     padding:24px;
@@ -143,20 +126,6 @@ table tr:hover{
     font-size:.75rem;
 
     margin-bottom:14px;
-
-}
-.book-card:hover .book-format{
-
-    background:
-
-        rgba(212,175,55,.25);
-
-}
-.book-card:hover .book-buttons{
-
-    opacity:1;
-
-    transform:translateY(0);
 
 }
 
@@ -341,7 +310,6 @@ table tr:hover{
     display:flex;
 
 }
-
 
 /* ==========================================================
    STATES

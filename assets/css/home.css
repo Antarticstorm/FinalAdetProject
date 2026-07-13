@@ -52,9 +52,7 @@
 
     position:relative;
 
-    min-height:100vh;
-
-    padding-top:90px;
+    min-height:95vh;
 
     display:flex;
 
@@ -66,73 +64,27 @@
 
     overflow:hidden;
 
-    isolation:isolate;
-
     background:
         linear-gradient(
-            rgba(8,10,14,.65),
+            rgba(8,10,14,.70),
             rgba(8,10,14,.82)
         ),
         url("images/BooksAdet.jpg");
 
     background-size:cover;
-
     background-position:center;
-
     background-repeat:no-repeat;
-
     background-attachment:fixed;
 
 }
-.hero::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-
-        radial-gradient(
-
-            circle,
-
-            transparent 25%,
-
-            rgba(0,0,0,.45) 100%
-
-        );
-
-    z-index:-1;
-
-}
-.hero::after{
-
-    animation:
-
-        heroGlow 8s ease-in-out infinite;
-
-}
-
 
 .hero-content{
 
-    animation:
+    width:min(900px,90%);
 
-        fadeUp 1.2s ease;
-
-}
-.hero h1{
-
-animation:
-
-fadeUp 1.2s ease,
-
-heroFloat 6s ease-in-out infinite;
+    animation:fadeUp 1.2s ease;
 
 }
-
 
 .eyebrow{
 
@@ -148,7 +100,17 @@ heroFloat 6s ease-in-out infinite;
 
 }
 
+.hero h1{
 
+    font-family:var(--font-heading);
+
+    font-size:clamp(5rem,11vw,8rem);
+
+    line-height:.9;
+
+    margin-bottom:25px;
+
+}
 
 .hero p{
 
@@ -176,14 +138,9 @@ heroFloat 6s ease-in-out infinite;
 
 }
 
-.hero-buttons .btn-primary:hover{
+.hero-buttons .btn{
 
-    transform:
-        translateY(-3px)
-        scale(1.03);
-
-    box-shadow:
-        0 0 35px rgba(212,175,55,.35);
+    padding:18px 36px;
 
 }
 
@@ -193,39 +150,16 @@ heroFloat 6s ease-in-out infinite;
 
     left:50%;
 
-    bottom:70px;
+    bottom:40px;
 
     transform:translateX(-50%);
 
-    display:flex;
+    text-align:center;
 
-    flex-direction:column;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:10px;
-
-    color:var(--text);
-
-    z-index:20;
-
-    animation:
-        bounce 2s infinite,
-        fadePulse 2.5s infinite;
+    animation:bounce 2s infinite;
 
 }
 
-.scroll-indicator small{
-
-    letter-spacing:5px;
-
-    font-size:.75rem;
-
-    color:rgba(255,255,255,.75);
-
-}
 .scroll-indicator small{
 
     letter-spacing:4px;
@@ -513,17 +447,5 @@ heroFloat 6s ease-in-out infinite;
     color:white;
 
     font-weight:600;
-
-}
-.counter{
-
-    display:inline-block;
-
-    min-width:60px;
-
-}
-.counter{
-
-    animation:counterPop .6s ease;
 
 }
