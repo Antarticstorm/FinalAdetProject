@@ -1,184 +1,52 @@
-/* ===== Sales & Order Management additions ===== */
+/* ==========================================================
+   CART
+========================================================== */
 
-/* ==========================================
-   SHOP GRID
-========================================== */
-
-.book-grid-shop{
-
-    display:grid;
-
-    grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
-
-    gap:30px;
-
-    margin-top:35px;
-
-}
-
-/* ==========================================
-   SHOP CARD
-========================================== */
-
-.book-tile{
-
-    background:#1B2838;
-
-    border:1px solid #2A475E;
-
-    border-radius:16px;
-
-    overflow:hidden;
-
-    transition:.3s ease;
-
-    display:flex;
-
-    flex-direction:column;
-
-    position:relative;
-
-}
-
-.book-tile:hover{
-
-    transform:translateY(-6px);
-
-    border-color:#D4AF37;
-
-    box-shadow:0 18px 35px rgba(0,0,0,.45);
-
-}
-
-/* ==========================================
-   BOOK COVER
-========================================== */
-
-.book-tile .book-cover{
-
-    width:100%;
-
-    height:300px;
-
-    object-fit:cover;
-
-    border:none;
-
-    border-radius:0;
-
-}
-
-/* ==========================================
-   BOOK INFO
-========================================== */
-
-.book-tile h3{
-
-    font-size:1.35rem;
-
-    color:#fff;
-
-    margin:18px 18px 8px;
-
-}
-
-.book-tile p{
-
-    margin:0 18px 10px;
-
-    color:#A7B0BC;
-
-}
-
-/* ==========================================
-   PRICE
-========================================== */
-
-.price-row{
+.cart-row{
 
     display:flex;
 
     align-items:center;
 
-    gap:12px;
+    gap:var(--space-sm);
 
-    margin:10px 18px;
+    padding:var(--space-sm) 0;
 
-}
-
-.price-strike{
-
-    color:#7A7A7A;
-
-    text-decoration:line-through;
-
-    font-size:.95rem;
+    border-bottom:1px solid var(--border);
 
 }
 
-.price-now{
+.cart-cover{
 
-    color:#D4AF37;
+    width:90px;
 
-    font-size:1.8rem;
+    height:130px;
 
-    font-weight:700;
+    object-fit:cover;
 
-}
+    border-radius:var(--radius-sm);
 
-/* ==========================================
-   DISCOUNT BADGE
-========================================== */
-
-.badge-discount{
-
-    position:absolute;
-
-    top:15px;
-
-    right:15px;
-
-    background:#D9534F;
-
-    color:white;
-
-    font-weight:bold;
-
-    font-size:.75rem;
-
-    padding:6px 12px;
-
-    border-radius:999px;
+    border:1px solid var(--border);
 
 }
 
-/* ==========================================
-   STOCK
-========================================== */
+.cart-row .grow{
 
-.out-stock{
-
-    color:#FF6961;
-
-    font-weight:600;
-
-    margin:0 18px 18px;
+    flex:1;
 
 }
 
-/* ==========================================
-   CART FORM
-========================================== */
+/* ==========================================================
+   QUANTITY FORM
+========================================================== */
 
 .inline-form{
 
-    display:flex;
+    display:inline-flex;
 
-    gap:10px;
+    align-items:center;
 
-    margin:15px;
-
-    margin-top:auto;
+    gap:8px;
 
 }
 
@@ -190,123 +58,140 @@
 
 }
 
-.inline-form .btn{
-
-    flex:1;
-
-}
-
-
-.price-row{
-    display:flex;
-    align-items:baseline;
-    gap:8px;
-}
-
-.price-strike{
-    text-decoration:line-through;
-    color:#8ba3b8;
-    font-size:0.85rem;
-}
-
-.price-now{
-    color:#66C0F4;
-    font-weight:700;
-    font-size:1.1rem;
-}
-
-.badge-discount{
-    display:inline-block;
-    background:#d9534f;
-    color:#fff;
-    font-size:0.75rem;
-    font-weight:700;
-    padding:2px 8px;
-    border-radius:6px;
-    width:fit-content;
-}
-
-.qty-input{
-    width:70px !important;
-    display:inline-block;
-}
-
-.cart-row{
-    display:flex;
-    align-items:center;
-    gap:16px;
-    padding:16px 0;
-    border-bottom:1px solid #2A475E;
-}
-
-.cart-row img{
-    width:55px;
-    height:80px;
-    object-fit:cover;
-    border-radius:6px;
-}
-
-.cart-row .grow{
-    flex:1;
-}
+/* ==========================================================
+   ORDER SUMMARY
+========================================================== */
 
 .summary-line{
+
     display:flex;
+
     justify-content:space-between;
-    padding:6px 0;
-    color:#C7D5E0;
+
+    align-items:center;
+
+    padding:8px 0;
+
+    color:var(--text-light);
+
 }
 
 .summary-line.total{
-    border-top:1px solid #2A475E;
-    margin-top:8px;
-    padding-top:14px;
+
+    margin-top:var(--space-sm);
+
+    padding-top:var(--space-sm);
+
+    border-top:1px solid var(--border);
+
+    font-size:1.2rem;
+
     font-weight:700;
-    color:#fff;
-    font-size:1.15rem;
+
+    color:var(--text);
+
 }
+
+/* ==========================================================
+   ORDER STATUS
+========================================================== */
 
 .status-badge{
-    display:inline-block;
-    padding:4px 10px;
-    border-radius:20px;
-    font-size:0.8rem;
-    font-weight:700;
-    text-transform:capitalize;
-}
 
-.status-pending{ background:rgba(255,193,7,0.15); color:#ffce54; }
-.status-confirmed{ background:rgba(102,192,244,0.15); color:#66C0F4; }
-.status-shipped{ background:rgba(153,102,255,0.15); color:#b399ff; }
-.status-delivered{ background:rgba(80,200,120,0.15); color:#7be8a0; }
-.status-cancelled{ background:rgba(255,80,80,0.15); color:#ff8080; }
-
-.inline-form{
     display:inline-flex;
-    gap:8px;
+
     align-items:center;
+
+    justify-content:center;
+
+    padding:5px 12px;
+
+    border-radius:var(--radius-pill);
+
+    font-size:.8rem;
+
+    font-weight:700;
+
+    text-transform:capitalize;
+
 }
+
+.status-pending{
+
+    background:rgba(255,193,7,.15);
+
+    color:#ffce54;
+
+}
+
+.status-confirmed{
+
+    background:rgba(102,192,244,.15);
+
+    color:var(--secondary);
+
+}
+
+.status-shipped{
+
+    background:rgba(153,102,255,.15);
+
+    color:#b399ff;
+
+}
+
+.status-delivered{
+
+    background:rgba(80,200,120,.15);
+
+    color:var(--success);
+
+}
+
+.status-cancelled{
+
+    background:rgba(255,80,80,.15);
+
+    color:var(--danger);
+
+}
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
 
 .empty-state{
+
+    padding:var(--space-xl) 0;
+
     text-align:center;
-    padding:40px 0;
-    color:#8ba3b8;
+
+    color:var(--text-muted);
+
 }
 
+/* ==========================================================
+   LAYOUT
+========================================================== */
+
 .two-col{
+
     display:grid;
+
     grid-template-columns:2fr 1fr;
-    gap:24px;
+
+    gap:var(--space-md);
+
     align-items:start;
+
 }
 
 @media (max-width:800px){
-    .two-col{ grid-template-columns:1fr; }
-}
-.cart-cover{
-    width:90px;
-    height:130px;
-    object-fit:cover;
-    border-radius:10px;
-    border:1px solid #2A475E;
+
+    .two-col{
+
+        grid-template-columns:1fr;
+
+    }
+
 }

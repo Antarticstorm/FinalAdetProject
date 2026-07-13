@@ -4,6 +4,17 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
+$isStore =
+    in_array(
+        basename($_SERVER['PHP_SELF']),
+        [
+            "shop.php",
+            "book.php",
+            "cart.php",
+            "checkout.php",
+            "orders.php"
+        ]
+    );
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +36,7 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 <link rel="stylesheet" href="<?= asset('css/admin.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/responsive.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/orders.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/shop.css') ?>">
 
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +50,7 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 
 <header class="topbar <?= $isHome ? 'home-nav' : '' ?>">
 
-<div class="container navwrap">
+<div class="<?= $isStore ? 'container-wide navwrap' : 'container navwrap' ?>">
 
     <a href="<?= url('index.php') ?>" class="brand">
         The Literary Nook
@@ -117,4 +129,10 @@ $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 </header>
 
 
-<main class="<?= $isHome ? '' : 'container page-content' ?>">
+<main class="<?=
+    $isHome
+        ? ''
+        : ($isStore
+            ? 'container-wide page-content'
+            : 'container page-content')
+?>">

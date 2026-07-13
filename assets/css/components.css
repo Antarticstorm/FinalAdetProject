@@ -1,75 +1,260 @@
-.btn {
-    display: inline-block;
-    padding: 12px 18px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-    transition: 0.2s ease;
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    padding:12px 20px;
+
+    border:none;
+
+    border-radius:var(--radius-pill);
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.25s ease;
+
+    text-decoration:none;
+
 }
 
 .btn-primary{
-    background:#D4AF37;
+
+    background:var(--primary);
+
     color:#111;
 
-    border-radius:999px;
-
-    padding:14px 28px;
-
-    transition:.3s ease;
 }
 
 .btn-primary:hover{
-    background:#E7C866;
+
+    background:var(--primary-hover);
+
     transform:translateY(-2px);
+
 }
 
 .btn-outline{
-    border:1px solid rgba(255,255,255,.3);
-    color:#fff;
-    border-radius:999px;
+
     background:transparent;
+
+    border:1px solid rgba(255,255,255,.20);
+
+    color:var(--text);
+
 }
 
 .btn-outline:hover{
+
     background:white;
+
     color:#111;
+
 }
 
-.card {
-    background: #1B2838;
-    border: 1px solid #2A475E;
-    border-radius: 14px;
-    padding: 32px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.35);
-}
-.auth-box {
-    width: min(480px, 100%);
+.btn-danger{
+
+    background:#d9534f;
+
+    color:white;
+
 }
 
-.small-text {
-    margin-top: 14px;
-    text-align: center;
+.btn-danger:hover{
+
+    background:#c9302c;
+
 }
 
-.small-text a {
-    color: #66C0F4;
+/* ==========================================
+   CARDS
+========================================== */
+
+.card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    padding:var(--space-lg);
+
+    box-shadow:var(--shadow-md);
+
 }
 
-.alert {
-    padding: 12px 14px;
-    border-radius: 8px;
-    margin-bottom: 16px;
+.card:hover{
+
+    transition:.3s;
+
 }
 
-.alert-error {
-    background: rgba(255, 80, 80, 0.12);
-    border: 1px solid rgba(255, 80, 80, 0.25);
-    color: #ffb3b3;
+/* ==========================================
+   AUTH CARD
+========================================== */
+
+.auth-box{
+
+    width:min(480px,100%);
+
 }
 
-.alert-success {
-    background: rgba(80, 200, 120, 0.12);
-    border: 1px solid rgba(80, 200, 120, 0.25);
-    color: #b7f7c8;
+/* ==========================================
+   ALERTS
+========================================== */
+
+.alert{
+
+    padding:14px 18px;
+
+    margin-bottom:var(--space-sm);
+
+    border-radius:var(--radius-sm);
+
+    font-size:.95rem;
+
+}
+
+.alert-success{
+
+    background:rgba(80,200,120,.12);
+
+    border:1px solid rgba(80,200,120,.25);
+
+    color:#b7f7c8;
+
+}
+
+.alert-error{
+
+    background:rgba(255,80,80,.12);
+
+    border:1px solid rgba(255,80,80,.25);
+
+    color:#ffb3b3;
+
+
+}
+.btn-danger{
+
+background:#d9534f;
+
+color:white;
+
+margin-left:8px;
+
+}
+
+.btn-danger:hover{
+
+background:#c9302c;
+
+}
+
+/* ==========================================
+   TEXT HELPERS
+========================================== */
+
+.small-text{
+
+    margin-top:var(--space-sm);
+
+    text-align:center;
+
+    font-size:.9rem;
+
+}
+
+.small-text a{
+
+    color:var(--secondary);
+
+}
+
+.small-text a:hover{
+
+    color:var(--primary);
+
+}
+
+/* ==========================================
+   BADGES
+========================================== */
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:6px 12px;
+
+    border-radius:var(--radius-pill);
+
+    font-size:.75rem;
+
+    font-weight:600;
+
+}
+
+.badge-primary{
+
+    background:rgba(212,175,55,.15);
+
+    color:var(--primary);
+
+}
+
+.badge-success{
+
+    background:rgba(73,209,125,.15);
+
+    color:var(--success);
+
+}
+
+.badge-danger{
+
+    background:rgba(255,105,97,.15);
+
+    color:var(--danger);
+
+}
+
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.empty-state{
+
+    text-align:center;
+
+    padding:var(--space-xl);
+
+}
+
+.empty-state h2{
+
+    margin-bottom:var(--space-sm);
+
+}
+
+.empty-state p{
+
+    color:var(--text-muted);
+
 }

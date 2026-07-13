@@ -1,0 +1,241 @@
+/* ==========================================================
+   SHOP PAGE
+========================================================== */
+
+.shop-page{
+
+    width:100%;
+
+    margin:auto;
+
+    padding:var(--space-xl) 0 var(--space-xxl);
+
+}
+
+/* ==========================================================
+   HERO
+========================================================== */
+
+.shop-hero{
+
+
+    padding:20px 0 35px;
+    text-align:center;
+
+}
+
+.shop-tag{
+
+    display:inline-block;
+
+    color:var(--primary);
+
+    text-transform:uppercase;
+
+    letter-spacing:5px;
+
+    font-size:.8rem;
+
+    font-weight:600;
+
+}
+
+.shop-hero h1{
+
+    font-family:var(--font-heading);
+
+    margin:18px 0;
+
+}
+
+.shop-hero p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:var(--text-muted);
+
+    font-size:1.1rem;
+
+}
+
+/* ==========================================================
+   SEARCH
+========================================================== */
+
+.shop-search{
+
+    margin-bottom:var(--space-lg);
+
+}
+
+.shop-search form{
+
+    display:flex;
+
+    gap:var(--space-sm);
+
+}
+
+.shop-search input{
+
+    flex:1;
+        height:50px;
+
+}
+
+/* ==========================================================
+   GENRES
+========================================================== */
+
+.shop-genres{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    margin-bottom:var(--space-xl);
+
+}
+
+.genre-chip{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:10px 18px;
+
+    border-radius:var(--radius-pill);
+
+    background:rgba(255,255,255,.02);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    color:var(--text);
+
+    font-weight:600;
+
+    transition:.25s ease;
+
+}
+
+.genre-chip:hover,
+.genre-chip.active{
+
+    background:var(--primary);
+
+    color:#111;
+
+}
+
+/* ==========================================================
+   LAYOUT
+========================================================== */
+
+.shop-layout{
+
+    display:grid;
+
+    grid-template-columns:280px 1fr;
+
+    gap:var(--space-lg);
+
+    align-items:start;
+
+}
+
+/* ==========================================================
+   SIDEBAR
+========================================================== */
+
+.shop-sidebar{
+
+    background:transparent;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:var(--radius-md);
+
+    padding:var(--space-md);
+
+    position:sticky;
+
+    top:100px;
+
+}
+
+.shop-sidebar h2{
+
+    margin-bottom:var(--space-md);
+
+}
+
+.shop-sidebar label{
+
+    display:block;
+
+    margin-top:18px;
+
+    margin-bottom:8px;
+
+}
+
+/* ==========================================================
+   RESULTS
+========================================================== */
+
+.shop-results{
+
+    width:100%;
+
+}
+
+.results-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:var(--space-md);
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:1000px){
+
+    .shop-layout{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .shop-sidebar{
+
+        position:static;
+
+    }
+
+}
+
+@media (max-width:700px){
+
+    .shop-search form{
+
+        flex-direction:column;
+
+    }
+
+}
