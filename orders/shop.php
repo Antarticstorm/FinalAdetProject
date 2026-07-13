@@ -139,9 +139,6 @@ if (isset($_SESSION["user_id"])) {
 
     $wish->close();
 }
-echo "<pre>";
-print_r($wishlistIds);
-echo "</pre>";
 
 ?>
 
@@ -377,6 +374,18 @@ echo "</pre>";
                         </p>
 
                         <div class="book-actions">
+
+                             <a
+                                href="<?= url('customer/wishlist_toggle.php?book_id=' . $book["id"]) ?>"
+                                class="btn btn-outline">
+
+                                <?php if (isset($wishlistIds[$book["id"]])): ?>
+                                    Saved
+                                <?php else: ?>
+                                    Save
+                                <?php endif; ?>
+
+                            </a>
 
                             <a
                                 href="<?= url('orders/book.php?id='.$book["id"]) ?>"

@@ -144,9 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($error)) {
             unset($_SESSION['cart']);
             unset($_SESSION['promo_code']);
 
-            // Best-effort confirmation email; checkout still succeeds if this fails.
-            if (file_exists(__DIR__ . "/config/mail_config.php")) {
-                include_once("includes/mail.php");
+                require_once(ROOT_PATH . "/includes/mail.php");
 
                 $stmt = $conn->prepare("SELECT email FROM customers WHERE id = ?");
                 $stmt->bind_param("i", $_SESSION['user_id']);
@@ -160,23 +158,56 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($error)) {
                         . "<td style='padding:6px;'>x" . $vi['quantity'] . "</td>"
                         . "<td style='padding:6px;'>₱" . number_format($vi['line_total'], 2) . "</td></tr>";
                 }
+                
+                /* Build email */
 
-                sendEmail(
+                $emailBody = "
+                <div style='max-width:600px;margin:auto;background:#1B2838;color:white;font-family:Arial,sans-serif;padding:30px;border-radius:10px;'>
+
+                    <h1 style='color:#66C0F4;text-align:center;'>
+                        The Literary Nook
+                    </h1>
+
+                    <hr style='border:1px solid #2A475E;'>
+
+                    <h2>
+                        Thanks for your order, " . htmlspecialchars($shippingName) . "!
+                    </h2>
+
+                    <p>
+                        Order Number:
+                        <strong>$orderNumber</strong>
+                    </p>
+
+                    <table style='width:100%;margin-top:12px;'>
+
+                        $itemRows
+
+                    </table>
+
+                    <p style='margin-top:12px;'>
+
+                        Total:
+                        <strong>₱" . number_format($verifiedTotal, 2) . "</strong>
+
+                    </p>
+
+                    <p>
+                        We'll email you again once your order ships.
+                    </p>
+
+                </div>";
+
+
+                if (!sendEmail(
                     $custEmail,
                     "Order Confirmation - " . $orderNumber,
-                    "
-                    <div style='max-width:600px;margin:auto;background:#1B2838;color:white;font-family:Arial,sans-serif;padding:30px;border-radius:10px;'>
-                        <h1 style='color:#66C0F4;text-align:center;'>The Literary Nook</h1>
-                        <hr style='border:1px solid #2A475E;'>
-                        <h2>Thanks for your order, " . htmlspecialchars($shippingName) . "!</h2>
-                        <p>Order number: <strong>" . $orderNumber . "</strong></p>
-                        <table style='width:100%;margin-top:12px;'>" . $itemRows . "</table>
-                        <p style='margin-top:12px;'>Total: <strong>₱" . number_format($verifiedTotal, 2) . "</strong></p>
-                        <p>We'll email you again once your order ships.</p>
-                    </div>
-                    "
-                );
-            }
+                    $emailBody
+                )) {
+
+                    die("sendEmail() returned false.");
+
+                }
 
             header("Location: order_confirmation.php?id=" . $orderId);
             exit();

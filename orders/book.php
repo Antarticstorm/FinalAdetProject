@@ -54,6 +54,38 @@ $related->bind_param(
 $related->execute();
 
 $relatedBooks = $related->get_result();
+
+/* ==========================================
+   LOAD USER'S WISHLIST
+========================================== */
+
+$wishlistIds = [];
+
+if (isset($_SESSION["user_id"])) {
+
+    $wish = $conn->prepare("
+        SELECT book_id
+        FROM wishlist
+        WHERE customer_id = ?
+    ");
+
+    $wish->bind_param(
+        "i",
+        $_SESSION["user_id"]
+    );
+
+    $wish->execute();
+
+    $wishResult = $wish->get_result();
+
+    while ($row = $wishResult->fetch_assoc()) {
+
+        $wishlistIds[$row["book_id"]] = true;
+
+    }
+
+    $wish->close();
+}
 ?>
 
 <div class="container-wide">
@@ -198,7 +230,7 @@ $relatedBooks = $related->get_result();
 
                         <?php else: ?>
 
-                            Wishlist?
+                           Wishlist? 
 
                         <?php endif; ?>
 

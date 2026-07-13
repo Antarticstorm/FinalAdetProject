@@ -70,9 +70,6 @@ in_array(
             <?php if(isset($_SESSION["user_id"])): ?>
 
 
-                <a href="<?= url('orders/shop.php') ?>">
-                    Books
-                </a>
                 <a href="<?= url('orders/cart.php') ?>">
                     Cart
                 </a>
@@ -106,8 +103,18 @@ in_array(
                              Home
                         </a>
 
+                        <hr>
+
+                        <a href="<?= url('customer/profile.php') ?>">
+                            My Profile
+                        </a>
+
                         <a href="<?= url('customer/wishlist.php') ?>">
-                            Wishlist
+                            My Wishlist
+                        </a>
+
+                        <a href="<?= url('orders/my_orders.php') ?>">
+                            My Orders
                         </a>
                     
 
