@@ -482,7 +482,7 @@ if (isset($_SESSION["user_id"])) {
         </main>
 
     </section>
-
+        <script src="<?= asset('js/shop.js') ?>"></script>                
 </div>
 
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

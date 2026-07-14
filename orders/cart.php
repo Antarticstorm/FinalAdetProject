@@ -36,7 +36,10 @@ if ($promo) {
 
 ?>
 
-
+<div id="cart-data"
+            data-promo-type="<?php echo htmlspecialchars($promoType); ?>"
+            data-promo-value="<?php echo $promoValue; ?>">
+        </div>  
 
 <div class="card">
 
@@ -212,17 +215,17 @@ if ($promo) {
 
                     <div class="summary-line">
                         <span>Subtotal</span>
-                        <span>₱<?php echo number_format($subtotal, 2); ?></span>
+                        <span  id="js-subtotal">₱<?php echo number_format($subtotal, 2); ?></span>
                     </div>
 
                     <div class="summary-line">
                         <span>Discount</span>
-                        <span>-₱<?php echo number_format($discount, 2); ?></span>
+                        <span  id="js-discount">-₱<?php echo number_format($discount, 2); ?></span>
                     </div>
 
                     <div class="summary-line total">
                         <span>Total</span>
-                        <span>₱<?php echo number_format($total, 2); ?></span>
+                        <span id="js-total">₱<?php echo number_format($total, 2); ?></span>
                     </div>
 
                     <a href="checkout.php" class="btn btn-primary" style="width:100%;text-align:center;margin-top:16px;display:block;">
@@ -232,7 +235,7 @@ if ($promo) {
             </div>
 
         </div>
-
+                      
     <?php endif; ?>
 
 </div>
