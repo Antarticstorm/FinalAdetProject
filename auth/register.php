@@ -167,33 +167,105 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" required>
-            </div>
 
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" required>
-            </div>
+        <label>Password</label>
 
-            <button type="submit" class="btn btn-primary">Create Account</button>
+        <div class="password-group">
 
-            <div class="form-group">
+        <input
+            type="password"
+            id="password"
+            name="password"
+            required
+        >
 
-                <label>Admin Key (Optional)</label>
+        <button
+            type="button"
+            class="toggle-password"
+            id="togglePassword">
 
-                <input
-                    type="password"
-                    name="admin_key"
-                    placeholder="Leave blank for customer">
+            👁
 
-            </div>
-        </form>
+        </button>
+
+        </div>
+
+        <div class="password-strength">
+
+        <div
+            class="strength-fill"
+            id="strengthFill">
+
+        </div>
+
+    </div>
+
+    <p
+        id="strengthText"
+        class="strength-text">
+
+        Password Strength
+
+    </p>
+
+    </div>
+
+    <div class="form-group">
+
+    <label>Confirm Password</label>
+
+    <div class="password-group">
+
+        <input
+            type="password"
+            id="confirm_password"
+            name="confirm_password"
+            required
+        >
+
+        <button
+            type="button"
+            class="toggle-password"
+            id="toggleConfirmPassword">
+
+            👁
+
+        </button>
+
+    </div>
+
+    <p
+        id="passwordMatch"
+        class="match-text">
+
+    </p>
+
+</div>
+
+<div class="form-group">
+
+    <label>Admin Key (Optional)</label>
+
+    <input
+        type="password"
+        name="admin_key"
+        placeholder="Leave blank for customer">
+
+</div>
+
+<button
+    type="submit"
+    class="btn btn-primary btn-full">
+
+    Create Account
+
+</button>
 
         <p class="small-text">Already have an account? <a href="login.php">Sign in</a></p>
 
 
     </div>
 </div>
+<script src="<?= asset('js/register.js') ?>"></script>
 
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
