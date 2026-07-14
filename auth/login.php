@@ -45,11 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<<div class="login-page">
-
-    <div class="grid">
-
-        <div class="card auth-box">
+<div class="grid">
+    <div class="card auth-box">
         <h1>Login</h1>
         <p>Welcome back to The Literary Nook.</p>
 
@@ -87,10 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </p>
 
         <p class="small-text">Don't have an account? <a href="register.php">Create one</a></p>
-        
-
     </div>
-
 </div>
 
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

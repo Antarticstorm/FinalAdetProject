@@ -45,66 +45,80 @@ table tr:hover{
 ========================================================== */
 
 .book-grid{
-
     display:grid;
+    grid-template-columns:repeat(4, minmax(220px, 1fr));
+    gap:24px;
+    justify-content:center;
+}
 
-    grid-template-columns:
-        repeat(auto-fill,minmax(280px,1fr));
+.book-card{
 
-    gap:clamp(18px,2vw,28px);
+    margin:auto;
+    
+    position:relative;
+
+    overflow:hidden;
 
 }
 
-.book-card {
-    position: relative;
-    overflow: hidden;
+
+
+.book-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+        radial-gradient(
+
+            circle at center,
+
+            rgba(212,175,55,.12),
+
+            transparent 65%
+
+        );
+
+    opacity:1;
+
     transition:
-        transform .3s ease,
-        box-shadow .3s ease,
-        border-color .3s ease;
-}
 
+        opacity .35s ease;
 
+    pointer-events:none;
 
-.book-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(212,175,55,.10), transparent 65%);
-    opacity: 0;
-    transition: opacity .3s ease;
-    pointer-events: none;
-}
-
-
-.book-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--primary);
-    box-shadow: 0 20px 40px rgba(0,0,0,.35);
-}
-.book-card:hover::after {
-    opacity: 1;
 }
 
 .book-card img{
 
     width:100%;
 
-    height:clamp(240px,26vw,320px);
+    height:360px;
 
     object-fit:cover;
 
-    display:block;
-
-    transition:
-        transform .35s ease,
-        filter .35s ease;
+    transition:.35s;
 
 }
 
+.book-card:hover img{
+
+    transform:
+        scale(1.04)
+        translateY(-2px);
+
+    filter:
+
+        brightness(1.05);
+
+}
 .book-info{
 
-    padding:clamp(16px,2vw,24px);
+    padding:24px;
 
     display:flex;
 
@@ -140,23 +154,6 @@ table tr:hover{
         rgba(212,175,55,.25);
 
 }
-.book-buttons{
-
-    display:flex;
-
-    gap:12px;
-
-    margin-top:auto;
-
-    opacity:.92;
-
-    transform:translateY(4px);
-
-    transition:
-        transform .3s ease,
-        opacity .3s ease;
-
-}
 .book-card:hover .book-buttons{
 
     opacity:1;
@@ -167,10 +164,9 @@ table tr:hover{
 
 .book-info h3{
 
-    font-size:
-        clamp(1.2rem,1.5vw,1.5rem);
+    font-size:1.5rem;
 
-    margin-bottom:6px;
+    margin-bottom:8px;
 
 }
 
@@ -184,14 +180,23 @@ table tr:hover{
 
 .book-price{
 
-    font-size:
-        clamp(1.3rem,2vw,1.8rem);
+    font-size:2rem;
 
     font-weight:700;
 
     color:var(--primary);
 
-    margin-bottom:14px;
+    margin-bottom:18px;
+
+}
+
+.book-buttons{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:auto;
 
 }
 
@@ -199,12 +204,7 @@ table tr:hover{
 
     flex:1;
 
-    padding:
-        clamp(9px,1vw,12px)
-        clamp(12px,1.5vw,16px);
-
-    font-size:
-        clamp(.82rem,.9vw,.95rem);
+    text-align:center;
 
 }
 
@@ -278,8 +278,7 @@ table tr:hover{
 
     width:100%;
 
-      height:
-        clamp(220px,28vw,300px);
+    height:280px;
 
     object-fit:cover;
 
