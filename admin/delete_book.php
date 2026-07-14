@@ -18,22 +18,22 @@ if ($_SESSION["role"] != "admin") {
 if (isset($_GET["id"]) && !empty($_GET["id"])) {
     $book_id = intval($_GET["id"]);
 
-    $stmt = $conn->prepare("DELETE FROM books WHERE id = ?");
+    $stmt = $conn->prepare("
+        UPDATE books
+        SET is_deleted = 1
+        WHERE id = ?
+    ");
     $stmt->bind_param("i", $book_id);
 
     if ($stmt->execute()) {
         $stmt->close();
-        // Standard PHP Redirect
         header("Location: books.php?deleted=1");
-        // JavaScript Backup Redirect if headers are being finicky
-        echo "<script>window.location.href='books.php?deleted=1';</script>";
         exit();
     } else {
         die("Database Error: " . $conn->error);
     }
 } else {
     header("Location: books.php");
-    echo "<script>window.location.href='books.php';</script>";
     exit();
 }
 ?>

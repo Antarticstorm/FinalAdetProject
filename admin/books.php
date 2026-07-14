@@ -20,6 +20,9 @@ $result = mysqli_query($conn, "SELECT * FROM books ORDER BY id DESC");
 ?>
 
 <div class="admin-wide-container">
+<button type="button" onclick="history.back()" class="back-btn">
+← Back
+</button>
 
     <?php if(isset($_GET["success"])): ?>
         <div class="alert alert-success">Book added successfully!</div>
