@@ -10,9 +10,9 @@
 
     justify-content:center;
 
-    gap:8px;
+    gap:clamp(6px,2vw,8px);
 
-    padding:12px 20px;
+    padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,20px);
 
     border:none;
 
@@ -21,6 +21,8 @@
     cursor:pointer;
 
     font-weight:600;
+
+    font-size:clamp(.9rem,2vw,1rem);
 
     transition:.25s ease;
 
@@ -106,7 +108,7 @@
 
 .auth-box{
 
-    width:min(480px,100%);
+    width:min(clamp(300px,90vw,480px),100%);
 
 }
 
@@ -116,13 +118,13 @@
 
 .alert{
 
-    padding:14px 18px;
+    padding:clamp(12px,3vw,14px) clamp(14px,4vw,18px);
 
-    margin-bottom:var(--space-sm);
+    margin-bottom:clamp(12px,2vw,var(--space-sm));
 
     border-radius:var(--radius-sm);
 
-    font-size:.95rem;
+    font-size:clamp(.85rem,2vw,.95rem);
 
 }
 
@@ -144,21 +146,21 @@
 
     color:#ffb3b3;
 
-
 }
+
 .btn-danger{
 
-background:#d9534f;
+    background:#d9534f;
 
-color:white;
+    color:white;
 
-margin-left:8px;
+    margin-left:clamp(4px,2vw,8px);
 
 }
 
 .btn-danger:hover{
 
-background:#c9302c;
+    background:#c9302c;
 
 }
 
@@ -168,11 +170,11 @@ background:#c9302c;
 
 .small-text{
 
-    margin-top:var(--space-sm);
+    margin-top:clamp(12px,2vw,var(--space-sm));
 
     text-align:center;
 
-    font-size:.9rem;
+    font-size:clamp(.8rem,2vw,.9rem);
 
 }
 
@@ -200,11 +202,11 @@ background:#c9302c;
 
     justify-content:center;
 
-    padding:6px 12px;
+    padding:clamp(5px,1.5vw,6px) clamp(10px,3vw,12px);
 
     border-radius:var(--radius-pill);
 
-    font-size:.75rem;
+    font-size:clamp(.65rem,1.8vw,.75rem);
 
     font-weight:600;
 
@@ -234,7 +236,6 @@ background:#c9302c;
 
 }
 
-
 /* ==========================================
    EMPTY STATE
 ========================================== */
@@ -243,19 +244,23 @@ background:#c9302c;
 
     text-align:center;
 
-    padding:var(--space-xl);
+    padding:clamp(40px,8vw,var(--space-xl));
 
 }
 
 .empty-state h2{
 
-    margin-bottom:var(--space-sm);
+    margin-bottom:clamp(12px,2vw,var(--space-sm));
+
+    font-size:clamp(1.5rem,5vw,2rem);
 
 }
 
 .empty-state p{
 
     color:var(--text-muted);
+
+    font-size:clamp(.9rem,2vw,1rem);
 
 }
 
@@ -265,11 +270,11 @@ background:#c9302c;
 
     align-items:center;
 
-    gap:8px;
+    gap:clamp(6px,2vw,8px);
 
-    margin-bottom:24px;
+    margin-bottom:clamp(18px,4vw,24px);
 
-    padding:12px 20px;
+    padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,20px);
 
     background:var(--card);
 
@@ -282,6 +287,8 @@ background:#c9302c;
     border-radius:var(--radius-md);
 
     font-weight:600;
+
+    font-size:clamp(.9rem,2vw,1rem);
 
     transition:.25s ease;
 

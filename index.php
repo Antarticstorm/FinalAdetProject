@@ -135,16 +135,8 @@ $totalOrders = getTotalOrders($conn);
 
                         <div class="book-buttons">
 
-                            <a href="<?= url("book.php?id=".$book["id"]) ?>">
+                            <a href="<?= url("orders/book.php?id=".$book["id"]) ?>">
                                 View Details
-                            </a>
-
-                            <a
-                            href="<?= url("wishlist_toggle.php?book_id=".$book["id"]) ?>"
-                            class="btn btn-outline">
-
-                            Wishlist
-
                             </a>
 
                         </div>

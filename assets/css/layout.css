@@ -13,7 +13,7 @@
 
     z-index:999;
 
-    padding:18px 0;
+    padding:clamp(12px,3vw,18px) 0;
     
     background:rgba(14,17,22,.45);
 
@@ -29,9 +29,10 @@
         backdrop-filter .35s ease;
 
 }
+
 .topbar.scrolled{
 
-    padding:10px 0;
+    padding:clamp(8px,2vw,10px) 0;
 
     background:rgba(14,17,22,.96);
 
@@ -40,6 +41,7 @@
     border-bottom:1px solid rgba(255,255,255,.08);
 
 }
+
 /* ==========================================
    NAVIGATION
 ========================================== */
@@ -52,7 +54,7 @@
 
     align-items:center;
 
-    gap:var(--space-md);
+    gap:clamp(12px,3vw,var(--space-md));
 
 }
 
@@ -60,16 +62,17 @@
 
     font-family:var(--font-heading);
 
-    font-size:2rem;
+    font-size:clamp(1.5rem,5vw,2rem);
 
     transition:
         font-size .35s ease,
         letter-spacing .35s ease;
 
 }
+
 .topbar.scrolled .brand{
 
-    font-size:1.7rem;
+    font-size:clamp(1.3rem,4vw,1.7rem);
 
     letter-spacing:.5px;
 
@@ -85,7 +88,7 @@ nav{
 
     align-items:center;
 
-    gap:var(--space-md);
+    gap:clamp(12px,3vw,var(--space-md));
 
 }
 
@@ -94,7 +97,8 @@ nav a{
     position:relative;
 
     color:var(--text-light);
-    font-size: 1.2rem;
+
+    font-size:clamp(.95rem,2.5vw,1.2rem);
 
     font-weight:500;
 
@@ -160,7 +164,7 @@ nav a.active::after{
 
 .page-content{
 
-    padding:110px 0 var(--space-xl);
+    padding:clamp(90px,12vw,110px) 0 var(--space-xl);
 
 }
 
@@ -182,7 +186,7 @@ nav a.active::after{
 
     margin-top:var(--space-xl);
 
-    padding:var(--space-sm) 0;
+    padding:clamp(12px,2vw,var(--space-sm)) 0;
 
     border-top:1px solid var(--border);
 
@@ -206,9 +210,9 @@ nav a.active::after{
 
     align-items:center;
 
-    gap:8px;
+    gap:clamp(6px,2vw,8px);
 
-    padding:12px 20px;
+    padding:clamp(10px,2.5vw,12px) clamp(16px,4vw,20px);
 
     border:1px solid rgba(255,255,255,.20);
 
@@ -221,6 +225,8 @@ nav a.active::after{
     cursor:pointer;
 
     font-weight:600;
+
+    font-size:clamp(.9rem,2vw,1rem);
 
     transition:.25s ease;
 
@@ -242,7 +248,7 @@ nav a.active::after{
 
     top:calc(100% + 10px);
 
-    width:240px;
+    width:clamp(200px,60vw,240px);
 
     background:var(--card);
 
@@ -282,11 +288,13 @@ nav a.active::after{
 
     align-items:center;
 
-    gap:12px;
+    gap:clamp(8px,2vw,12px);
 
-    padding:14px 18px;
+    padding:clamp(12px,3vw,14px) clamp(14px,4vw,18px);
 
     color:var(--text);
+
+    font-size:clamp(.9rem,2vw,1rem);
 
     transition:.25s ease;
 
@@ -298,7 +306,7 @@ nav a.active::after{
 
     color:var(--primary);
 
-    padding-left:24px;
+    padding-left:clamp(18px,5vw,24px);
 
 }
 
