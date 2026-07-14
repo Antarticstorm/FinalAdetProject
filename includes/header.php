@@ -49,6 +49,11 @@ in_array(
 <link rel="stylesheet" href="<?= asset('css/orders.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/shop.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/book-details.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin-dashboard.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin-books.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin-forms.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin-reports.css') ?>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -8,8 +8,6 @@
 
     margin:auto;
 
-    padding:var(--space-xl) 0 var(--space-xxl);
-
 }
 
 /* ==========================================================
@@ -19,7 +17,7 @@
 .shop-hero{
 
 
-    padding:20px 0 35px;
+    padding:10px 0 35px;
     text-align:center;
 
 }

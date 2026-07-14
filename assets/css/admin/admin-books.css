@@ -1,0 +1,116 @@
+/* ==========================================================
+   INVENTORY LAYOUT
+========================================================== */
+
+.inventory-split-layout{
+
+    display:grid;
+
+    grid-template-columns:380px 1fr;
+
+    gap:var(--space-lg);
+
+    align-items:start;
+
+}
+
+.inventory-control-bar{
+
+    display:flex;
+
+    gap:var(--space-sm);
+
+    align-items:center;
+
+    margin-bottom:var(--space-md);
+
+}
+/* ==========================================================
+   PREVIEW
+========================================================== */
+
+.cover-preview-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-lg);
+
+    padding:var(--space-md);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+.preview-viewport-img{
+
+    width:100%;
+
+    aspect-ratio:362 / 420;
+
+    object-fit:cover;
+
+    border-radius:var(--radius-sm);
+
+    border:1px solid var(--border);
+
+    background:#111622;
+
+}
+
+.preview-viewport-placeholder{
+
+    width:100%;
+
+    aspect-ratio:362 / 420;
+
+    display:grid;
+
+    place-items:center;
+
+    border:2px dashed var(--border);
+
+    border-radius:var(--radius-sm);
+
+    background:#111622;
+
+}
+
+.preview-viewport-placeholder span{
+
+    color:var(--text-muted);
+
+    font-weight:600;
+
+    letter-spacing:1px;
+
+}
+
+/* ==========================================================
+   INVENTORY TABLE
+========================================================== */
+
+.inventory-table-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-lg);
+
+    padding:var(--space-md);
+
+    max-height:540px;
+
+    overflow-y:auto;
+
+}

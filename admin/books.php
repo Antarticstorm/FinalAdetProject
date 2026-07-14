@@ -46,7 +46,7 @@ $result = mysqli_query($conn, "SELECT * FROM books ORDER BY id DESC");
         <div class="inventory-table-card">
             
             <div class="inventory-control-bar">
-                <input type="text" class="mock-search-input" placeholder="Search book options...">
+                <input type="text" class="search-input" placeholder="Search book options...">
                 <button class="btn btn-primary" style="background:#52B1E2; padding: 10px 20px;">Search</button>
                 <a href="add_book.php" class="btn btn-primary" style="background:#4da6ff; padding: 10px 20px;">Add Book</a>
             </div>

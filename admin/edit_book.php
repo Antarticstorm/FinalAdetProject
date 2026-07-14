@@ -112,7 +112,7 @@ $book = mysqli_fetch_assoc($result);
                 <div class="preview-title-tag">COVER</div>
                 
                 <div class="interactive-file-overlay">
-                    <input type="file" name="book_cover" class="file-input-ghost" id="cover-file-picker">
+                    <input type="file" name="book_cover" class="upload-input" id="cover-file-picker">
                     <div class="custom-upload-prompt" id="upload-prompt-text">Change File</div>
                     <img id="view-panel-cover" src="../<?php echo htmlspecialchars($book['cover']); ?>" class="preview-viewport-img" alt="Current Cover Art" style="object-fit: cover;">
                 </div>
