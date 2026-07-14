@@ -45,10 +45,14 @@ table tr:hover{
 ========================================================== */
 
 .book-grid{
-    display:grid;
-    grid-template-columns:repeat(4, minmax(220px, 1fr));
-    gap:24px;
-    justify-content:center;
+   display:grid;
+
+    grid-template-columns:
+        repeat(4,minmax(220px,1fr));
+
+    gap:var(--space-gap);
+
+    align-items:start;
 }
 
 .book-card{
@@ -97,11 +101,15 @@ table tr:hover{
 
     width:100%;
 
-    height:360px;
+    height:var(--book-cover-height);
 
     object-fit:cover;
 
-    transition:.35s;
+    display:block;
+
+    transition:
+        transform .35s ease,
+        filter .35s ease;
 
 }
 
@@ -118,7 +126,7 @@ table tr:hover{
 }
 .book-info{
 
-    padding:24px;
+    padding:var(--space-card);
 
     display:flex;
 
@@ -180,31 +188,42 @@ table tr:hover{
 
 .book-price{
 
-    font-size:2rem;
+    font-size:var(--fs-title);
 
     font-weight:700;
 
     color:var(--primary);
 
-    margin-bottom:18px;
+    margin-bottom:14px;
 
 }
 
 .book-buttons{
 
-    display:flex;
+     display:flex;
 
     gap:12px;
 
     margin-top:auto;
 
+    opacity:.92;
+
+    transform:translateY(4px);
+
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
 }
 
 .book-buttons .btn{
 
     flex:1;
 
-    text-align:center;
+    padding:
+        clamp(10px,1vw,12px)
+        clamp(14px,1.5vw,18px);
+
+    font-size:var(--fs-small);
 
 }
 
