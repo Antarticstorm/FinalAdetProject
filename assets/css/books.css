@@ -46,18 +46,39 @@ table tr:hover{
 
 .book-grid{
     display:grid;
-    grid-template-columns:repeat(4, minmax(220px, 1fr));
-    gap:24px;
+
+    grid-template-columns:
+
+        repeat(
+
+            auto-fit,
+
+            minmax(260px,320px)
+
+        );
+
     justify-content:center;
+
+    gap:var(--space-gap);
 }
 
 .book-card{
 
-    margin:auto;
-    
     position:relative;
 
     overflow:hidden;
+
+    background:var(--surface);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:var(--radius-md);
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
+
 
 }
 
@@ -65,64 +86,64 @@ table tr:hover{
 
 .book-card::after{
 
-    content:"";
+   content:"";
 
     position:absolute;
 
     inset:0;
 
     background:
-
         radial-gradient(
-
             circle at center,
-
             rgba(212,175,55,.12),
-
             transparent 65%
-
         );
 
-    opacity:1;
+    opacity:0;
 
-    transition:
-
-        opacity .35s ease;
+    transition:opacity .35s ease;
 
     pointer-events:none;
+
+}
+.book-card:hover::after{
+
+    opacity:1;
 
 }
 
 .book-card img{
 
-    width:100%;
+     width:100%;
 
-    height:360px;
+    height:var(--book-cover-height);
 
     object-fit:cover;
 
-    transition:.35s;
+    display:block;
 
+    transition:
+        transform .35s ease,
+        filter .35s ease;
 }
 
 .book-card:hover img{
 
-    transform:
-        scale(1.04)
-        translateY(-2px);
+    transform:scale(1.04);
 
     filter:
-
-        brightness(1.05);
-
+        brightness(1.06)
+        saturate(1.05);
 }
 .book-info{
 
-    padding:24px;
+   padding:var(--space-card);
 
     display:flex;
 
     flex-direction:column;
+
+    justify-content:space-between;
 
     flex:1;
 
@@ -164,9 +185,11 @@ table tr:hover{
 
 .book-info h3{
 
-    font-size:1.5rem;
+     font-size:var(--fs-subtitle);
 
-    margin-bottom:8px;
+    margin-bottom:6px;
+
+    line-height:1.35;
 
 }
 
@@ -174,19 +197,21 @@ table tr:hover{
 
     color:var(--text-muted);
 
-    margin-bottom:18px;
+    font-size:var(--fs-small);
+
+    margin-bottom:14px;
 
 }
 
 .book-price{
 
-    font-size:2rem;
+    font-size:var(--fs-title);
 
     font-weight:700;
 
     color:var(--primary);
 
-    margin-bottom:18px;
+    margin-bottom:var(--space-sm);
 
 }
 
@@ -194,17 +219,30 @@ table tr:hover{
 
     display:flex;
 
-    gap:12px;
+    gap:var(--space-xs);
 
     margin-top:auto;
 
+    opacity:.92;
+
+    transform:translateY(4px);
+
+    transition:
+        transform .3s ease,
+        opacity .3s ease;
 }
 
 .book-buttons .btn{
 
     flex:1;
 
-    text-align:center;
+    padding:
+        clamp(10px,1vw,12px)
+        clamp(14px,1.5vw,18px);
+
+    font-size:var(--fs-small);
+
+    white-space:nowrap;
 
 }
 
@@ -248,11 +286,14 @@ table tr:hover{
 
     overflow:hidden;
 
-    transition:.3s;
-
     display:flex;
 
     flex-direction:column;
+
+    transition:
+        transform .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease;
 
 }
 
@@ -300,14 +341,13 @@ table tr:hover{
 
 .book-body{
 
-    padding:15px;
+    padding:var(--space-card);
 
     display:flex;
 
     flex-direction:column;
 
     flex:1;
-
 }
 
 .book-body h3{
@@ -411,7 +451,7 @@ table tr:hover{
 
     right:14px;
 
-    background:#E74C3C;
+    background:var(--danger);
 
     color:white;
 
