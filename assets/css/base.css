@@ -210,3 +210,43 @@ p{
 ::-webkit-scrollbar-thumb:hover{
     background:var(--primary);
 }
+
+.toast{
+
+    position:fixed;
+
+    bottom:30px;
+
+    right:30px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    border-left:4px solid var(--primary);
+
+    padding:16px 22px;
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-lg);
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    transition:.3s ease;
+
+    z-index:9999;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}

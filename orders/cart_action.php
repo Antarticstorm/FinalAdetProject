@@ -145,6 +145,3 @@ if ($action === "add") {
     header("Location: cart.php");
     exit();
 }
-
-header("Location: cart.php");
-exit();

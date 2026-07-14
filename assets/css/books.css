@@ -219,6 +219,19 @@ table tr:hover{
     justify-content:start;
     gap:24px;
 
+        transition:
+        opacity .25s ease,
+        transform .25s ease;
+
+
+}
+
+.book-grid-shop.shop-loading{
+
+    opacity:.4;
+
+    transform:translateY(10px);
+
 }
 
 /* ==========================================================

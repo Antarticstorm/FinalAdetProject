@@ -257,3 +257,50 @@
     }
 
 }
+
+/* ==========================================================
+   Wishlist
+========================================================== */
+
+.wishlist-heart{
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        color .25s ease;
+
+}
+
+.wishlist-heart.saved{
+
+    color:#ff4f70;
+
+}
+
+.wishlist-heart.animate{
+
+    animation:wishlist-pop .35s ease;
+
+}
+
+@keyframes wishlist-pop{
+
+    0%{
+
+        transform:scale(.8);
+
+    }
+
+    50%{
+
+        transform:scale(1.35);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
