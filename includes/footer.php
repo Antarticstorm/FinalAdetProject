@@ -16,10 +16,10 @@
 
             <h3>Explore</h3>
 
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms of Service</a>
+            <a href="./footer_links/info.php#about">About</a>
+            <a href="./footer_links/info.php#contact">Contact</a>
+            <a href="./footer_links/info.php#privacy">Privacy Policy</a>
+            <a href="./footer_links/info.php#terms">Terms of Service</a>
 
         </div>
 
@@ -27,9 +27,9 @@
 
             <h3>Follow</h3>
 
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
-            <a href="#">Twitter</a>
+            <a href="./footer_links/info.php#contact">Facebook</a>
+            <a href="./footer_links/info.php#contact">Instagram</a>
+            <a href="./footer_links/info.php#contact">Twitter</a>
 
         </div>
 
@@ -47,5 +47,6 @@
 <script src="<?= asset('js/avatarPreview.js') ?>"></script>
 <script src="<?= asset('js/home.js') ?>"></script>
 <script src="<?= asset('js/cart.js') ?>"></script>
+<script src="<?= asset('js/login.js') ?>"></script>
 </body>
 </html>

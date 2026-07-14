@@ -54,11 +54,6 @@
             by <?= htmlspecialchars($book["author"]) ?>
         </p>
 
-        <div class="book-rating">
-            ★★★★★
-            <span>No reviews yet</span>
-        </div>
-
         <div class="price-row">
 
             <?php if ($hasDiscount): ?>
