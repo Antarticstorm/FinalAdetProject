@@ -1,52 +1,23 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 require_once("config/app.php");
 require_once(ROOT_PATH . "/includes/db.php");
 require_once(ROOT_PATH . "/includes/helpers.php");
+require_once(ROOT_PATH . "/includes/home_helpers.php");
 require_once(ROOT_PATH . "/includes/header.php");
-$featuredBooks = mysqli_query($conn, "
-    SELECT *
-    FROM books
-    ORDER BY created_at DESC
-    LIMIT 4
-");
 
-$genreQuery = mysqli_query($conn, "
-    SELECT DISTINCT genre
-    FROM books
-    ORDER BY genre
-");
-$totalBooks = mysqli_fetch_assoc(
-    mysqli_query($conn, "
-        SELECT COUNT(*) AS total
-        FROM books
-    ")
-);
+/* ==========================================
+   HOMEPAGE DATA
+========================================== */
 
-$totalGenres = mysqli_fetch_assoc(
-    mysqli_query($conn, "
-        SELECT COUNT(DISTINCT genre) AS total
-        FROM books
-    ")
-);
+$featuredBooks = getFeaturedBooks($conn);
 
-$totalHardcover = mysqli_fetch_assoc(
-    mysqli_query($conn, "
-        SELECT COUNT(*) AS total
-        FROM books
-        WHERE format='Hardcover'
-    ")
-);
+$genreQuery = getHomepageGenres($conn);
 
-$totalEbook = mysqli_fetch_assoc(
-    mysqli_query($conn, "
-        SELECT COUNT(*) AS total
-        FROM books
-        WHERE format='E-Book'
-    ")
-);
+$homepageStats = getHomepageStats($conn);
 
 ?>
 
@@ -71,7 +42,7 @@ $totalEbook = mysqli_fetch_assoc(
 
         <div class="hero-buttons">
 
-            <a href="#featured" class="btn btn-primary">
+            <a href="<?= url("orders/shop.php")?>" class="btn btn-primary">
                 Browse Collection
             </a>
 
@@ -202,7 +173,7 @@ class="stats-section reveal">
             <div class="stat-card">
 
         <h2 class="counter"
-            data-target="<?= $totalBooks['total'] ?>">
+            data-target="<?= $homepageStats["books"] ?>">
             0
         </h2>
 
@@ -213,34 +184,56 @@ class="stats-section reveal">
             <div class="stat-card">
 
                 <h2>
-                    <?= $totalGenres['total'] ?>
+                    <?= $homepageStats['genres'] ?>
                 </h2>
 
                 <p>Genres</p>
 
             </div>
 
-            <div class="stat-card">
 
-                <h2 class="counter"
-                data-target="<?= $totalHardcover['total'] ?>">
-                 0
-                </h2>
+                <div class="stat-card">
 
-                <p>Hardcover Books</p>
+                    <div class="stat-icon">
 
-            </div>
+                    </div>
+                    <h2
+                        class="counter"
+                        data-target="<?= $homepageStats['wishlists'] ?>">
 
-            <div class="stat-card">
+                        0
 
-                <h2 class="counter"
-                data-target="<?= $totalEbook['total'] ?>">
-                0
-                </h2>
+                    </h2>
 
-                <p>E-Books</p>
+                    <p>
 
-            </div>
+                        Wishlist Saves
+
+                    </p>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+
+                    </div>
+
+                    <h2
+                        class="counter"
+                        data-target="<?= $homepageStats['orders'] ?>">
+
+                        0
+
+                    </h2>
+
+                    <p>
+
+                        Orders Fulfilled
+
+                    </p>
+
+                </div>
 
         </div>
 
@@ -260,71 +253,49 @@ class="genres-section reveal">
     <div class="container">
 
         <p class="section-tag">
+
             EXPLORE BY CATEGORY
+
         </p>
 
         <h2 class="section-title">
+
             Browse Your Favorite Genres
+
         </h2>
 
         <div class="genre-grid">
 
             <?php while($genre = mysqli_fetch_assoc($genreQuery)): ?>
 
-                <div class="genre-card">
-
-                    <?php
-                        $icon = "📚";
-
-                        switch(strtolower(trim($genre['genre']))){
-
-                            case "fantasy":
-                                $icon = "🐉";
-                                break;
-
-                            case "mystery":
-                                $icon = "🕵️";
-                                break;
-
-                            case "science fiction":
-                                $icon = "🚀";
-                                break;
-
-                            case "romance":
-                                $icon = "❤️";
-                                break;
-
-                            case "history":
-                                $icon = "🏛️";
-                                break;
-
-                            case "programming":
-                                $icon = "💻";
-                                break;
-
-                            case "business":
-                                $icon = "💼";
-                                break;
-
-                            case "horror":
-                                $icon = "👻";
-                                break;
-                        }
-                    ?>
+                <a
+                    href="<?= url(
+                        "orders/shop.php?genre=" .
+                        urlencode($genre["genre"])
+                    ) ?>"
+                    class="genre-card">
 
                     <div class="genre-icon">
 
-                        <?= $icon ?>
+                        <?= getGenreIcon($genre["genre"]) ?>
 
                     </div>
 
                     <h3>
 
-                        <?= htmlspecialchars($genre['genre']) ?>
+                        <?= htmlspecialchars($genre["genre"]) ?>
 
                     </h3>
 
-                </div>
+                    <p class="genre-count">
+
+                        <?= $genre["total_books"] ?>
+
+                        Book<?= $genre["total_books"] != 1 ? "s" : "" ?>
+
+                    </p>
+
+                </a>
 
             <?php endwhile; ?>
 
