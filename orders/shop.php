@@ -204,7 +204,7 @@ if (isset($_SESSION["user_id"])) {
 
     <section class="shop-filters">
 
-        <form method="GET" class="shop-filter-panel">
+        <form method="GET" action="shop.php#shop-results" class="shop-filter-panel">
             <div class="filter-grid">
                 <input
                     type="text"
@@ -295,7 +295,7 @@ if (isset($_SESSION["user_id"])) {
          SHOP
     ======================================== -->
 
-<section class="shop-layout">
+<section class="shop-layout" id="shop-results">
 
 
     <!-- RESULTS -->
