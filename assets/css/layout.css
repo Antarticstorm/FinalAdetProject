@@ -60,8 +60,7 @@
 
     font-family:var(--font-heading);
 
-   font-size:
-        clamp(1.4rem,2vw,2rem);
+    font-size:2rem;
 
     transition:
         font-size .35s ease,
@@ -161,9 +160,7 @@ nav a.active::after{
 
 .page-content{
 
-   padding:
-        clamp(30px,5vw,48px)
-        0;
+    padding:110px 0 var(--space-xl);
 
 }
 
