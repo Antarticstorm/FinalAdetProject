@@ -7,7 +7,7 @@ function getFeaturedBooks(mysqli $conn)
         SELECT *
         FROM books
         ORDER BY created_at DESC
-        LIMIT 4
+        LIMIT 6
         "
     );
 }
