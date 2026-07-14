@@ -72,15 +72,26 @@
 
 body{
 
+    min-height:100vh;
+
     background:var(--bg);
 
     color:var(--text);
 
-    min-height:100vh;
-
     overflow-x:hidden;
 
-    line-height:1.6;
+    margin:0;
+
+}
+main{
+
+    background:transparent;
+
+}
+
+body.fade-out{
+
+    opacity:0;
 
 }
 
