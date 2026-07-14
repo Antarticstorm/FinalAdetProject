@@ -17,91 +17,28 @@ require_once("../config/app.php");
 require_once(ROOT_PATH . "/includes/db.php");
 require_once(ROOT_PATH . "/includes/helpers.php");
 require_once(ROOT_PATH . "/includes/header.php");
+require_once(ROOT_PATH . "/includes/admin_helpers.php");
 
-/* Dashboard Statistics */
+$stats = getDashboardStats($conn);
 
-$books = mysqli_fetch_assoc(
-    mysqli_query(
-        $conn,
-        "SELECT COUNT(*) total FROM books"
-    )
-)["total"];
+$stats = getDashboardStats($conn);
 
-$customers = mysqli_fetch_assoc(
-    mysqli_query(
-        $conn,
-        "SELECT COUNT(*) total FROM customers"
-    )
-)["total"];
+$recentOrders = getRecentOrders($conn);
 
-$orders = mysqli_fetch_assoc(
-    mysqli_query(
-        $conn,
-        "SELECT COUNT(*) total FROM orders"
-    )
-)["total"];
+$lowStockBooks = getLowStockBooks($conn);
 
-$revenue = mysqli_fetch_assoc(
-    mysqli_query(
-        $conn,
-        "
-        SELECT
-        COALESCE(SUM(total_amount),0) total
-        FROM orders
-        WHERE status='delivered'
-        "
-    )
-)["total"];
+$recentCustomers = getRecentCustomers($conn);
 
-$lowStock = mysqli_query(
-    $conn,
-    "
-    SELECT
-        title,
-        stock
-    FROM books
-    WHERE stock <= 5
-    ORDER BY stock ASC
-    LIMIT 5
-    "
-);
+$bestSellingBooks = getBestSellingBooks($conn);
 
-$recentOrders = mysqli_query(
-    $conn,
-    "
-    SELECT
-        order_number,
-        shipping_fullname,
-        total_amount,
-        status
-    FROM orders
-    ORDER BY created_at DESC
-    LIMIT 5
-    "
-);
-$recentCustomers = mysqli_query(
-    $conn,
-    "
-    SELECT
-        fullname,
-        created_at
-    FROM customers
-    ORDER BY created_at DESC
-    LIMIT 5
-    "
-);
-$bestSelling = mysqli_query(
-    $conn,
-    "
-    SELECT
-        title,
-        SUM(quantity) sold
-    FROM order_items
-    GROUP BY title
-    ORDER BY sold DESC
-    LIMIT 5
-    "
-);
+$recentOrders = getRecentOrders($conn);
+
+$lowStockBooks = getLowStockBooks($conn);
+
+$recentCustomers = getRecentCustomers($conn);
+
+$bestSellingBooks = getBestSellingBooks($conn);
+
 
 ?>
 
@@ -125,7 +62,7 @@ Welcome back,
 
         <h3>Books</h3>
 
-        <h2><?= $books ?></h2>
+        <h2><?= $stats["books"] ?></h2>
 
     </div>
 
@@ -133,7 +70,7 @@ Welcome back,
 
         <h3>Customers</h3>
 
-        <h2><?= $customers ?></h2>
+        <h2><?= $stats["customers"] ?></h2>
 
     </div>
 
@@ -141,7 +78,7 @@ Welcome back,
 
         <h3>Orders</h3>
 
-        <h2><?= $orders ?></h2>
+        <h2><?= $stats["orders"] ?></h2>
 
     </div>
 
@@ -151,7 +88,7 @@ Welcome back,
 
         <h2>
 
-            ₱<?= number_format($revenue,2) ?>
+            <h2><?= number_format($stats["revenue"],2) ?></h2>
 
         </h2>
 
@@ -267,105 +204,86 @@ Welcome back,
 
     </div>
 
-    <!-- Low Stock -->
+<div class="dashboard-widget">
 
-    <div class="dashboard-widget">
+    <h2>📚 Low Stock Books</h2>
 
-        <h2>📚 Low Stock Books</h2>
+    <table>
 
-        <table>
+        <tr>
+            <th>Book</th>
+            <th>Stock</th>
+        </tr>
 
-            <tr>
+        <?php while($book = mysqli_fetch_assoc($lowStockBooks)): ?>
 
-                <th>Book</th>
+        <tr>
 
-                <th>Stock</th>
+            <td>
+                <?= htmlspecialchars($book["title"]) ?>
+            </td>
 
-            </tr>
-
-            <?php while($book = mysqli_fetch_assoc($lowStock)): ?>
-
-            <tr>
-
-                <td>
-
-                    <?= htmlspecialchars($book["title"]) ?>
-
-                </td>
-
-                <td>
-
-                    <span class="low-stock-count">
-
-                        <?= $book["stock"] ?>
-
-                    </span>
-
-                </td>
-
-            </tr>
-
-            <?php endwhile; ?>
-
-        </table>
-
-    </div>
-
-    <!-- Recent Customers -->
-
-    <div class="dashboard-widget">
-
-        <h2>👥 New Customers</h2>
-
-        <?php while($customer = mysqli_fetch_assoc($recentCustomers)): ?>
-
-            <div class="widget-item">
-
-                <span>
-
-                    <?= htmlspecialchars($customer["fullname"]) ?>
-
+            <td>
+                <span class="low-stock-count">
+                    <?= $book["stock"] ?>
                 </span>
+            </td>
 
-                <small>
-
-                    <?= date("M d", strtotime($customer["created_at"])) ?>
-
-                </small>
-
-            </div>
+        </tr>
 
         <?php endwhile; ?>
 
-    </div>
+    </table>
 
-    <!-- Best Sellers -->
+</div>
 
-    <div class="dashboard-widget">
+<!-- Recent Customers -->
 
-        <h2>🏆 Best Sellers</h2>
+<div class="dashboard-widget">
 
-        <?php while($book = mysqli_fetch_assoc($bestSelling)): ?>
+    <h2>👥 New Customers</h2>
 
-            <div class="widget-item">
+    <?php while($customer = mysqli_fetch_assoc($recentCustomers)): ?>
 
-                <span>
+        <div class="widget-item">
 
-                    <?= htmlspecialchars($book["title"]) ?>
+            <span>
+                <?= htmlspecialchars($customer["fullname"]) ?>
+            </span>
 
-                </span>
+            <small>
+                <?= date("M d", strtotime($customer["created_at"])) ?>
+            </small>
 
-                <strong>
+        </div>
 
-                    <?= $book["sold"] ?> sold
+    <?php endwhile; ?>
 
-                </strong>
+</div>
 
-            </div>
+<!-- Best Sellers -->
 
-        <?php endwhile; ?>
+<div class="dashboard-widget">
 
-    </div>
+    <h2>🏆 Best Sellers</h2>
+
+    <?php while($book = mysqli_fetch_assoc($bestSellingBooks)): ?>
+
+        <div class="widget-item">
+
+            <span>
+                <?= htmlspecialchars($book["title"]) ?>
+            </span>
+
+            <strong>
+                <?= $book["sold"] ?> sold
+            </strong>
+
+        </div>
+
+    <?php endwhile; ?>
+
+</div>
 
 </div>
 

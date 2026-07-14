@@ -5,6 +5,9 @@ require_once("../config/app.php");
 require_once(ROOT_PATH . "/includes/db.php");
 require_once(ROOT_PATH . "/includes/helpers.php");
 require_once(ROOT_PATH . "/includes/header.php");
+require_once(ROOT_PATH . "/includes/admin_helpers.php");
+
+$stats = getDashboardStats($conn);
 
 if (!isset($_SESSION["user_id"])) {
     redirect("auth/login.php");
@@ -115,6 +118,40 @@ $totalDiscounts = mysqli_fetch_assoc(
    SALES REPORT
 ========================================== */
 
+$pendingRevenue = mysqli_fetch_assoc(
+    mysqli_query(
+        $conn,
+        "
+        SELECT
+            COALESCE(SUM(total_amount),0) AS total
+        FROM orders
+        WHERE status IN ('pending','confirmed','shipped')
+        "
+    )
+)["total"];
+
+$deliveredRevenue = mysqli_fetch_assoc(
+    mysqli_query(
+        $conn,
+        "
+        SELECT
+            COALESCE(SUM(total_amount),0) AS total
+        FROM orders
+        WHERE status='delivered'
+        "
+    )
+)["total"];
+$grossSales = mysqli_fetch_assoc(
+    mysqli_query(
+        $conn,
+        "
+        SELECT
+            COALESCE(SUM(total_amount),0) AS total
+        FROM orders
+        WHERE status != 'cancelled'
+        "
+    )
+)["total"];
 // Revenue from delivered orders
 $totalRevenue = mysqli_fetch_assoc(
     mysqli_query(
