@@ -193,6 +193,63 @@ if (isset($_SESSION["user_id"])) {
     </section>
 
 
+    <section class="shop-filters">
+
+        <form method="GET" action="shop.php#shop-results" class="shop-filter-panel">
+            <div class="filter-grid">
+                <input
+                    type="text"
+                    name="search"
+                    placeholder="Search title, author, ISBN..."
+                    value="<?= htmlspecialchars($search) ?>">
+
+                <select name="genre">
+                    <option value="">All Genres</option>
+                    <?php mysqli_data_seek($genresResult, 0); while ($g = mysqli_fetch_assoc($genresResult)): ?>
+                        <option value="<?= htmlspecialchars($g["genre"]) ?>" <?= $genre === $g["genre"] ? "selected" : "" ?>>
+                            <?= htmlspecialchars($g["genre"]) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+
+                <select name="format">
+                    <option value="">All Formats</option>
+                    <option value="Hardcover" <?= $format === "Hardcover" ? "selected" : "" ?>>Hardcover</option>
+                    <option value="Paperback" <?= $format === "Paperback" ? "selected" : "" ?>>Paperback</option>
+                    <option value="E-Book" <?= $format === "E-Book" ? "selected" : "" ?>>E-Book</option>
+                </select>
+
+                <select name="availability">
+                    <option value="">Any Stock</option>
+                    <option value="in_stock" <?= $availability === "in_stock" ? "selected" : "" ?>>In stock</option>
+                    <option value="low_stock" <?= $availability === "low_stock" ? "selected" : "" ?>>Low stock</option>
+                    <option value="out_stock" <?= $availability === "out_stock" ? "selected" : "" ?>>Out of stock</option>
+                </select>
+
+                <input type="number" name="year" placeholder="Year" value="<?= htmlspecialchars($year) ?>">
+                <input type="number" step="0.01" name="min_price" placeholder="Min price" value="<?= htmlspecialchars($minPrice) ?>">
+                <input type="number" step="0.01" name="max_price" placeholder="Max price" value="<?= htmlspecialchars($maxPrice) ?>">
+
+                <label class="check-filter">
+                    <input type="checkbox" name="discount_only" value="1" <?= $discountOnly ? "checked" : "" ?>>
+                    On sale only
+                </label>
+
+                <select name="sort">
+                    <option value="newest" <?= $sort === "newest" ? "selected" : "" ?>>Newest</option>
+                    <option value="price_asc" <?= $sort === "price_asc" ? "selected" : "" ?>>Price ↑</option>
+                    <option value="price_desc" <?= $sort === "price_desc" ? "selected" : "" ?>>Price ↓</option>
+                    <option value="title_asc" <?= $sort === "title_asc" ? "selected" : "" ?>>Title A-Z</option>
+                </select>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn btn-primary" type="submit">Apply Filters</button>
+                <a href="shop.php" class="btn btn-outline">Clear</a>
+            </div>
+        </form>
+
+    </section>
     <!-- =======================================
          GENRES
     ======================================== -->
@@ -227,7 +284,7 @@ if (isset($_SESSION["user_id"])) {
 
 <section class="shop-results">
 
-    <div class="results-header">
+<section class="shop-layout" id="shop-results">
 
         <div class="results-title">
 
