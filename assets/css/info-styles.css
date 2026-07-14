@@ -1,0 +1,457 @@
+/* ==========================================================================
+   THE LITERARY NOOK: INFO PAGES (UNIQUE MODULE NAMESPACE: ln-info-)
+   ========================================================================== */
+
+/* Custom resets for info.php */
+main.page-content {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    padding: 0 !important; 
+    overflow: visible !important;
+    background: transparent !important;
+}
+
+/* ==========================================================================
+   MODULE 1: ABOUT US ZONE (CENTRAL HORIZONTAL BAND)
+   ========================================================================== */
+.ln-info-about-layout {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    justify-content: flex-start;
+    padding: 0 !important; 
+    box-sizing: border-box;
+}
+
+.ln-info-about-header {
+    text-align: center;
+    padding: 0 12px;
+    margin-top: 150px;
+    margin-bottom: 5px;
+}
+
+.ln-info-about-layout .ln-info-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #d97706;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.ln-info-about-layout .ln-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.25rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-inline: auto;
+    line-height: 1.2;
+}
+
+.ln-info-narrative-strip {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: #1e293b; 
+    padding: 150px 0;
+    box-shadow: inset 0 10px 20px -10px rgba(0,0,0,0.5), 
+                inset 0 -10px 20px -10px rgba(0,0,0,0.5);
+    margin-bottom: 60px;
+}
+
+.ln-info-narrative-inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 60px;
+    text-align: left;
+}
+
+.ln-info-narrative-inner p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #cbd5e1;
+    margin-bottom: 24px;
+}
+
+.ln-info-narrative-inner p:last-child {
+    margin-bottom: 0;
+}
+
+.ln-info-narrative-inner strong {
+    color: #f8fafc;
+    font-weight: 600;
+}
+
+
+/* ==========================================================================
+   MODULE 2: CONTACT ZONE (SPLIT LAYOUT)
+   ========================================================================== */
+.ln-info-contact-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: transparent;
+    padding: 0 !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.ln-info-contact-container {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.ln-info-contact-left {
+    background: #0f172a;
+    padding: 80px 8% 60px 12%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.ln-info-contact-left .ln-info-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #d97706;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.ln-info-contact-left .ln-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 32px;
+    line-height: 1.15;
+}
+
+.ln-info-contact-lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #cbd5e1;
+    margin-bottom: 40px;
+}
+
+.ln-info-contact-matrix {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 48px;
+    border-bottom: 1px dashed rgba(51, 65, 85, 0.6);
+    padding-bottom: 32px;
+}
+
+.ln-info-matrix-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+.ln-info-matrix-label {
+    color: #d97706;
+    font-weight: 600;
+}
+
+.ln-info-matrix-value {
+    color: #f1f5f9;
+}
+
+.ln-info-social-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.ln-info-social-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #1e293b; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.ln-info-social-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.ln-info-contact-right {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.ln-info-contact-image-frame {
+    width: 100%;
+    height: 100%;
+    /* Relative path pointing directly into your images/ folder structure */
+    background: url('images/contactInfoImage.png') center center / cover no-repeat; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+
+/* ==========================================================================
+   MODULE 3: PRIVACY ZONE (REVERSED SPLIT LAYOUT)
+   ========================================================================== */
+.ln-info-privacy-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: transparent;
+    padding: 0 !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.ln-info-privacy-container {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr; 
+    min-height: 100vh;
+    width: 100%;
+}
+
+.ln-info-privacy-left {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.ln-info-privacy-image-frame {
+    width: 100%;
+    height: 100%;
+    /* Relative path pointing directly into your images/ folder structure */
+    background: url('images/privacyNProtection.jpg') center center / cover no-repeat; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.ln-info-privacy-right {
+    background: #0b0f19; 
+    padding: 80px 12% 80px 8%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.ln-info-privacy-right .ln-info-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #d97706;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.ln-info-privacy-right .ln-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 32px;
+    line-height: 1.15;
+}
+
+.ln-info-privacy-text-wrapper {
+    max-width: 800px; 
+}
+
+.ln-info-privacy-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.ln-info-privacy-lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #cbd5e1;
+    margin-bottom: 32px;
+}
+
+.ln-info-legal-clause {
+    margin-bottom: 28px;
+}
+
+.ln-info-legal-clause:last-child {
+    margin-bottom: 0;
+}
+
+.ln-info-legal-clause h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: #f8fafc;
+    margin-bottom: 10px;
+}
+
+.ln-info-legal-clause p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+
+/* ==========================================================================
+   MODULE 4: TERMS OF SERVICE ZONE (BOOKCASE FLANKED LAYOUT)
+   ========================================================================== */
+.ln-info-terms-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: #0b0f19; 
+    padding: 0 !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.ln-info-terms-container {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.ln-info-terms-flank {
+    width: 100%;
+    height: 100%;
+    /* Relative path pointing directly into your images/ folder structure */
+    background-image: url('images/bookBG.png'); 
+    background-repeat: repeat-y; 
+    background-position: center top;
+    background-size: cover;
+}
+
+.ln-info-terms-left-flank {
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ln-info-terms-right-flank {
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ln-info-terms-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.ln-info-terms-center .ln-info-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #d97706;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.ln-info-terms-center .ln-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.25rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 36px;
+}
+
+.ln-info-terms-card {
+    background: #141b2b; 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 48px 40px;
+    max-width: 680px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    text-align: left;
+}
+
+.ln-info-terms-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: #475569; 
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.ln-info-terms-lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 32px;
+}
+
+.ln-info-terms-clause {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.ln-info-terms-clause:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.ln-info-terms-clause h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: #f8fafc;
+    margin-bottom: 12px;
+}
+
+.ln-info-terms-clause p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
