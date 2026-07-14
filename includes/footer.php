@@ -16,10 +16,10 @@
 
             <h3>Explore</h3>
 
-            <a href="<?php echo BASE_URL; ?>footer_links/info.php#about">About</a>
-            <a href="<?php echo BASE_URL; ?>footer_links/info.php#contact">Contact</a>
-            <a href="<?php echo BASE_URL; ?>footer_links/info.php#privacy">Privacy Policy</a>
-            <a href="<?php echo BASE_URL; ?>footer_links/info.php#terms">Terms of Service</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
 
         </div>
 
