@@ -117,7 +117,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 href.startsWith("#") ||
                 href.startsWith("javascript:") ||
                 link.hostname !== window.location.hostname ||
-                link.hasAttribute("target")
+                link.hasAttribute("target") ||
+                link.classList.contains("wishlist-heart") ||
+                link.classList.contains("genre-chip")
             ) {
                 return;
             }

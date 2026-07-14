@@ -244,16 +244,16 @@ if (isset($_SESSION["user_id"])) {
                     </button>
 
                     <a
-                            href="<?= url('customer/wishlist_toggle.php?book_id=' . $book["id"]) ?>"
-                            class="btn btn-outline">
+                        href="<?= url('customer/wishlist_toggle.php?book_id=' . $book["id"]) ?>"
+                        class="btn btn-outline details-wishlist <?= isset($wishlistIds[$book["id"]]) ? 'saved' : '' ?>">
 
-                            <?php if (isset($wishlistIds[$book["id"]])): ?>
+                        <?php if (isset($wishlistIds[$book["id"]])): ?>
 
                             Saved!
 
                         <?php else: ?>
 
-                           Wishlist? 
+                            Wishlist?
 
                         <?php endif; ?>
 
@@ -286,38 +286,26 @@ if (isset($_SESSION["user_id"])) {
         </p>
 
         <div class="book-grid">
+                <?php
+                $currentBook = $book;
 
-            <?php while($relatedBook = $relatedBooks->fetch_assoc()): ?>
+                while ($relatedBook = $relatedBooks->fetch_assoc()):
 
-                <div class="book-card">
+                    $book = $relatedBook;
 
-                    <img
-                        src="<?= url($relatedBook["cover"]) ?>"
-                        alt="<?= htmlspecialchars($relatedBook["title"]) ?>">
+                    $unitPrice = getEffectivePrice(
+                        $book["price"],
+                        $book["discount_percent"]
+                    );
 
-                    <div class="book-info">
+                    $hasDiscount = $book["discount_percent"] > 0;
 
-                        <h3>
-                            <?= htmlspecialchars($relatedBook["title"]) ?>
-                        </h3>
+                    include(ROOT_PATH . "/includes/book_card.php");
 
-                        <p class="book-author">
-                            <?= htmlspecialchars($relatedBook["author"]) ?>
-                        </p>
+                endwhile;
 
-                        <a
-                            href="book.php?id=<?= $relatedBook["id"] ?>"
-                            class="btn btn-primary">
-
-                            View Book
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            <?php endwhile; ?>
+                $book = $currentBook;
+                ?>
 
             </div>
 

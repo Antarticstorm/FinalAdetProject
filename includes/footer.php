@@ -47,6 +47,5 @@
 <script src="<?= asset('js/avatarPreview.js') ?>"></script>
 <script src="<?= asset('js/home.js') ?>"></script>
 <script src="<?= asset('js/cart.js') ?>"></script>
-<script src="<?= asset('js/wishlist.js') ?>"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+function initializeWishlist() {
 document.querySelectorAll(".wishlist-heart").forEach(button => {
 
     button.addEventListener("click", function(e){
@@ -55,3 +56,5 @@ document.querySelectorAll(".wishlist-heart").forEach(button => {
     });
 
 });
+}
+initializeWishlist();

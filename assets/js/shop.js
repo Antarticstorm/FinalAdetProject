@@ -2,6 +2,14 @@
    SHOP
 ========================================================== */
 
+function initializeShop() {
+    initializeCart();
+    initializeWishlist();
+    initializeDetailsWishlist();
+    initializeGenreChips();
+    initializeToolbar();
+    initializeFilters();
+}
 /* ------------------------------------------
    Toast
 ------------------------------------------ */
@@ -27,72 +35,6 @@ function showToast(message) {
 }
 
 /* ------------------------------------------
-   Add to Cart (AJAX)
------------------------------------------- */
-
-document.querySelectorAll(".book-cart-form").forEach(form => {
-
-    form.addEventListener("submit", function (e) {
-
-        e.preventDefault();
-
-        const url = this.getAttribute("action");
-
-        fetch(url, {
-            method: "POST",
-            body: new FormData(this),
-            headers: {
-                "X-Requested-With": "XMLHttpRequest"
-            }
-        })
-
-        .then(response => {
-
-            if (!response.ok) {
-
-                throw new Error("Server returned " + response.status);
-
-            }
-
-            return response.json();
-
-        })
-
-        .then(data => {
-
-            if (!data.success) {
-
-                showToast(data.message || "Unable to add book.");
-
-                return;
-
-            }
-
-            showToast(data.message);
-
-            const badge = document.getElementById("cart-count");
-
-            if (badge) {
-
-                badge.textContent = data.cartCount;
-
-            }
-
-        })
-
-        .catch(error => {
-
-            console.error(error);
-
-            showToast("Something went wrong.");
-
-        });
-
-    });
-
-});
-
-/* ------------------------------------------
    Smooth Navigation
 ------------------------------------------ */
 
@@ -106,54 +48,272 @@ function fadeBooks() {
 
 }
 
-/* Genre Chips */
+function loadBooks(url) {
 
-document.querySelectorAll(".genre-chip").forEach(link => {
+        console.log("Loading:", url);
 
-    link.addEventListener("click", function (e) {
+    fadeBooks();
+
+    fetch(url, {
+        headers: {
+            "X-Requested-With": "XMLHttpRequest"
+        }
+    })
+
+    .then(r => r.text())
+
+.then(html => {
+
+                const doc = new DOMParser().parseFromString(html, "text/html");
+
+                const newContainer = doc.getElementById("shop-results-container");
+
+                if (!newContainer) {
+                    console.error("AJAX response is missing #shop-results-container");
+                    console.log(html);
+                    return;
+                }
+
+                document.getElementById("shop-results-container").innerHTML =
+                    newContainer.innerHTML;
+
+                    initializeShop();
+
+                    history.pushState({}, "", url);
+
+                })
+            .catch(console.error);
+
+}
+
+function initializeToolbar() {
+
+    const toolbar = document.querySelector(".shop-toolbar");
+
+    if (!toolbar) return;
+
+    toolbar.onsubmit = function(e){
 
         e.preventDefault();
 
-        fadeBooks();
+        const params = new URLSearchParams(new FormData(this));
 
-        setTimeout(() => {
+        loadBooks(`${window.location.pathname}?${params.toString()}`);
 
-            window.location.href = this.href;
+    };
 
-        }, 220);
+    toolbar.querySelectorAll("select").forEach(select => {
+
+        select.onchange = () => {
+
+            toolbar.requestSubmit();
+
+        };
 
     });
 
-});
+}
+/* ------------------------------------------
+   Add to Cart (AJAX)
+------------------------------------------ */
 
-/* Search */
+function initializeCart() {
 
-const toolbar = document.querySelector(".shop-toolbar");
+    document.querySelectorAll(".book-cart-form").forEach(form => {
 
-if (toolbar) {
+        form.onsubmit = function(e){
 
-    toolbar.addEventListener("submit", fadeBooks);
+            e.preventDefault();
+
+            const url = this.getAttribute("action");
+
+            fetch(url,{
+                method:"POST",
+                body:new FormData(this),
+                headers:{
+                    "X-Requested-With":"XMLHttpRequest"
+                }
+            })
+
+            .then(response=>{
+
+                if(!response.ok){
+                    throw new Error("Server returned " + response.status);
+                }
+
+                return response.json();
+
+            })
+
+            .then(data=>{
+
+                if(!data.success){
+
+                    showToast(data.message || "Unable to add book.");
+
+                    return;
+
+                }
+
+                showToast(data.message);
+
+                const badge = document.getElementById("cart-count");
+
+                if(badge){
+
+                    badge.textContent = data.cartCount;
+
+                }
+
+            })
+
+            .catch(error=>{
+
+                console.error(error);
+
+                showToast("Something went wrong.");
+
+            });
+
+        };
+
+    });
 
 }
 
+
+/* Genre Chips */
+
+function initializeGenreChips(){
+
+    document.querySelectorAll(".genre-chip").forEach(link=>{
+
+        link.onclick = function(e){
+
+            e.preventDefault();
+
+            console.log("Genre AJAX");
+
+            loadBooks(this.href);
+
+        };
+
+    });
+
+}
 /* Advanced Filters */
 
-const filters = document.querySelector(".shop-filter-panel");
+function initializeFilters() {
 
-if (filters) {
+    const filters = document.querySelector(".shop-filter-panel");
 
-    filters.addEventListener("submit", fadeBooks);
+    if (!filters) return;
+
+    filters.onsubmit = function(e){
+
+        e.preventDefault();
+
+        const params = new URLSearchParams(new FormData(this));
+
+        loadBooks(`${window.location.pathname}?${params.toString()}`);
+
+    };
 
 }
 
-/* Sort */
+function initializeDetailsWishlist() {
 
-document.querySelectorAll(".shop-toolbar select").forEach(select => {
+    document.querySelectorAll(".details-wishlist").forEach(button => {
 
-    select.addEventListener("change", () => {
+        button.onclick = function(e){
 
-        fadeBooks();
+            e.preventDefault();
+
+            fetch(this.href,{
+                headers:{
+                    "X-Requested-With":"XMLHttpRequest"
+                }
+            })
+
+            .then(r => r.json())
+
+            .then(data => {
+
+                if(!data.success){
+
+                    showToast(data.message);
+                    return;
+
+                }
+
+                if(data.saved){
+
+                    this.classList.add("saved");
+                    this.textContent = "Saved!";
+
+                }else{
+
+                    this.classList.remove("saved");
+                    this.textContent = "Wishlist?";
+
+                }
+
+                showToast(data.message);
+
+            })
+
+            .catch(console.error);
+
+        };
 
     });
 
-});
+}
+function initializeWishlist() {
+
+    document.querySelectorAll(".wishlist-heart").forEach(button => {
+
+        button.onclick = function(e){
+
+            e.preventDefault();
+
+            fetch(this.href,{
+                headers:{
+                    "X-Requested-With":"XMLHttpRequest"
+                }
+            })
+
+            .then(r => r.json())
+
+            .then(data => {
+
+                if(!data.success){
+                    alert(data.message);
+                    return;
+                }
+
+                if(data.saved){
+                    this.classList.add("saved");
+                    this.textContent = "❤️";
+                } else {
+                    this.classList.remove("saved");
+                    this.textContent = "♡";
+                }
+
+                this.classList.add("animate");
+
+                setTimeout(() => {
+                    this.classList.remove("animate");
+                }, 350);
+
+            })
+
+            .catch(console.error);
+
+        };
+
+    });
+
+}
+
+initializeShop();
