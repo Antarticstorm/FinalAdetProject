@@ -95,6 +95,9 @@ $averageOrders = mysqli_fetch_assoc(
 
 ?>
 <div class="admin-wide-container">
+    <button type="button" onclick="history.back()" class="back-btn">
+    ← Back
+</button>
     <section class="report-section">
 
     <h2>📦 Orders Report</h2>
@@ -209,15 +212,6 @@ $averageOrders = mysqli_fetch_assoc(
     </section>
 
     <div class="widget-footer">
-
-    <a
-        href="orders.php"
-        class="btn btn-outline">
-
-        View All Orders
-
-    </a>
-
 </div>
 </div>
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>

@@ -65,6 +65,9 @@ $mostWishlisted = mysqli_query(
 
 ?>
 <section class="report-section">
+    <button type="button" onclick="history.back()" class="back-btn">
+    ← Back
+    </button>
 
     <h2>👥 Customer Activity</h2>
 

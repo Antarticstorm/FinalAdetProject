@@ -103,6 +103,10 @@ $book = mysqli_fetch_assoc($result);
 ?>
 
 <div class="admin-wide-container">
+
+<button type="button" onclick="history.back()" class="back-btn">
+    ← Back
+</button>
     <form action="edit_book.php?id=<?php echo $book['id']; ?>" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $book['id']; ?>">
 

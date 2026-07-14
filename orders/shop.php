@@ -70,6 +70,9 @@ $where = [];
 $params = [];
 $types = "";
 
+$where[] = "is_deleted = 0";
+
+
 if ($search !== "") {
     $where[] = "(title LIKE ? OR author LIKE ? OR isbn LIKE ? OR genre LIKE ?)";
     $like = "%" . $search . "%";
