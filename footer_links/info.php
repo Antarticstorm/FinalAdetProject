@@ -92,44 +92,81 @@ require_once(ROOT_PATH . "/includes/header.php");
     </div>
 </section>
 
-<!-- ===========================================
-     PRIVACY POLICY SECTION
-=========================================== -->
-<section id="privacy" class="why-section reveal info-section-wrapper">
-    <div class="container">
-        <p class="section-tag">LEGAL COMPLIANCE</p>
-        <h2 class="section-title">Privacy Policy</h2>
-        <div class="info-text-block">
-            <p style="font-size: 0.85rem; color: var(--text-muted, #94a3b8); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;">Last Updated: July 2026</p>
-            <p>At The Literary Nook, we take your data architecture security seriously. This document outlines how data handles across our local system nodes:</p>
-            <h3>1. Information We Collect</h3>
-            <p>We log profile registration sets (usernames, hashed credentials, role structures) to accurately populate authentication parameters and custom user wishlists.</p>
-            <h3>2. Data Encryption</h3>
-            <p>Sensitive parameters are systematically processed via structural framework cryptography before hitting active database storage engines.</p>
+<section id="privacy" class="why-section reveal privacy-split-section">
+    <div class="privacy-split-container">
+        
+        <div class="privacy-left-panel">
+            <div class="privacy-image-placeholder">
+            </div>
         </div>
+
+        <div class="privacy-right-panel">
+            <p class="section-tag">LEGAL COMPLIANCE</p>
+            <h2 class="section-title">Privacy Policy</h2>
+            
+            <div class="privacy-text-wrapper">
+                <p class="privacy-date">Last Updated: July 2026</p>
+                <p class="privacy-narrative-lead">
+                    At The Literary Nook, we take your data architecture security seriously. This document outlines how data handles across our local system nodes:
+                </p>
+                
+                <div class="legal-clause-block">
+                    <h3>1. Information We Collect</h3>
+                    <p>We log profile registration sets (usernames, hashed credentials, role structures) to accurately populate authentication parameters and custom user wishlists.</p>
+                </div>
+                
+                <div class="legal-clause-block">
+                    <h3>2. Data Encryption</h3>
+                    <p>Sensitive parameters are systematically processed via structural framework cryptography before hitting active database storage engines.</p>
+                </div>
+            </div>
+        </div>
+
     </div>
 </section>
-
-<div class="section-divider"></div>
 
 <!-- ===========================================
      TERMS OF SERVICE SECTION
 =========================================== -->
-<section id="terms" class="why-section reveal info-section-wrapper">
-    <div class="container">
-        <p class="section-tag">LEGAL AGREEMENT</p>
-        <h2 class="section-title">Terms of Service</h2>
-        <div class="info-text-block">
-            <p style="font-size: 0.85rem; color: var(--text-muted, #94a3b8); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;">Last Updated: July 2026</p>
-            <p>By accessing or utilizing our system inventory environments, you explicitly agree to align with the terms specified herein:</p>
-            <h3>1. Account Usage Verification</h3>
-            <p>Users are responsible for safeguarding authorization tokens, session assignments, and login cookies. Standard accounts attempting to access restricted administrative logic strings face strict account termination parameters.</p>
-            <h3>2. Limitation of Liability</h3>
-            <p>This web application is delivered "as-is" for tracking purposes under developmental educational project guidelines.</p>
+<!-- ===========================================
+     TERMS OF SERVICE SECTION (BOOKCASE FLANKED LAYOUT)
+=========================================== -->
+<section id="terms" class="why-section reveal terms-bookcase-layout">
+    <div class="terms-grid-container">
+        
+        <!-- LEFT PANEL: BOOK STACK FLANK (Repeated Background) -->
+        <div class="terms-flank-panel left-flank"></div>
+        
+        <!-- MIDDLE PANEL: CENTRAL LEGAL DOCUMENT SYSTEM -->
+        <div class="terms-center-content">
+            <p class="section-tag">LEGAL AGREEMENT</p>
+            <h2 class="section-title">Terms of Service</h2>
+            
+            <!-- Floating Inner Text Card Frame -->
+            <div class="terms-document-card">
+                <p class="terms-card-date">Last Updated: July 2026</p>
+                
+                <p class="terms-card-narrative">
+                    By accessing or utilizing our system inventory environments, you explicitly agree to align with the terms specified herein:
+                </p>
+                
+                <div class="terms-card-clause">
+                    <h3>1. Account Usage Verification</h3>
+                    <p>Users are responsible for safeguarding authorization tokens, session assignments, and login cookies. Standard accounts attempting to access restricted administrative logic strings face strict account termination parameters.</p>
+                </div>
+                
+                <div class="terms-card-clause">
+                    <h3>2. Limitation of Liability</h3>
+                    <p>This web application is delivered "as-is" for tracking purposes under developmental educational project guidelines.</p>
+                </div>
+            </div>
         </div>
+        
+        <!-- RIGHT PANEL: BOOK STACK FLANK (Repeated Background) -->
+        <div class="terms-flank-panel right-flank"></div>
+        
     </div>
 </section>
-
 <!-- THE FIX: Place the script and footer here, completely outside of any sections -->
 
 <!-- SCRIPT TO FADE OUT ARROW ON WINDOW SCROLL -->
