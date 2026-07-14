@@ -60,49 +60,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let score = 0;
 
-            if(value.length >= 8) score++;
-            if(/[A-Z]/.test(value)) score++;
-            if(/[0-9]/.test(value)) score++;
-            if(/[^A-Za-z0-9]/.test(value)) score++;
+        // Length
+        if(value.length >= 8) score += 2;
+        if(value.length >= 12) score += 1;
 
-            switch(score){
+        // Character variety
+        if(/[a-z]/.test(value)) score += 1;
+        if(/[A-Z]/.test(value)) score += 1;
+        if(/[0-9]/.test(value)) score += 1;
+        if(/[^A-Za-z0-9]/.test(value)) score += 1;
+            if(score <= 2){
 
-                case 0:
+    strengthFill.style.width = "25%";
+    strengthFill.style.background = "#E74C3C";
+    strengthText.textContent = "Weak";
 
-                    strengthFill.style.width = "0%";
-                    strengthFill.style.background = "#666";
-                    strengthText.textContent = "Password Strength";
-                    break;
+}
+else if(score <= 4){
 
-                case 1:
+    strengthFill.style.width = "50%";
+    strengthFill.style.background = "#F39C12";
+    strengthText.textContent = "Fair";
 
-                    strengthFill.style.width = "25%";
-                    strengthFill.style.background = "#E74C3C";
-                    strengthText.textContent = "Weak";
-                    break;
+}
+else if(score <= 6){
 
-                case 2:
+    strengthFill.style.width = "75%";
+    strengthFill.style.background = "#3498DB";
+    strengthText.textContent = "Good";
 
-                    strengthFill.style.width = "50%";
-                    strengthFill.style.background = "#F39C12";
-                    strengthText.textContent = "Fair";
-                    break;
+}
+else{
 
-                case 3:
+    strengthFill.style.width = "100%";
+    strengthFill.style.background = "#2ECC71";
+    strengthText.textContent = "Strong";
 
-                    strengthFill.style.width = "75%";
-                    strengthFill.style.background = "#3498DB";
-                    strengthText.textContent = "Good";
-                    break;
-
-                case 4:
-
-                    strengthFill.style.width = "100%";
-                    strengthFill.style.background = "#2ECC71";
-                    strengthText.textContent = "Strong";
-                    break;
-
-            }
+}
 
         });
 
