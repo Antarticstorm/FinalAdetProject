@@ -17,7 +17,14 @@ $featuredBooks = getFeaturedBooks($conn);
 
 $genreQuery = getHomepageGenres($conn);
 
-$homepageStats = getHomepageStats($conn);
+$totalBooks = getTotalBooks($conn);
+
+$totalGenres = getTotalGenres($conn);
+
+$totalWishlists = getTotalWishlists($conn);
+
+$totalOrders = getTotalOrders($conn);
+
 
 ?>
 
@@ -173,7 +180,7 @@ class="stats-section reveal">
             <div class="stat-card">
 
         <h2 class="counter"
-            data-target="<?= $homepageStats["books"] ?>">
+            data-target="<?= $totalBooks ?>">
             0
         </h2>
 
@@ -184,7 +191,7 @@ class="stats-section reveal">
             <div class="stat-card">
 
                 <h2>
-                    <?= $homepageStats['genres'] ?>
+                    <?= $totalGenres ?>
                 </h2>
 
                 <p>Genres</p>
@@ -199,7 +206,7 @@ class="stats-section reveal">
                     </div>
                     <h2
                         class="counter"
-                        data-target="<?= $homepageStats['wishlists'] ?>">
+                        data-target="<?= $totalWishlists ?>">
 
                         0
 
@@ -221,7 +228,7 @@ class="stats-section reveal">
 
                     <h2
                         class="counter"
-                        data-target="<?= $homepageStats['orders'] ?>">
+                        data-target="<?= $totalOrders ?>">
 
                         0
 

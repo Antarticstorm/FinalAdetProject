@@ -27,39 +27,42 @@ function getHomepageGenres(mysqli $conn)
         "
     );
 }
-function getHomepageStats(mysqli $conn): array
+function getTotalBooks(mysqli $conn): int
 {
-    return [
+    return (int) mysqli_fetch_assoc(
+        mysqli_query(
+            $conn,
+            "SELECT COUNT(*) AS total FROM books"
+        )
+    )["total"];
+}
+function getTotalGenres(mysqli $conn): int
+{
+    return (int) mysqli_fetch_assoc(
+        mysqli_query(
+            $conn,
+            "SELECT COUNT(DISTINCT genre) AS total FROM books"
+        )
+    )["total"];
+}
+function getTotalWishlists(mysqli $conn): int
+{
+    return (int) mysqli_fetch_assoc(
+        mysqli_query(
+            $conn,
+            "SELECT COUNT(*) AS total FROM wishlist"
+        )
+    )["total"];
+}
 
-        "books" => mysqli_fetch_assoc(
-            mysqli_query($conn,
-                "SELECT COUNT(*) AS total FROM books"
-            )
-        )["total"],
-
-        "genres" => mysqli_fetch_assoc(
-            mysqli_query($conn,
-                "SELECT COUNT(DISTINCT genre) AS total FROM books"
-            )
-        )["total"],
-
-        "wishlists" => mysqli_fetch_assoc(
-            mysqli_query($conn,
-                "SELECT COUNT(*) AS total FROM wishlist"
-            )
-        )["total"],
-
-        "orders" => mysqli_fetch_assoc(
-            mysqli_query($conn,
-                "
-                SELECT COUNT(*) AS total
-                FROM orders
-                WHERE status='delivered'
-                "
-            )
-        )["total"]
-
-    ];
+function getTotalOrders(mysqli $conn): int
+{
+    return (int) mysqli_fetch_assoc(
+        mysqli_query(
+            $conn,
+            "SELECT COUNT(*) AS total FROM orders"
+        )
+    )["total"];
 }
 function getGenreIcon(string $genre): string
 {
