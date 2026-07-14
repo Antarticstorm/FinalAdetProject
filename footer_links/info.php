@@ -8,8 +8,7 @@ require_once(ROOT_PATH . "/includes/helpers.php");
 require_once(ROOT_PATH . "/includes/header.php");
 ?>
 
-<link rel="stylesheet" href="/CCS0043/FinalAdetProject/assets/css/info-styles.css">
-
+<link rel="stylesheet" href="../assets/css/info-styles.css">
 <!-- ===========================================
      ABOUT SECTION (CINEMATIC FULL-WIDTH LAYOUT)
 =========================================== -->
