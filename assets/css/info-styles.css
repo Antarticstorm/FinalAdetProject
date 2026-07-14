@@ -679,3 +679,383 @@ main.page-content {
     opacity: 1;
     transform: translate3d(0, 0, 0);
 }
+
+/* ==========================================================================
+   BLUEPRINT SPLIT-PANEL DESIGN: PRIVACY SPECIFIC (MIRRORED)
+   ========================================================================== */
+
+.privacy-split-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: transparent;
+    padding: 0 !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.privacy-split-container {
+    display: grid;
+    /* Mirrored: Left image panel is narrower (0.9fr), right text panel is wider (1.1fr) */
+    grid-template-columns: 0.9fr 1.1fr; 
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Left Media Panel (Narrower Column) */
+.privacy-left-panel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.privacy-image-placeholder {
+    width: 100%;
+    height: 100%;
+    /* Update background color or url() to match your preferred theme asset */
+    background: url('../css/images/privacyNProtection.jpg') center center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Right Content Workspace (Wider Column) */
+.privacy-right-panel {
+    background: #0b0f19; /* Alternating dark background from contact section */
+    padding: 80px 12% 80px 8%; /* Inverted padding to keep text framing aligned */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.privacy-right-panel .section-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #d97706;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.privacy-right-panel .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 32px;
+    line-height: 1.15;
+}
+
+.privacy-text-wrapper {
+    max-width: 800px; /* Keeps the legal text lines extremely readable */
+}
+
+.privacy-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.privacy-narrative-lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #cbd5e1;
+    margin-bottom: 32px;
+}
+
+/* Legal Clause Typography Structure */
+.legal-clause-block {
+    margin-bottom: 28px;
+}
+
+.legal-clause-block:last-child {
+    margin-bottom: 0;
+}
+
+.legal-clause-block h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: #f8fafc;
+    margin-bottom: 10px;
+}
+
+.legal-clause-block p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ACTIVATION (SLIDE-IN ANIMATIONS)
+   ========================================================================== */
+
+/* Left side slides in from left, right side slides in from right */
+.privacy-split-section .privacy-left-panel {
+    opacity: 0;
+    transform: translate3d(-50px, 0, 0);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.privacy-split-section .privacy-right-panel {
+    opacity: 0;
+    transform: translate3d(50px, 0, 0);
+    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+/* Cascade internal text elements upward */
+.privacy-right-panel .section-tag,
+.privacy-right-panel .section-title,
+.privacy-text-wrapper > * {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.privacy-right-panel .section-tag    { transition-delay: 0.2s; }
+.privacy-right-panel .section-title  { transition-delay: 0.3s; }
+.privacy-text-wrapper                { transition-delay: 0.4s; }
+
+/* Reveal active classes */
+.privacy-split-section.active .privacy-left-panel,
+.privacy-split-section.reveal-visible .privacy-left-panel {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.privacy-split-section.active .privacy-right-panel,
+.privacy-split-section.reveal-visible .privacy-right-panel {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.privacy-split-section.active .privacy-right-panel *,
+.privacy-split-section.reveal-visible .privacy-right-panel * {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+/* ==========================================================================
+   MOBILE & TABLET EXCLUSION BOUNDARIES
+   ========================================================================== */
+@media (max-width: 992px) {
+    .privacy-split-container {
+        grid-template-columns: 1fr; /* Collapse down to single column stack */
+    }
+    
+    /* Hides the left-side visual panel completely on mobile layouts, just like Contact */
+    .privacy-left-panel {
+        display: none !important;
+    }
+    
+    .privacy-right-panel {
+        padding: 80px 24px 60px 24px;
+    }
+    
+    .privacy-right-panel .section-title {
+        font-size: 2.5rem;
+    }
+}
+
+/* ==========================================================================
+   TERMS OF SERVICE: BOOKCASE FLANKED LAYOUT (3-COLUMN GRID)
+   ========================================================================== */
+
+.terms-bookcase-layout {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: #0b0f19; /* Seamless background matching the main canvas flow */
+    padding: 0 !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.terms-grid-container {
+    display: grid;
+    /* Three columns: left book strip (fixed/relative width), center workspace, right book strip */
+    grid-template-columns: 20% 60% 20%;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* --- SIDE FLANK PANELS (Repeating Book Stack Images) --- */
+    .terms-flank-panel {
+        width: 100%;
+        height: 100%;
+        
+        /* 1. Use background-image instead of display */
+        background-image: url('images/bookBG.png'); 
+        
+        /* 2. Keep these to make the image repeat downwards like a tall bookshelf */
+        background-repeat: repeat-y; 
+        background-position: center top;
+        background-size: cover;
+    }
+
+/* Fallback background styles to preview the blocks instantly */
+.left-flank {
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.right-flank {
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- CENTRAL DOCUMENT WORKSPACE --- */
+.terms-center-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.terms-center-content .section-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #d97706;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.terms-center-content .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.25rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 36px;
+}
+
+/* --- GLASS-MORPHIC INNER CARD --- */
+.terms-document-card {
+    background: #141b2b; /* Contrast dark navy fill matching your photo reference */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 48px 40px;
+    max-width: 680px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    text-align: left;
+}
+
+.terms-card-date {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    color: #475569; /* Slate gray styling for the tracking timestamp */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.terms-card-narrative {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 32px;
+}
+
+/* Internal Section Separations inside the legal document card */
+.terms-card-clause {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terms-card-clause:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.terms-card-clause h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: #f8fafc;
+    margin-bottom: 12px;
+}
+
+.terms-card-clause p {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ACTIVATIONS
+   ========================================================================== */
+.terms-bookcase-layout .terms-flank-panel,
+.terms-bookcase-layout .terms-document-card {
+    opacity: 0;
+    transition: opacity 1.2s ease-out, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.terms-bookcase-layout .left-flank { transform: translate3d(-30px, 0, 0); }
+.terms-bookcase-layout .right-flank { transform: translate3d(30px, 0, 0); }
+.terms-bookcase-layout .terms-document-card { transform: translate3d(0, 40px, 0); }
+
+/* Trigger transitions when elements enter viewport */
+.terms-bookcase-layout.active .terms-flank-panel,
+.terms-bookcase-layout.reveal-visible .terms-flank-panel,
+.terms-bookcase-layout.active .terms-document-card,
+.terms-bookcase-layout.reveal-visible .terms-document-card {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 992px) {
+    .terms-grid-container {
+        /* Collapse the grid down so the document is readable on tablets/phones */
+        grid-template-columns: 10% 80% 10%;
+    }
+}
+
+@media (max-width: 600px) {
+    .terms-grid-container {
+        /* Hide side frames completely on mobile to give maximum screen room */
+        grid-template-columns: 1fr;
+    }
+    
+    .terms-flank-panel {
+        display: none !important;
+    }
+    
+    .terms-center-content {
+        padding: 60px 16px;
+    }
+    
+    .terms-center-content .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .terms-document-card {
+        padding: 32px 20px;
+    }
+}
