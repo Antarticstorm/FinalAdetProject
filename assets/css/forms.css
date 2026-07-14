@@ -3,11 +3,11 @@
 ========================================================== */
 
 .form-group{
-    margin-bottom:var(--space-sm);
+    margin-bottom:clamp(12px,2vw,var(--space-sm));
 }
 
 .auth-box{
-    width:min(480px,100%);
+    width:min(clamp(300px,90vw,480px),100%);
 }
 
 /* ==========================================================
@@ -18,11 +18,13 @@ label{
 
     display:block;
 
-    margin-bottom:8px;
+    margin-bottom:clamp(6px,2vw,8px);
 
     color:var(--text-light);
 
     font-weight:500;
+
+    font-size:clamp(.9rem,2vw,1rem);
 
 }
 
@@ -36,7 +38,7 @@ select{
 
     width:100%;
 
-    padding:12px 14px;
+    padding:clamp(10px,2.5vw,12px) clamp(12px,3vw,14px);
 
     border:1px solid var(--border);
 
@@ -47,6 +49,8 @@ select{
     color:var(--text);
 
     outline:none;
+
+    font-size:clamp(.9rem,2vw,1rem);
 
     transition:.25s ease;
 
@@ -74,7 +78,7 @@ textarea{
 
     resize:vertical;
 
-    min-height:120px;
+    min-height:clamp(100px,20vw,120px);
 
 }
 
@@ -94,9 +98,9 @@ input[type="number"]{
 }
 
 input[type="search"]{
-    padding-left:18px;
+    padding-left:clamp(14px,3vw,18px);
 }
 
 input[type="password"]{
-    letter-spacing:1px;
+    letter-spacing:clamp(.5px,.2vw,1px);
 }

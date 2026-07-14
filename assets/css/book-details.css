@@ -6,13 +6,13 @@
 
     display:grid;
 
-    grid-template-columns:420px minmax(500px,1fr);
+    grid-template-columns:clamp(280px,35vw,420px) minmax(clamp(280px,45vw,500px),1fr);
 
-    gap:60px;
+    gap:clamp(30px,6vw,60px);
 
     align-items:start;
 
-    margin-top:50px;
+    margin-top:clamp(30px,5vw,50px);
 
 }
 
@@ -24,7 +24,7 @@
 
     position:sticky;
 
-    top:120px;
+    top:clamp(90px,12vw,120px);
 
 }
 
@@ -46,11 +46,11 @@
 
     position:absolute;
 
-    top:18px;
+    top:clamp(12px,3vw,18px);
 
-    right:18px;
+    right:clamp(12px,3vw,18px);
 
-    padding:10px 14px;
+    padding:clamp(8px,2vw,10px) clamp(10px,3vw,14px);
 
     border-radius:999px;
 
@@ -63,24 +63,39 @@
     box-shadow:0 8px 20px rgba(0,0,0,.35);
 
 }
+
 .cover-wrap{
+
     position:relative;
+
     width:100%;
-    max-width:420px;
+
+    max-width:clamp(280px,35vw,420px);
+
     transition:.35s ease;
+
     overflow:hidden;
+
 }
+
 .cover-wrap .badge-discount{
+
     position:absolute;
-    top:16px;
-    right:16px;
+
+    top:clamp(12px,3vw,16px);
+
+    right:clamp(12px,3vw,16px);
+
     z-index:5;
+
 }
+
 .cover-wrap:hover{
 
     transform:scale(1.02);
 
 }
+
 /* ==========================================================
    RIGHT
 ========================================================== */
@@ -93,16 +108,17 @@
 
     justify-content:flex-start;
 
-    gap:20px;
+    gap:clamp(14px,3vw,20px);
+
 }
 
 .book-right h1{
 
     font-family:var(--font-heading);
 
-    font-size:3.5rem;
+    font-size:clamp(2rem,6vw,3.5rem);
 
-    margin:15px 0;
+    margin:clamp(10px,3vw,15px) 0;
 
 }
 
@@ -110,9 +126,9 @@
 
     color:var(--text-muted);
 
-    font-size:1.2rem;
+    font-size:clamp(1rem,3vw,1.2rem);
 
-    margin-bottom:25px;
+    margin-bottom:clamp(18px,4vw,25px);
 
 }
 
@@ -126,15 +142,15 @@
 
     align-items:center;
 
-    gap:18px;
+    gap:clamp(12px,3vw,18px);
 
-    margin-bottom:20px;
+    margin-bottom:clamp(16px,3vw,20px);
 
 }
 
 .details-price .price-strike{
 
-    font-size:1.2rem;
+    font-size:clamp(1rem,3vw,1.2rem);
 
     color:var(--text-muted);
 
@@ -144,7 +160,7 @@
 
 .details-price .price-now{
 
-    font-size:2.6rem;
+    font-size:clamp(2rem,5vw,2.6rem);
 
     font-weight:700;
 
@@ -160,11 +176,11 @@
 
     display:grid;
 
-    grid-template-columns:repeat(2,minmax(200px,1fr));
+    grid-template-columns:repeat(2,minmax(clamp(150px,35vw,200px),1fr));
 
-    gap:18px;
+    gap:clamp(12px,3vw,18px);
 
-    margin:30px 0;
+    margin:clamp(20px,5vw,30px) 0;
 
 }
 
@@ -174,7 +190,7 @@
 
     border:1px solid rgba(255,255,255,.08);
 
-    padding:16px;
+    padding:clamp(12px,3vw,16px);
 
     border-radius:var(--radius-sm);
 
@@ -184,7 +200,7 @@
 
     display:block;
 
-    margin-bottom:6px;
+    margin-bottom:clamp(4px,2vw,6px);
 
     color:var(--primary);
 
@@ -202,15 +218,15 @@
 
     border-radius:var(--radius-md);
 
-    padding:35px;
+    padding:clamp(20px,5vw,35px);
 
-    margin-top:20px;
+    margin-top:clamp(16px,4vw,20px);
 
 }
 
 .details-description h2{
 
-    margin-bottom:15px;
+    margin-bottom:clamp(10px,3vw,15px);
 
     font-family:var(--font-heading);
 
@@ -222,15 +238,15 @@
 
     align-items:center;
 
-    gap:15px;
+    gap:clamp(10px,3vw,15px);
 
-    margin-bottom:25px;
+    margin-bottom:clamp(18px,4vw,25px);
 
 }
 
 .section-line{
 
-    width:55px;
+    width:clamp(40px,8vw,55px);
 
     height:3px;
 
@@ -242,7 +258,7 @@
 
 .details-description p{
 
-    font-size:1.05rem;
+    font-size:clamp(.95rem,2.5vw,1.05rem);
 
     line-height:2;
 
@@ -258,19 +274,19 @@
 
     display:flex;
 
-    gap:15px;
+    gap:clamp(10px,3vw,15px);
 
     align-items:center;
 
     flex-wrap:wrap;
 
-    margin-top:20px;
+    margin-top:clamp(16px,4vw,20px);
 
 }
 
 .details-cart .qty-input{
 
-    width:80px;
+    width:clamp(65px,18vw,80px);
 
 }
 
@@ -280,13 +296,13 @@
 
 .related-books{
 
-    margin-top:80px;
+    margin-top:clamp(50px,8vw,80px);
 
 }
 
 .related-books h2{
 
-    margin-bottom:35px;
+    margin-bottom:clamp(24px,5vw,35px);
 
     text-align:center;
 
@@ -298,21 +314,23 @@
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(220px,250px));
+    grid-template-columns:repeat(auto-fit,minmax(clamp(180px,40vw,220px),250px));
 
     justify-content:center;
 
-    gap:24px;
+    gap:clamp(18px,4vw,24px);
 
 }
+
 .related-books .book-card img{
 
-    height:280px;
+    height:clamp(220px,40vw,280px);
 
 }
+
 .related-books .book-info h3{
 
-    font-size:1.2rem;
+    font-size:clamp(1rem,3vw,1.2rem);
 
 }
 
@@ -322,14 +340,13 @@
 
     color:var(--text-muted);
 
-    margin-bottom:35px;
+    margin-bottom:clamp(24px,5vw,35px);
 
 }
 
-
 .recently-viewed{
 
-    margin-top:90px;
+    margin-top:clamp(60px,9vw,90px);
 
 }
 
@@ -337,7 +354,7 @@
 
     text-align:center;
 
-    margin-bottom:35px;
+    margin-bottom:clamp(24px,5vw,35px);
 
 }
 
@@ -347,13 +364,13 @@
 
     align-items:center;
 
-    gap:10px;
+    gap:clamp(6px,2vw,10px);
 
-    margin-bottom:35px;
+    margin-bottom:clamp(24px,5vw,35px);
 
     color:var(--text-muted);
 
-    font-size:.95rem;
+    font-size:clamp(.85rem,2vw,.95rem);
 
 }
 
@@ -397,7 +414,7 @@
 
     .book-right h1{
 
-        font-size:2.5rem;
+        font-size:clamp(1.8rem,8vw,2.5rem);
 
     }
 

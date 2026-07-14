@@ -16,34 +16,27 @@
 
     text-transform:uppercase;
 
-    letter-spacing:4px;
+    letter-spacing:clamp(2px,1vw,4px);
 
-    font-size:.85rem;
+    font-size:clamp(.75rem,2vw,.85rem);
 
     font-weight:600;
 
-    margin-bottom:12px;
+    margin-bottom:clamp(8px,2vw,12px);
 
 }
 
 .section-title{
 
-   font-family:var(--font-heading);
+    font-family:var(--font-heading);
 
     text-align:center;
 
     font-size:var(--fs-title);
 
     margin-bottom:var(--space-content);
+
 }
-
-/* ==========================================================
-   HERO
-========================================================== */
-
-/* ==========================================================
-   HERO
-========================================================== */
 
 /* ==========================================================
    HERO
@@ -147,7 +140,7 @@
 
     line-height:.9;
 
-    margin-bottom:25px;
+    margin-bottom:clamp(18px,4vw,25px);
 
     animation:
         heroFloat 6s ease-in-out infinite;
@@ -158,7 +151,7 @@
 
 .hero p{
 
-     max-width:720px;
+    max-width:min(720px,95%);
 
     margin:auto;
 
@@ -170,7 +163,7 @@
 
 .hero-buttons{
 
-    margin-top:40px;
+    margin-top:clamp(24px,5vw,40px);
 
     display:flex;
 
@@ -196,7 +189,7 @@
 
     left:50%;
 
-    bottom:55px;
+    bottom:clamp(24px,6vw,55px);
 
     transform:translateX(-50%);
 
@@ -206,7 +199,7 @@
 
     align-items:center;
 
-    gap:10px;
+    gap:clamp(6px,2vw,10px);
 
     z-index:3;
 
@@ -228,9 +221,9 @@
 
 .scroll-indicator small{
 
-    font-size:.75rem;
+    font-size:clamp(.65rem,2vw,.75rem);
 
-    letter-spacing:5px;
+    letter-spacing:clamp(2px,1vw,5px);
 
     color:rgba(255,255,255,.75);
 
@@ -242,7 +235,7 @@
 
 .featured-section{
 
-     background:var(--bg);
+    background:var(--bg);
 
     padding:var(--space-section) 0;
 
@@ -254,7 +247,7 @@
 
 .genres-section{
 
-     background:#131821;
+    background:#131821;
 
     padding:var(--space-section) 0;
 
@@ -264,13 +257,13 @@
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(220px,280px));
+    grid-template-columns:repeat(auto-fit,minmax(clamp(180px,45vw,220px),280px));
 
     justify-content:center;
 
     gap:var(--space-gap);
 
-    margin-top:40px;
+    margin-top:clamp(24px,5vw,40px);
 
 }
 
@@ -300,15 +293,17 @@
 
 .genre-icon{
 
-    font-size:2.8rem;
+    font-size:clamp(2rem,6vw,2.8rem);
 
-    margin-bottom:15px;
+    margin-bottom:clamp(10px,3vw,15px);
 
 }
 
 .genre-card h3{
 
     font-family:var(--font-heading);
+
+    font-size:clamp(1rem,3vw,1.3rem);
 
 }
 
@@ -328,11 +323,11 @@
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(clamp(220px,45vw,250px),1fr));
 
     gap:var(--space-gap);
 
-    margin-top:60px;
+    margin-top:clamp(30px,6vw,60px);
 
 }
 
@@ -364,9 +359,9 @@
 
 .why-icon{
 
-    font-size:3rem;
+    font-size:clamp(2.2rem,6vw,3rem);
 
-    margin-bottom:20px;
+    margin-bottom:clamp(14px,3vw,20px);
 
 }
 
@@ -374,7 +369,7 @@
 
     font-family:var(--font-heading);
 
-    margin-bottom:15px;
+    margin-bottom:clamp(10px,3vw,15px);
 
 }
 
@@ -392,7 +387,7 @@
 
     background:var(--bg);
 
-     padding:var(--space-section) 0;
+    padding:var(--space-section) 0;
 
 }
 
@@ -400,11 +395,11 @@
 
     display:grid;
 
-    grid-template-columns:repeat(4,minmax(180px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(clamp(150px,40vw,180px),1fr));
 
     gap:var(--space-gap);
 
-    margin-top:50px;
+    margin-top:clamp(30px,5vw,50px);
 
 }
 
@@ -456,7 +451,7 @@
 
     background:#131821;
 
-   padding:var(--space-section) 0;
+    padding:var(--space-section) 0;
 
 }
 
@@ -464,11 +459,11 @@
 
     display:grid;
 
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(clamp(240px,45vw,280px),1fr));
 
     gap:var(--space-gap);
-    
-    margin-top:50px;
+
+    margin-top:clamp(30px,5vw,50px);
 
 }
 
@@ -498,17 +493,17 @@
 
     color:var(--primary);
 
-    font-size:1.2rem;
+    font-size:clamp(1rem,3vw,1.2rem);
 
-    letter-spacing:3px;
+    letter-spacing:clamp(2px,1vw,3px);
 
-    margin-bottom:18px;
+    margin-bottom:clamp(12px,3vw,18px);
 
 }
 
 .review-card p{
 
-    margin-bottom:25px;
+    margin-bottom:clamp(18px,4vw,25px);
 
 }
 
@@ -519,16 +514,17 @@
     font-weight:600;
 
 }
+
 .counter{
 
     display:inline-block;
 
-    min-width:60px;
+    min-width:clamp(40px,12vw,60px);
 
-     animation:counterPop .6s ease;
-
+    animation:counterPop .6s ease;
 
 }
+
 .genre-card{
 
     display:flex;
@@ -562,31 +558,33 @@
 
 .genre-card:hover{
 
-     transform:
+    transform:
         translateY(-8px)
         scale(1.02);
 
     border-color:var(--primary);
 
     box-shadow:var(--shadow-lg);
+
 }
 
 .genre-count{
 
-    margin-top:12px;
+    margin-top:clamp(8px,2vw,12px);
 
     color:var(--text-muted);
 
     font-size:var(--fs-small);
 
 }
+
 .genre-card::after{
 
-     content:"Browse →";
+    content:"Browse →";
 
     opacity:0;
 
-    margin-top:10px;
+    margin-top:clamp(8px,2vw,10px);
 
     color:var(--primary);
 
@@ -601,6 +599,7 @@
 .genre-card:hover::after{
 
     opacity:1;
+
     transform:translateY(0);
 
 }

@@ -17,22 +17,20 @@
 .shop-hero{
 
 
-    padding:10px 0 35px;
+    padding:clamp(10px, 2vw, 20px) 0 clamp(24px, 5vw, 35px);
     text-align:center;
 
 }
 
 .shop-tag{
+        letter-spacing:clamp(2px, 1vw, 5px);
+    font-size:clamp(.7rem, 2vw, .8rem);
 
     display:inline-block;
 
     color:var(--primary);
 
     text-transform:uppercase;
-
-    letter-spacing:5px;
-
-    font-size:.8rem;
 
     font-weight:600;
 
@@ -42,19 +40,20 @@
 
     font-family:var(--font-heading);
 
-    margin:18px 0;
+    font-size:clamp(2rem, 5vw, 3.5rem);
+    margin:clamp(12px, 2vw, 18px) 0;
 
 }
 
 .shop-hero p{
 
-    max-width:700px;
+    max-width:min(700px, 95%);
+    font-size:clamp(.95rem, 2.5vw, 1.1rem);
 
     margin:auto;
 
     color:var(--text-muted);
 
-    font-size:1.1rem;
 
 }
 
@@ -70,9 +69,8 @@
 
     flex-wrap:wrap;
 
-    gap:12px;
-
-    margin-bottom:var(--space-xl);
+    gap:clamp(8px, 2vw, 12px);
+    margin-bottom:clamp(24px, 5vw, var(--space-xl));
 
 }
 
@@ -84,7 +82,8 @@
 
     justify-content:center;
 
-    padding:10px 18px;
+    padding:clamp(8px, 2vw, 10px) clamp(14px, 3vw, 18px);
+    font-size:clamp(.8rem, 2vw, .95rem);
 
     border-radius:var(--radius-pill);
 
@@ -120,7 +119,7 @@
 }
 .shop-filters{
 
-    margin:40px 0;
+margin:clamp(24px, 5vw, 40px) 0;
 
     background:var(--card);
 
@@ -139,7 +138,8 @@
 
     align-items:center;
 
-    padding:18px 22px;
+    padding:clamp(14px, 3vw, 18px) clamp(16px, 4vw, 22px);
+    font-size:clamp(.95rem, 2vw, 1rem);
 
     cursor:pointer;
 
@@ -189,8 +189,8 @@
     background:var(--surface);
     border:1px solid rgba(255,255,255,.08);
     border-radius:var(--radius-md);
-    padding:18px 20px;
-    margin-bottom:40px;
+    padding:clamp(14px, 3vw, 18px) clamp(16px, 4vw, 20px);
+    margin-bottom:clamp(24px, 5vw, 40px)
 }
 
 .filter-grid{
@@ -200,17 +200,17 @@
 
     justify-content:center;
 
-    gap:12px;
+    gap:clamp(8px, 2vw, 12px);
 
     flex-wrap:nowrap
 }
 
 .filter-grid select{
-    width:140px;
+    width:clamp(110px, 22vw, 140px);
 }
 
 .filter-grid input[type="number"]{
-    width:95px;
+    width:clamp(75px, 18vw, 95px);
 }
 .check-filter{
 
@@ -257,19 +257,16 @@
 
     position:absolute;
 
-    top:14px;
-
-    right:14px;
-
-    padding:8px 14px;
+    top:clamp(8px, 2vw, 14px);
+    right:clamp(8px, 2vw, 14px);
+    padding:clamp(6px, 2vw, 8px) clamp(10px, 3vw, 14px);
+    font-size:clamp(.65rem, 1.8vw, .75rem);
 
     border-radius:999px;
 
     background:#E74C3C;
 
     color:white;
-
-    font-size:.75rem;
 
     font-weight:700;
 
@@ -279,12 +276,14 @@
 
 .stock-badge{
     position:absolute;
-    left:14px;
-    bottom:14px;
+    left:clamp(8px, 2vw, 14px);
+    bottom:clamp(8px, 2vw, 14px);
+    padding:clamp(4px, 1vw, 6px) clamp(8px, 2vw, 10px);
+    font-size:clamp(.65rem, 1.8vw, .75rem);
     z-index:3;
-    padding:6px 10px;
+
     border-radius:999px;
-    font-size:.75rem;
+
     font-weight:700;
 }
 
@@ -314,11 +313,11 @@
 
 .wishlist-heart{
     position:absolute;
-    top:14px;
-    left:14px;
+    top:clamp(8px, 2vw, 14px);
+    left:clamp(8px, 2vw, 14px);
+    width:clamp(30px, 8vw, 36px);
+    height:clamp(30px, 8vw, 36px);
     z-index:3;
-    width:36px;
-    height:36px;
     display:grid;
     place-items:center;
     border-radius:50%;
@@ -347,19 +346,20 @@
     align-items:center;
     gap:8px;
     color:var(--primary);
-    font-size:.95rem;
-    margin:8px 0 12px;
+    gap:clamp(6px, 2vw, 8px);
+    font-size:clamp(.85rem, 2vw, .95rem);
 }
 
 .book-rating span{
     color:var(--text-muted);
-    font-size:.85rem;
+font-size:clamp(.75rem, 1.8vw, .85rem);
 }
 
 .saving{
     color:#7be8a0;
     font-size:.8rem;
     font-weight:700;
+    font-size:clamp(.7rem, 1.8vw, .8rem);
 }
 
 .book-cover-container{
@@ -379,9 +379,8 @@
 
     align-items:center;
 
-    gap:24px;
-
-    margin:40px 0 30px;
+    gap:clamp(16px, 4vw, 24px);
+    margin:clamp(24px, 5vw, 40px) 0 clamp(20px, 4vw, 30px);
 
 }
 
@@ -391,24 +390,21 @@
 
     align-items:center;
 
-    gap:14px;
+gap:clamp(10px, 2vw, 14px);
 
 }
 
 .shop-toolbar input{
 
-    width:340px;
-
-    height:46px;
+    width:clamp(180px, 45vw, 340px);
+    height:clamp(42px, 6vw, 46px);
 
 }
 
 .shop-toolbar select{
 
-    width:180px;
-
-    height:46px;
-
+    width:clamp(130px, 28vw, 180px);
+    height:clamp(42px, 6vw, 46px)
 }
 
 @media (max-width:900px){
