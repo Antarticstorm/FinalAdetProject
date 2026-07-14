@@ -21,8 +21,6 @@ const counterObserver = new IntersectionObserver((entries) => {
         const counter = entry.target;
         const target = parseInt(counter.dataset.target);
 
-        let current = 0;
-
         const duration = 1500;
     const startTime = performance.now();
 
@@ -48,26 +46,6 @@ const counterObserver = new IntersectionObserver((entries) => {
 
 requestAnimationFrame(animate);
 
-        const updateCounter = () => {
-
-            current += increment;
-
-            if(current >= target){
-
-                counter.textContent = target;
-
-                return;
-
-            }
-
-            counter.textContent = current;
-
-            requestAnimationFrame(updateCounter);
-
-        };
-
-        updateCounter();
-
         counterObserver.unobserve(counter);
 
     });
@@ -82,72 +60,66 @@ counters.forEach(counter=>{
 
 });
 
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll", () => {
 
-let current="";
+    const scrollY = window.scrollY;
 
-sections.forEach(section=>{
+    /* Active Navigation */
 
-const top=section.offsetTop-120;
+    let current = "";
 
-if(window.scrollY>=top){
+    sections.forEach(section => {
 
-current=section.id;
+        const top = section.offsetTop - 120;
 
-}
+        if (scrollY >= top) {
 
-});
+            current = section.id;
 
-links.forEach(link=>{
+        }
 
-link.classList.remove("active");
+    });
 
-if(link.getAttribute("href")==="#"+current){
+    links.forEach(link => {
 
-link.classList.add("active");
+        link.classList.toggle(
+            "active",
+            link.getAttribute("href") === "#" + current
+        );
 
-}
+    });
 
-});
+    /* Hero Parallax */
 
-});
+    if (hero) {
 
-window.addEventListener("scroll",()=>{
-
-    hero.style.backgroundPositionY=
-
-    `${window.scrollY * .35}px`;
-
-});
-
-window.addEventListener("scroll",()=>{
-
-    if(window.scrollY>80){
-
-        indicator.style.opacity="0";
-
-        indicator.style.pointerEvents="none";
+        hero.style.backgroundPositionY =
+            `${scrollY * .35}px`;
 
     }
 
-    else{
+    /* Scroll Indicator */
 
-        indicator.style.opacity="1";
+    if (indicator) {
+
+        indicator.style.opacity =
+            scrollY > 80 ? "0" : "1";
+
+        indicator.style.pointerEvents =
+            scrollY > 80 ? "none" : "auto";
 
     }
 
-});
-    
+    /* Navbar */
 
-window.addEventListener("scroll",()=>{
+    if (navbar) {
 
-    navbar.classList.toggle(
+        navbar.classList.toggle(
+            "scrolled",
+            scrollY > 60
+        );
 
-        "scrolled",
-
-        window.scrollY > 60
-
-    );
+    }
 
 });
 
