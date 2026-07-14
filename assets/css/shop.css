@@ -224,11 +224,6 @@
 
 }
 
-.shop-book-card{
-    position:relative;
-    overflow:hidden;
-        transition:.3s ease;
-}
 
 .book-cover-link{
     position:relative;
@@ -248,19 +243,14 @@
     transition:.35s ease;
 }
 
-.shop-book-card:hover{
-
-    transform:translateY(-6px);
-
-    box-shadow:var(--shadow-lg);
-
-}
 .shop-book-card:hover .shop-book-cover{
-    transform:scale(1.04);
 
-    border-color:var(--primary);
+    transform:scale(1.08);
 
-    box-shadow:var(--shadow-lg);
+    filter:
+        brightness(1.08)
+        saturate(1.08);
+
 }
 
 .badge-discount{
@@ -374,6 +364,11 @@
 
 .book-cover-container{
     position:relative;
+
+    overflow:hidden;
+
+    background:#0F1319;
+
 }
 
 .results-header{
