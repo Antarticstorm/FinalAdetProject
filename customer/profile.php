@@ -359,7 +359,7 @@ $recentOrdersStmt->close();
                 </a>
 
                 <a
-                    href="<?= url('orders/history.php') ?>"
+                    href="<?= url('orders/my_orders.php') ?>"
                     class="quick-card">
 
                     📦

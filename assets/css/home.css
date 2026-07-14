@@ -52,7 +52,7 @@
 
     position:relative;
 
-    min-height:100vh;
+    min-height:110svh;
 
     padding-top:90px;
 
@@ -80,8 +80,7 @@
     background-position:center;
 
     background-repeat:no-repeat;
-
-    background-attachment:fixed;
+    
 
 }
 .hero::before{
@@ -224,11 +223,6 @@ heroFloat 6s ease-in-out infinite;
     font-size:.75rem;
 
     color:rgba(255,255,255,.75);
-
-}
-.scroll-indicator small{
-
-    letter-spacing:4px;
 
 }
 
