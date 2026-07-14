@@ -8,8 +8,6 @@
 
     margin:auto;
 
-    padding:var(--space-xl) 0 var(--space-xxl);
-
 }
 
 /* ==========================================================
@@ -19,7 +17,7 @@
 .shop-hero{
 
 
-    padding:20px 0 35px;
+    padding:10px 0 35px;
     text-align:center;
 
 }
@@ -57,31 +55,6 @@
     color:var(--text-muted);
 
     font-size:1.1rem;
-
-}
-
-/* ==========================================================
-   SEARCH
-========================================================== */
-
-.shop-search{
-
-    margin-bottom:var(--space-lg);
-
-}
-
-.shop-search form{
-
-    display:flex;
-
-    gap:var(--space-sm);
-
-}
-
-.shop-search input{
-
-    flex:1;
-        height:50px;
 
 }
 
@@ -145,8 +118,20 @@
     width:100%;
 
 }
+.shop-filters{
 
-.results-header{
+    margin:40px 0;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    overflow:hidden;
+
+}
+.shop-filters summary{
 
     display:flex;
 
@@ -154,65 +139,95 @@
 
     align-items:center;
 
-    margin-bottom:var(--space-md);
+    padding:18px 22px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    color:var(--text);
+
+    list-style:none;
+
+    user-select:none;
+
+    transition:.25s ease;
 
 }
+
+.shop-filters summary:hover{
+
+    background:rgba(255,255,255,.04);
+
+}
+
+.shop-filters summary::-webkit-details-marker{
+
+    display:none;
+
+}
+
+.shop-filters summary::after{
+
+    content:"▼";
+
+    font-size:.8rem;
+
+    color:var(--primary);
+
+    transition:.25s ease;
+
+}
+
+.shop-filters[open] summary::after{
+
+    transform:rotate(180deg);
+
+}
+
 .shop-filter-panel{
     background:var(--surface);
     border:1px solid rgba(255,255,255,.08);
     border-radius:var(--radius-md);
-    padding:24px;
+    padding:18px 20px;
     margin-bottom:40px;
-    overflow-x:auto;
 }
 
 .filter-grid{
     display:flex;
-    flex-wrap:nowrap;
-    gap:12px;
+
     align-items:center;
-    min-width:max-content;
-}
 
-.filter-grid > *{
-    flex:0 0 180px;
-}
+    justify-content:center;
 
-.filter-grid input[type="text"]{
-    flex-basis:260px;
-}
-
-.check-filter{
-    flex:0 0 auto;
-    white-space:nowrap;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:var(--text-light);
-    font-size:.95rem;
-}
-
-.filter-actions{
-    display:flex;
     gap:12px;
-    margin-top:14px;
-    flex-wrap:nowrap;
+
+    flex-wrap:nowrap
 }
 
-.filter-actions .btn{
-    white-space:nowrap;
+.filter-grid select{
+    width:140px;
+}
+
+.filter-grid input[type="number"]{
+    width:95px;
 }
 .check-filter{
+
     display:flex;
+
     align-items:center;
-    gap:10px;
-    color:var(--text-light);
-    font-size:.95rem;
+
+    gap:8px;
+
+    white-space:nowrap;
+
 }
 
 .shop-book-card{
     position:relative;
     overflow:hidden;
+        transition:.3s ease;
 }
 
 .book-cover-link{
@@ -233,8 +248,15 @@
     transition:.35s ease;
 }
 
+.shop-book-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:var(--shadow-lg);
+
+}
 .shop-book-card:hover .shop-book-cover{
-    transform:translateY(-8px);
+    transform:scale(1.04);
 
     border-color:var(--primary);
 
@@ -354,28 +376,68 @@
     position:relative;
 }
 
-.stock-badge{
-    position:absolute;
-    left:14px;
-    bottom:14px;
-    z-index:3;
-    padding:6px 10px;
-    border-radius:999px;
-    font-size:.75rem;
-    font-weight:700;
+.results-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:24px;
+
+    margin:40px 0 30px;
+
 }
 
-.stock-badge.in{
-    background:#49D17D;
-    color:#111;
+.shop-toolbar{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
 }
 
-.stock-badge.low{
-    background:#FFC107;
-    color:#111;
+.shop-toolbar input{
+
+    width:340px;
+
+    height:46px;
+
 }
 
-.stock-badge.out{
-    background:#E74C3C;
-    color:#fff;
+.shop-toolbar select{
+
+    width:180px;
+
+    height:46px;
+
+}
+
+@media (max-width:900px){
+
+    .results-header{
+
+        flex-direction:column;
+
+        align-items:flex-start;
+
+    }
+
+    .shop-toolbar{
+
+        width:100%;
+
+        flex-wrap:wrap;
+
+    }
+
+    .shop-toolbar input{
+
+        width:100%;
+
+    }
+
 }

@@ -92,20 +92,21 @@ $orderResult = $orderStmt->get_result();
 $orderCount = (int)$orderResult->fetch_assoc()["total"];
 $orderStmt->close();
 
-/* Purchased count */
-$purchasedStmt = $conn->prepare("
-    SELECT COALESCE(SUM(order_items.quantity), 0) AS total
-    FROM order_items
-    INNER JOIN orders
-        ON order_items.order_id = orders.id
-    WHERE orders.customer_id = ?
-    AND orders.status = 'delivered'
+/* Total Spent */
+$totalSpentStmt = $conn->prepare("
+    SELECT COALESCE(SUM(total_amount), 0) AS total
+    FROM orders
+    WHERE customer_id = ?
+    AND status = 'delivered'
 ");
-$purchasedStmt->bind_param("i", $user_id);
-$purchasedStmt->execute();
-$purchasedResult = $purchasedStmt->get_result();
-$purchasedCount = (int)$purchasedResult->fetch_assoc()["total"];
-$purchasedStmt->close();
+
+$totalSpentStmt->bind_param("i", $user_id);
+$totalSpentStmt->execute();
+
+$totalSpentResult = $totalSpentStmt->get_result();
+$totalSpent = (float)$totalSpentResult->fetch_assoc()["total"];
+
+$totalSpentStmt->close();
 
 /* Recent Orders */
 
@@ -201,9 +202,9 @@ $recentOrdersStmt->close();
             <div class="stat-label">Orders</div>
         </a>
 
-        <a href="<?= url('orders/history.php') ?>" class="stat-card">
-            <div class="stat-number"><?= $purchasedCount ?></div>
-            <div class="stat-label">Purchased</div>
+        <a href="<?= url('orders/my_orders.php') ?>" class="stat-card">
+            <div class="stat-number">₱<?= number_format($totalSpent, 2) ?></div>
+            <div class="stat-label">Spent on  books</div>
         </a>
     </div>
 
@@ -358,7 +359,7 @@ $recentOrdersStmt->close();
                 </a>
 
                 <a
-                    href="<?= url('orders/history.php') ?>"
+                    href="<?= url('orders/my_orders.php') ?>"
                     class="quick-card">
 
                     📦

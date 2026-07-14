@@ -4,7 +4,6 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 require_once("../config/app.php");
-
 require_once(ROOT_PATH . "/includes/db.php");
 require_once(ROOT_PATH . "/includes/order_helpers.php");
 
@@ -12,7 +11,25 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
+$isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+          strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+function sendJsonResponse(bool $success, string $message, int $cartCount = 0): void
+{
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => $success,
+        'message' => $message,
+        'cartCount' => $cartCount
+    ]);
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
+    if ($isAjax) {
+        sendJsonResponse(false, 'Invalid request.');
+    }
+
     header("Location: shop.php");
     exit();
 }
@@ -23,12 +40,17 @@ if ($action === "add") {
 
     if (!isset($_SESSION["user_id"])) {
         $_SESSION['cart_message'] = "Please log in to add items to your cart.";
+
+        if ($isAjax) {
+            sendJsonResponse(false, $_SESSION['cart_message']);
+        }
+
         header("Location: login.php");
         exit();
     }
 
     $bookId = (int) $_POST['book_id'];
-    $quantity = max(1, (int) $_POST['quantity']);
+    $quantity = max(1, (int)($_POST['quantity'] ?? 1));
 
     $stmt = $conn->prepare("SELECT stock FROM books WHERE id = ?");
     $stmt->bind_param("i", $bookId);
@@ -38,6 +60,11 @@ if ($action === "add") {
 
     if (!$book) {
         $_SESSION['cart_message'] = "That book could not be found.";
+
+        if ($isAjax) {
+            sendJsonResponse(false, $_SESSION['cart_message']);
+        }
+
         header("Location: shop.php");
         exit();
     }
@@ -46,7 +73,7 @@ if ($action === "add") {
     $newQty = $currentQty + $quantity;
 
     if ($newQty > $book['stock']) {
-        $newQty = $book['stock'];
+        $newQty = (int) $book['stock'];
         $_SESSION['cart_message'] = "Only " . $book['stock'] . " in stock — added the maximum available.";
     } else {
         $_SESSION['cart_message'] = "Added to cart.";
@@ -57,6 +84,10 @@ if ($action === "add") {
         $_SESSION['cart_message'] = "This book is out of stock.";
     } else {
         $_SESSION['cart'][$bookId] = $newQty;
+    }
+
+    if ($isAjax) {
+        sendJsonResponse(true, $_SESSION['cart_message'], array_sum($_SESSION['cart']));
     }
 
     header("Location: shop.php");
@@ -113,8 +144,4 @@ if ($action === "add") {
     unset($_SESSION['promo_code']);
     header("Location: cart.php");
     exit();
-
 }
-
-header("Location: cart.php");
-exit();

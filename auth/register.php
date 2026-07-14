@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = trim($_POST["address"]);
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
+    $role = "customer";
 
     if (empty($fullname) || empty($email) || empty($phone) || empty($address) || empty($password) || empty($confirm_password)) {
         $error = "Please fill in all fields.";
@@ -32,10 +33,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($check->num_rows > 0) {
             $error = "Email is already registered.";
         } else {
+
+                if(
+                !empty($_POST["admin_key"]) &&
+                $_POST["admin_key"]===ADMIN_SECRET
+            ){
+
+                $role="admin";
+
+            }
+
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt = $conn->prepare("INSERT INTO customers (fullname, email, phone, address, password) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssss", $fullname, $email, $phone, $address, $hashed_password);
+            $stmt = $conn->prepare("INSERT INTO customers (fullname, email, phone, address, password,role) VALUES (?, ?, ?, ?, ?,?)");
+            $stmt->bind_param("ssssss", $fullname, $email, $phone, $address, $hashed_password, $role);
 
         if ($stmt->execute()) {
 
@@ -166,9 +177,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <button type="submit" class="btn btn-primary">Create Account</button>
+
+            <div class="form-group">
+
+                <label>Admin Key (Optional)</label>
+
+                <input
+                    type="password"
+                    name="admin_key"
+                    placeholder="Leave blank for customer">
+
+            </div>
         </form>
 
         <p class="small-text">Already have an account? <a href="login.php">Sign in</a></p>
+
+
     </div>
 </div>
 

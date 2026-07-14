@@ -60,10 +60,33 @@
 
     --navbar-height:90px;
     
-    /* Typography */
-    --font-heading:'Playfair Display',serif;
+   /* Typography */
 
-    --font-body:'Inter',sans-serif;
+    --fs-display:clamp(3rem,8vw,7rem);
+
+    --fs-title:clamp(2rem,5vw,3rem);
+
+    --fs-subtitle:clamp(1.4rem,2vw,2rem);
+
+    --fs-body:clamp(.95rem,1.2vw,1.1rem);
+
+    --fs-small:clamp(.8rem,.9vw,.9rem);
+
+
+/* Spacing */
+
+    --space-section:clamp(60px,8vw,120px);
+
+    --space-card:clamp(18px,2vw,28px);
+
+    --space-content:clamp(24px,4vw,48px);
+
+    --space-gap:clamp(18px,2vw,30px);
+
+
+/* Images */
+
+    --book-cover-height:clamp(240px,26vw,320px);
 }
 
 /* ==========================================
@@ -166,4 +189,87 @@ p{
     width:95%;
     max-width:1900px;
     margin:auto;
+}
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#171A21;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--border);
+
+    border-radius:999px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary);
+
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#171A21;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--border);
+    border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--primary);
+}
+
+.toast{
+
+    position:fixed;
+
+    bottom:30px;
+
+    right:30px;
+
+    background:var(--card);
+
+    color:var(--text);
+
+    border:1px solid var(--border);
+
+    border-left:4px solid var(--primary);
+
+    padding:16px 22px;
+
+    border-radius:var(--radius-md);
+
+    box-shadow:var(--shadow-lg);
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    transition:.3s ease;
+
+    z-index:9999;
+
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
 }

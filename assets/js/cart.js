@@ -92,6 +92,8 @@ function changeQty(button, change){
 
     input.value = value;
 
+        onQtyChange(input);
+
 }
 
 function onQtyChange(input){
