@@ -44,22 +44,53 @@ require_once(ROOT_PATH . "/includes/header.php");
 <!-- ===========================================
      CONTACT SECTION
 =========================================== -->
-<section id="contact" class="why-section reveal info-section-wrapper">
-    <div class="container">
-        <p class="section-tag">GET IN TOUCH</p>
-        <h2 class="section-title">Contact Information</h2>
-        <div class="info-text-block">
-            <p>Have questions, technical feedback, or programmatic partnership opportunities? Our support network is monitoring incoming logs to assist you.</p>
-            <div style="border-top: 1px dashed var(--border, #334155); padding-top: 16px; margin-top: 16px;">
-                <p style="margin-bottom: 8px;"><strong>Email Support:</strong> support@literarynook.local</p>
-                <p style="margin-bottom: 8px;"><strong>Systems Laboratory Location:</strong> Manila, Metro Manila, Philippines</p>
-                <p><strong>Operation Hours:</strong> Monday – Friday, 09:00 - 17:00 PST</p>
+<section id="contact" class="why-section reveal contact-split-section">
+    <div class="contact-split-container">
+        
+        <div class="contact-left-panel">
+            <p class="section-tag">GET IN TOUCH</p>
+            <h2 class="section-title">Contact Information</h2>
+            
+            <p class="contact-narrative-lead">
+                Have questions, technical feedback, or programmatic partnership opportunities? Our support network is monitoring incoming logs to assist you.
+            </p>
+            
+            <div class="contact-details-matrix">
+                <div class="matrix-row">
+                    <span class="matrix-label">Email Support:</span>
+                    <span class="matrix-value">support@literarynook.local</span>
+                </div>
+                <div class="matrix-row">
+                    <span class="matrix-label">Laboratory Location:</span>
+                    <span class="matrix-value">Manila, Metro Manila, Philippines</span>
+                </div>
+                <div class="matrix-row">
+                    <span class="matrix-label">Operation Hours:</span>
+                    <span class="matrix-value">Monday – Friday, 09:00 - 17:00 PST</span>
+                </div>
+            </div>
+
+            <div class="contact-social-row">
+                <a href="#" class="social-icon-placeholder" aria-label="Facebook Link String">
+                    <img src="../assets/css/images/facebookLogo.png" alt="Facebook" class="social-icon-img">
+                </a>
+                <a href="#" class="social-icon-placeholder" aria-label="Instagram Link String">
+                    <img src="../assets/css/images/instagramLogo.png" alt="Instagram" class="social-icon-img">
+                </a>
+                <a href="#" class="social-icon-placeholder" aria-label="X Link String">
+                    <img src="../assets/css/images/xLogo.png" alt="X" class="social-icon-img">
+                </a>
             </div>
         </div>
+
+        <div class="contact-right-panel">
+            <div class="hero-image-placeholder">
+                <div class="placeholder-overlay-text"></div>
+            </div>
+        </div>
+
     </div>
 </section>
-
-<div class="section-divider"></div>
 
 <!-- ===========================================
      PRIVACY POLICY SECTION

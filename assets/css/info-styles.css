@@ -432,3 +432,250 @@ main.page-content {
     transform: translateY(15px); /* Slowly slips downward while disappearing */
     pointer-events: none; /* Disables mouse interaction once hidden */
 }
+
+/* ==========================================================================
+   BLUEPRINT SPLIT-PANEL DESIGN: CONTACT SPECIFIC
+   ========================================================================== */
+
+.contact-split-section {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: transparent;
+    padding: 0 !important;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.contact-split-container {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; /* Gives slightly more horizontal weight to left narrative grid */
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* Left Content Workspace */
+.contact-left-panel {
+    background: #0f172a; /* Solid base background variant to split against the text strip */
+    padding: 80px 8% 60px 12%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.contact-left-panel .section-tag {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #d97706;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.contact-left-panel .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 32px;
+    line-height: 1.15;
+}
+
+.contact-narrative-lead {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #cbd5e1;
+    margin-bottom: 40px;
+}
+
+/* Aligned Key/Value Parameter Rows */
+.contact-details-matrix {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 48px;
+    border-bottom: 1px dashed rgba(51, 65, 85, 0.6);
+    padding-bottom: 32px;
+}
+
+.matrix-row {
+    display: grid;
+    grid-template-columns: 180px 1fr; /* Rigid alignment spine for variables */
+    font-family: 'Inter', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+.matrix-label {
+    color: #d97706; /* Gold variable naming highlighting label key */
+    font-weight: 600;
+}
+
+.matrix-value {
+    color: #f1f5f9;
+}
+
+/* Interactive Circular Social Anchor Elements */
+.contact-social-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.social-icon-placeholder {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    /* 1. CHANGE or REMOVE this background color if your images are already circular black/white elements */
+    background: #1e293b; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.25s ease;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden; /* Ensures images stay contained inside the circle */
+}
+
+
+.social-icon-placeholder span {
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.social-icon-placeholder:hover {
+    transform: scale(1.1);
+    background: #7e22ce; /* Vibrant purple shifts upward on interaction loop */
+    border-color: #d97706;
+}
+
+/* Local view alignment anchor for sub-indicators */
+.contact-internal-scroll {
+    margin-top: 20px;
+}
+
+/* Right Media Panel Workplace Component */
+.contact-right-panel {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* THE PLACEHOLDER FRAME: Saturated full asset fill viewport matching color profiles requested */
+.hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: url('images/contactInfoImage.png') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.placeholder-overlay-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    padding: 16px 24px;
+}
+
+/* ==========================================================================
+   MOBILE VIEWPORT PARSING BREAKPOINTS: IMAGE HIDING MECHANICS
+   ========================================================================== */
+@media (max-width: 992px) {
+    .contact-split-container {
+        grid-template-columns: 1fr; /* Collapses structural map to a single frame stack block */
+    }
+    
+    /* THE FIX: Drops the full-bleed right purple placeholder completely on smaller screen resolutions */
+    .contact-right-panel {
+        display: none !important;
+    }
+    
+    .contact-left-panel {
+        padding: 80px 24px 60px 24px;
+    }
+    
+    .contact-left-panel .section-title {
+        font-size: 2.5rem;
+    }
+    
+    .matrix-row {
+        grid-template-columns: 1fr; /* Collapses key-value fields vertically on restricted width rows */
+        gap: 4px;
+    }
+}
+
+/* ==========================================================================
+   CONTACT SECTION: SLIDE-IN SCROLL ANIMATIONS
+   ========================================================================== */
+
+/* 1. Base States (Before entering viewport / Hidden state) */
+.contact-split-section .contact-left-panel {
+    opacity: 0;
+    transform: translate3d(-50px, 0, 0); /* Positioned slightly to the left */
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+.contact-split-section .contact-right-panel {
+    opacity: 0;
+    transform: translate3d(50px, 0, 0); /* Positioned slightly to the right */
+    transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+}
+
+/* Optional: Stagger the child elements inside the left panel for a premium feel */
+.contact-left-panel .section-tag,
+.contact-left-panel .section-title,
+.contact-narrative-lead,
+.contact-details-matrix,
+.contact-social-row {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Delaying each child element slightly to create a cascading waterfall effect */
+.contact-left-panel .section-tag    { transition-delay: 0.2s; }
+.contact-left-panel .section-title  { transition-delay: 0.3s; }
+.contact-narrative-lead             { transition-delay: 0.4s; }
+.contact-details-matrix             { transition-delay: 0.5s; }
+.contact-social-row                 { transition-delay: 0.6s; }
+
+
+/* 2. Active States (Triggers when the 'active' class is appended on scroll) */
+.contact-split-section.active .contact-left-panel,
+.contact-split-section.reveal-visible .contact-left-panel {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.contact-split-section.active .contact-right-panel,
+.contact-split-section.reveal-visible .contact-right-panel {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.contact-split-section.active .contact-left-panel *,
+.contact-split-section.reveal-visible .contact-left-panel * {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
