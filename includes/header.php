@@ -2,7 +2,16 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-
+$isLogin =
+    in_array(
+        basename($_SERVER['PHP_SELF']),
+        [
+            "login.php",
+            "register.php",
+            "forgot_password.php",
+            "reset_password.php"
+        ]
+    );
 $isHome = basename($_SERVER['PHP_SELF']) === "index.php";
 $isStore =
     in_array(
@@ -42,6 +51,9 @@ $isAdmin =
 <link rel="stylesheet" href="<?= asset('css/layout.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/components.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/forms.css') ?>">
+<?php if($isLogin): ?>
+<link rel="stylesheet" href="<?= asset('css/login.css') ?>">
+<?php endif; ?>
 <link rel="stylesheet" href="<?= asset('css/books.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/profile.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/home.css') ?>">
@@ -67,7 +79,7 @@ $isAdmin =
 
 </head>
 
-<body>
+<body class="<?= $isLogin ? 'login-page' : '' ?>">
 
 <header class="topbar <?= $isStore ? 'store-nav' : ($isHome ? 'home-nav' : '') ?>">
 
@@ -157,4 +169,4 @@ $isAdmin =
 </header>
 
 
-<main class="<?= $isHome ? '' : 'container-wide page-content' ?>">
+<main class="<?= ($isHome || $isLogin) ? '' : 'container-wide page-content' ?>">
