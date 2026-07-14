@@ -25,6 +25,8 @@ in_array(
         "dashboard.php"
     ]
 );
+$isAdmin =
+    strpos($_SERVER["SCRIPT_NAME"], "/admin/") !== false;
 ?>
 
 <!DOCTYPE html>
@@ -49,6 +51,14 @@ in_array(
 <link rel="stylesheet" href="<?= asset('css/orders.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/shop.css') ?>">
 <link rel="stylesheet" href="<?= asset('css/book-details.css') ?>">
+
+<?php if ($isAdmin): ?>
+<link rel="stylesheet" href="<?= asset('css/admin/admin.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin-dashboard.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin-books.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin-forms.css') ?>">
+<link rel="stylesheet" href="<?= asset('css/admin/admin-reports.css') ?>">
+<?php endif; ?>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1,0 +1,159 @@
+/* ==========================================================
+   ADMIN LAYOUT
+========================================================== */
+
+.admin-page{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:var(--space-xl);
+
+}
+
+.admin-wide-container{
+
+    width:min(1700px,96%);
+
+    margin:auto;
+
+    padding:var(--space-lg) 0 var(--space-xl);
+
+}
+
+/* ==========================================================
+   ADMIN SECTION
+========================================================== */
+
+.admin-section{
+
+    margin-bottom:var(--space-xl);
+
+}
+
+.admin-section-title{
+
+    margin-bottom:var(--space-md);
+
+}
+
+.admin-section-subtitle{
+
+    color:var(--text-muted);
+
+    margin-bottom:var(--space-lg);
+
+}
+
+/* ==========================================================
+   ADMIN CARDS
+========================================================== */
+
+.admin-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    padding:var(--space-lg);
+
+    box-shadow:var(--shadow-md);
+
+}
+
+/* ==========================================================
+   ADMIN TABLE
+========================================================== */
+
+.admin-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.admin-table th{
+
+    padding:14px;
+
+    background:rgba(255,255,255,.04);
+
+    color:var(--text);
+
+    text-align:left;
+
+}
+
+.admin-table td{
+
+    padding:14px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.admin-table tbody tr{
+
+    transition:.2s ease;
+
+}
+
+.admin-table tbody tr:hover{
+
+    background:rgba(255,255,255,.03);
+
+}
+
+/* ==========================================================
+   ADMIN TOOLBAR
+========================================================== */
+
+.admin-toolbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:var(--space-md);
+
+    margin-bottom:var(--space-md);
+
+}
+
+.admin-toolbar-left,
+
+.admin-toolbar-right{
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+
+}
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+.admin-empty{
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    color:var(--text-muted);
+
+}
+
+.admin-empty h3{
+
+    margin:20px 0 10px;
+
+}

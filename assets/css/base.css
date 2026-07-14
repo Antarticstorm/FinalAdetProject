@@ -167,3 +167,46 @@ p{
     max-width:1900px;
     margin:auto;
 }
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#171A21;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--border);
+
+    border-radius:999px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary);
+
+}
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:#171A21;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--border);
+    border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--primary);
+}

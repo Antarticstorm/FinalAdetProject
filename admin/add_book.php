@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="preview-title-tag">COVER</div>
                 
                 <div class="interactive-file-overlay">
-                    <input type="file" name="book_cover" class="file-input-ghost" id="cover-file-picker">
+                    <input type="file" name="book_cover" class="upload-input" id="cover-file-picker">
                     <div class="custom-upload-prompt" id="upload-prompt-text">Choose File</div>
                     <img id="view-panel-cover" src="../uploads/covers/default.webp" class="preview-viewport-img" alt="Preview Layout" style="object-fit: cover;">
                 </div>

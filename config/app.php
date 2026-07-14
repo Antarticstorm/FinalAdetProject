@@ -1,6 +1,7 @@
 <?php
 
 define("ROOT_PATH", dirname(__DIR__));
+define("ADMIN_SECRET", "admin123");
 
 if ($_SERVER["HTTP_HOST"] === "localhost") {
 
