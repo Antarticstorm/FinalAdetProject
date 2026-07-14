@@ -45,46 +45,148 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<div class="grid">
-    <div class="card auth-box">
-        <h1>Login</h1>
-        <p>Welcome back to The Literary Nook.</p>
+<div class="auth-wrapper">
 
-        <?php if (isset($_GET["reset"]) && $_GET["reset"] == "success"): ?>
-            <div class="alert alert-success">
-                Password updated successfully. You may now log in.
-            </div>
-        <?php endif; ?>
+    <div class="auth-left">
 
-        <?php if (!empty($error)): ?>
-            <div class="alert alert-error"><?php echo $error; ?></div>
-        <?php endif; ?>
+        <span class="auth-tag">
+            THE LITERARY NOOK
+        </span>
 
-        <form method="POST" action="">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" required>
-            </div>
+        <h1>
+            Welcome Back
+        </h1>
 
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" required>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-        <p class="small-text">
-
-        <a href="forgot_password.php">
-
-        Forgot Password?
-
-        </a>
-
+        <p class="auth-description">
+            Continue your reading journey.
+            Browse thousands of books, manage your wishlist,
+            and keep track of every order in one place.
         </p>
 
-        <p class="small-text">Don't have an account? <a href="register.php">Create one</a></p>
+        <div class="auth-features">
+
+            <div class="feature-item">
+                📚 Thousands of Books
+            </div>
+
+            <div class="feature-item">
+                ❤️ Personal Wishlist
+            </div>
+
+            <div class="feature-item">
+                🛒 Fast & Secure Checkout
+            </div>
+
+        </div>
+
     </div>
+
+    <div class="auth-right">
+
+        <div class="card auth-box">
+
+            <h2>Login</h2>
+
+            <p class="login-subtitle">
+
+                Sign in to your account.
+
+            </p>
+
+            <?php if (isset($_GET["reset"]) && $_GET["reset"] == "success"): ?>
+
+                <div class="alert alert-success">
+
+                    Password updated successfully.
+
+                </div>
+
+            <?php endif; ?>
+
+            <?php if (!empty($error)): ?>
+
+                <div class="alert alert-error">
+
+                    <?= $error ?>
+
+                </div>
+
+            <?php endif; ?>
+
+            <form method="POST">
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <div class="password-group">
+
+                        <input
+                            id="password"
+                            type="password"
+                            name="password"
+                            required>
+
+                        <button
+                            type="button"
+                            id="togglePasswordBtn"
+                            class="toggle-password">
+
+                            👁
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <button
+                    class="btn btn-primary btn-full">
+
+                    Login
+
+                </button>
+
+            </form>
+
+            <div class="auth-links">
+
+                <a href="forgot_password.php">
+
+                    Forgot Password?
+
+                </a>
+
+                <span>
+
+                    Don't have an account?
+
+                    <a href="register.php">
+
+                        Register
+
+                    </a>
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 <?php require_once(ROOT_PATH . "/includes/footer.php"); ?>
